@@ -1,16 +1,25 @@
 package slimpleslickgame;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 
-public class SimpleSlickGame extends BasicGame
-{
-	public SimpleSlickGame(String gamename)
-	{
+public class SimpleSlickGame extends BasicGame {
+
+	private Image[] shipDefault, shipLeft, shipRight;
+	private Animation sprite, spaceShipDefault, spaceShipLeft, spaceShipRight;
+	private SpriteSheet spaceShipSpriteSheet;
+
+	public SimpleSlickGame(String gamename) {
 		super(gamename);
 	}
 
@@ -32,7 +41,10 @@ public class SimpleSlickGame extends BasicGame
 		{
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new SimpleSlickGame("Simple Slick Game"));
-			appgc.setDisplayMode(640, 480, false);
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			appgc.setDisplayMode(
+					new Double(screenSize.width * 0.75).intValue(), new Double(
+							screenSize.getHeight() * 0.75).intValue(), false);
 			appgc.start();
 		}
 		catch (SlickException ex)
