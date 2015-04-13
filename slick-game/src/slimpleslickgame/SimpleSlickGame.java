@@ -27,7 +27,9 @@ public class SimpleSlickGame extends BasicGame {
 	public void init(GameContainer gc) throws SlickException {}
 
 	@Override
-	public void update(GameContainer gc, int i) throws SlickException {}
+	public void update(GameContainer gc, int i) throws SlickException {
+		
+	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
