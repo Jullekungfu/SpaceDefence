@@ -33,6 +33,8 @@ public class SimpleSlickGame extends BasicGame {
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
 		g.drawString("Howdy!", 100, 100);
+		g.drawRect(50, 50, 200, 400);
+		g.drawRect(250, 50, 200, 400);
 	}
 
 	public static void main(String[] args)
