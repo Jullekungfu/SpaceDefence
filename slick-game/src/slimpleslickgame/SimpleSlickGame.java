@@ -20,7 +20,6 @@ public class SimpleSlickGame extends BasicGame
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {}
 
-	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
 		g.drawString("Howdy!", 100, 100);
