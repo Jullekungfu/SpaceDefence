@@ -9,7 +9,7 @@ import client.Client;
 
 public class Server {
 	private ServerSocket ss;
-    private Vector<Client> chatClients;
+    private Vector<Client> clients;
     
     public static void main(String[] args){
         Server si = new Server();
@@ -18,7 +18,7 @@ public class Server {
 	
 
     public Server(){
-        chatClients = new Vector<Client>();
+        clients = new Vector<Client>();
         try{
             ss = new ServerSocket(30001);
             System.out.println("Server booting...");
@@ -31,49 +31,25 @@ public class Server {
     
         Statebox mb = new Statebox();
 
-        ReadThread rt = new ReadThread(mb, chatClients);
+        ReadThread rt = new ReadThread(mb, clients);
         rt.start();
         
         try{
             while(true){
                 connection = ss.accept();
                 
-                //cc = new Client(connection, mb, "User-" + chatClients.size());
-                //cc.start();
-                //chatClients.add(cc);
+                cc = new Client(connection, mb, "User-" + clients.size());
+                cc.start();
+                clients.add(cc);
             }
         }catch(IOException ioe){ioe.printStackTrace();}
     }
 
 	
 
-class Statebox{
-    volatile private String message;
-
-    public Statebox(){
-        this.message = new String();
-    }
-
-    synchronized public String readMessage(){
-        String temp = this.message;
-        this.message = new String();
-        notifyAll();
-        return temp;
-    }
-
-    synchronized public void writeMessage(String msg){
-       while(!this.message.isEmpty()){
-            try {
-                wait();
-            } catch (InterruptedException e){e.printStackTrace();}
-        }
-        this.message = msg;
-    }
-}
-
 class ReadThread extends Thread{
     private Statebox statebox;
-    private String msg;
+    private byte[] msg;
     private Vector<Client> clients;
 
     public ReadThread(Statebox statebox, Vector<Client> clients){
@@ -89,9 +65,9 @@ class ReadThread extends Thread{
                 ie.printStackTrace();
             }
             msg = this.statebox.readMessage();            
-            if(!msg.isEmpty()){
-                for(int i = 0 ; i < chatClients.size(); i++){
-                    //clients.get(i).writeMessage(msg);
+            if(!(msg.length < 2)){
+                for(int i = 0 ; i < clients.size(); i++){
+                    clients.get(i).writeMessage(msg);
                 }
             }
         }
