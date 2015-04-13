@@ -62,7 +62,7 @@ public class Client extends Thread{
 		*/
 		while(true){
 			 try {
-				this.sleep((long) (1000 * Math.random()));
+				Thread.sleep((long) (1000 * Math.random()));
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
