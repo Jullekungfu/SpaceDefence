@@ -12,10 +12,10 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+import client.Client;
+
 public class SplashScreen extends BasicGameState {
 
-    private static final int WIDTH   = 1920;
-    private static final int HEIGHT  = 1080;
 	public static final int ID = 0;
 	private StateBasedGame game;
 	private int time;
@@ -37,7 +37,7 @@ public class SplashScreen extends BasicGameState {
 		int th = g.getFont().getLineHeight()/2;
 		int tw = 50;
 		
-		g.drawString("SPLASHSCREEN", (WIDTH/2)-tw, (HEIGHT/2)-th);
+		g.drawString("SPLASHSCREEN", (Client.WIDTH/2)-tw, (Client.HEIGHT/2)-th);
 	}
 
 	@Override
