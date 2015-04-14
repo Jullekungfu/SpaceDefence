@@ -43,7 +43,16 @@ public class Client extends Thread{
         this.connection = connection;
         this.statebox = statebox;
         this.name = name;
-        //getUserName();
+        
+        try{
+			AppGameContainer container = new AppGameContainer(new Application("SpaceDefence"));
+            container.setDisplayMode(WIDTH, HEIGHT, false);
+            container.setTargetFrameRate(FPS);
+            container.setShowFPS(true);
+            container.start();
+		} catch (SlickException e){
+			e.printStackTrace();
+		}
     }
     
     //TODO: Implement to get info from game.
