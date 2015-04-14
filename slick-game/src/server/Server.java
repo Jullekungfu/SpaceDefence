@@ -1,78 +1,78 @@
 package server;
+
 import java.io.*;
 import java.net.*;
 import java.util.Vector;
 import java.lang.Math;
-import java.lang.Object;
-
 import client.Client;
 
 public class Server {
 	private ServerSocket ss;
-    private Vector<Client> clients;
-    
-    public static void main(String[] args){
-        Server si = new Server();
-        si.startServer();
-    }
-	
+	private Vector<Client> clients;
 
-    public Server(){
-        clients = new Vector<Client>();
-        try{
-            ss = new ServerSocket(30001);
-            System.out.println("Server booting...");
-        }catch(IOException ioe){ioe.printStackTrace();}
-    }
+	public static void main(String[] args) {
+		Server si = new Server();
+		si.startServer();
+	}
 
-    public void startServer(){
-        Socket connection;
-        Client cc;
-    
-        Statebox mb = new Statebox();
+	public Server() {
+		clients = new Vector<Client>();
+		try {
+			ss = new ServerSocket(30001);
+			System.out.println("Server booting...");
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
 
-        ReadThread rt = new ReadThread(mb, clients);
-        rt.start();
-        
-        try{
-            while(true){
-                connection = ss.accept();
-                
-                cc = new Client(connection, mb, "User-" + clients.size());
-                cc.start();
-                clients.add(cc);
-            }
-        }catch(IOException ioe){ioe.printStackTrace();}
-    }
+	public void startServer() {
+		Socket connection;
+		Client cc;
 
-	
+		Statebox mb = new Statebox();
 
-class ReadThread extends Thread{
-    private Statebox statebox;
-    private byte[] msg;
-    private Vector<Client> clients;
+		ReadThread rt = new ReadThread(mb, clients);
+		rt.start();
 
-    public ReadThread(Statebox statebox, Vector<Client> clients){
-        this.statebox = statebox;
-        this.clients = clients;
-    }
+		try {
+			while (true) {
+				connection = ss.accept();
 
-    public void run(){
-        while(true){
-            try{
-                this.sleep((long)(Math.random() * 1000));
-            } catch(InterruptedException ie){
-                ie.printStackTrace();
-            }
-            msg = this.statebox.readMessage();            
-            if(!(msg.length < 2)){
-                for(int i = 0 ; i < clients.size(); i++){
-                    clients.get(i).writeMessage(msg);
-                }
-            }
-        }
-    }
-}
+				cc = new Client(connection, mb, "User-" + clients.size());
+				cc.start();
+				clients.add(cc);
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
 
+	class ReadThread extends Thread {
+		private Statebox statebox;
+		private byte[] msg;
+		private Vector<Client> clients;
+
+		public ReadThread(Statebox statebox, Vector<Client> clients) {
+			this.statebox = statebox;
+			this.clients = clients;
+		}
+
+		public void run() {
+			while (true) {
+				//TODO: Use wait-notify pattern!
+				try {
+					Thread.sleep((long) (Math.random() * 1000));
+				} catch (InterruptedException ie) {
+					ie.printStackTrace();
+				}
+				msg = this.statebox.readMessage();
+				if (!(msg.length < 2)) {
+					for (int i = 0; i < clients.size(); i++) {
+						clients.get(i).writeMessage(msg);
+					}
+				}
+			}
+		}
+	}
 
 }

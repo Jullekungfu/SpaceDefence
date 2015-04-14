@@ -22,17 +22,17 @@ public class Player {
 		direction = new Vector2f(0,0);
 	}
 	
-	public void changeDirection(float x, float y){
-		direction.set(x, y);
-	}
-	
-	public void update(){
+	public void update(int delta){
 		position.add(direction);
 		shape.setLocation(position);
 	}
 	
 	public void render(Graphics graphics){
 		graphics.fill(shape, shapeFill);
+	}
+
+	public void setDirection(Vector2f dir) {
+		this.direction = dir.normalise();
 	}
 	
 }
