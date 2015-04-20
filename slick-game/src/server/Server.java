@@ -9,16 +9,13 @@ import client.Client;
 
 public class Server {
 	private ServerSocket ss;
-    private Vector<Client> clients;
     
     public static void main(String[] args){
         Server si = new Server();
         si.startServer();
     }
-	
 
     public Server(){
-        clients = new Vector<Client>();
         try{
             ss = new ServerSocket(30001);
             System.out.println("Server booting...");
@@ -27,36 +24,33 @@ public class Server {
 
     public void startServer(){
         Socket connection;
-        Client cc;
-    
         Statebox mb = new Statebox();
-
-        ReadThread rt = new ReadThread(mb, clients);
+        ReadThread rt = new ReadThread(mb);
         rt.start();
-        
         try{
             while(true){
                 connection = ss.accept();
-                
-                cc = new Client(connection, mb, "User-" + clients.size());
-                cc.start();
-                clients.add(cc);
+                rt.addSocket(connection);
             }
         }catch(IOException ioe){ioe.printStackTrace();}
     }
-
-	
+}
 
 class ReadThread extends Thread{
     private Statebox statebox;
     private byte[] msg;
-    private Vector<Client> clients;
+    private Vector<Socket> clients;
+    private Writer writer;
 
-    public ReadThread(Statebox statebox, Vector<Client> clients){
+    public ReadThread(Statebox statebox){
         this.statebox = statebox;
-        this.clients = clients;
+        this.clients = new Vector<Socket>();
     }
 
+    public void addSocket(Socket s){
+    	clients.add(s);
+    }
+    
     public void run(){
         while(true){
             try{
@@ -64,15 +58,19 @@ class ReadThread extends Thread{
             } catch(InterruptedException ie){
                 ie.printStackTrace();
             }
-            msg = this.statebox.readMessage();            
+            msg = this.statebox.readMessage();    
+            
             if(!(msg.length < 2)){
                 for(int i = 0 ; i < clients.size(); i++){
-                    clients.get(i).writeMessage(msg);
+                	try{
+                        writer = new OutputStreamWriter(clients.get(i).getOutputStream()); 
+                        writer.write(msg.toString(), 0, msg.length);
+                        writer.flush();
+                	} catch(IOException ioe){
+                		ioe.printStackTrace();
+                	}
                 }
             }
         }
     }
-}
-
-
 }

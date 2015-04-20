@@ -85,6 +85,4 @@ public class Client extends Thread{
             writer.flush();
         }catch(IOException ioe){ioe.printStackTrace();}
     }
-
-
 }
