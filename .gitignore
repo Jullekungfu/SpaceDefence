@@ -19,3 +19,5 @@ slick-game/.settings/*
 
 .recommenders/
 lib
+
+.DS_Store
