@@ -24,7 +24,7 @@ public class Server {
     public void startServer(){
         Socket connection;
         Statebox mb = new Statebox();
-        ReadThread rt = new ReadThread(mb);
+        UpdateToClient rt = new UpdateToClient(mb);
         rt.start();
         try{
             while(true){
@@ -36,13 +36,13 @@ public class Server {
     }
 }
 
-class ReadThread extends Thread{
+class UpdateToClient extends Thread{
     private Statebox statebox;
     private byte[] msg;
     private Vector<Socket> clients;
     private Writer writer;
 
-    public ReadThread(Statebox statebox){
+    public UpdateToClient(Statebox statebox){
         this.statebox = statebox;
         this.clients = new Vector<Socket>();
     }
