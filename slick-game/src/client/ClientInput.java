@@ -6,22 +6,25 @@ import java.net.Socket;
 
 public class ClientInput extends Thread {
 	private Socket connection;
+	private ByteMonitor monitor;
 
-	public ClientInput(Socket connection) {
+	public ClientInput(Socket connection, ByteMonitor monitor) {
 		this.connection = connection;
+		this.monitor = monitor;
 	}
 
 	@Override
 	public void run() {
-		String line = new String();
+		
 		try {
 			InputStream input = connection.getInputStream();
-			byte[] byteArray;
+			String line = "";
 			while (!connection.isClosed()) {
-				int c;
-				line = "";
-				while ((c = input.read()) != '\n') {
-					line += (char) c;
+				int c = input.read();
+				line += (char)c;
+				if((char) c == '\n'|| (char) c == '\r'){
+					monitor.putArrayFromServer(line.getBytes());
+					line = "";
 				}
 			}
 			input.close();
