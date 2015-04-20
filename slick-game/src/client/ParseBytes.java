@@ -9,6 +9,14 @@ package client;
  */
 public class ParseBytes extends Thread {
 	
+	GameStatsMonitor gsMonitor;
+	ByteMonitor bMonitor;
+	
+	public ParseBytes(GameStatsMonitor gsMonitor, ByteMonitor bMonitor){
+		this.gsMonitor = gsMonitor;
+		this.bMonitor = bMonitor;
+	}
+	
 	@Override
 	public void run(){
 		//Parse bytes to gamestats
