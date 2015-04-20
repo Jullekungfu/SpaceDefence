@@ -1,5 +1,15 @@
 package client;
 
-public class OutThread extends Thread {
+import java.io.OutputStream;
 
+public class OutThread extends Thread {
+	private OutputStream os;
+	
+	public OutThread(OutputStream os){
+		this.os = os;
+	}
+	
+	public void run(){
+		//TODO: Implement.
+	}
 }

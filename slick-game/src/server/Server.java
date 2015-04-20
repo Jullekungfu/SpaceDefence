@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.Vector;
 import java.lang.Math;
+
 import client.Client;
 
 public class Server {
@@ -40,7 +41,7 @@ class UpdateToClient extends Thread{
     private Statebox statebox;
     private byte[] msg;
     private Vector<Socket> clients;
-    private Writer writer;
+    private OutputStream writer;
 
     public UpdateToClient(Statebox statebox){
         this.statebox = statebox;
@@ -58,8 +59,8 @@ class UpdateToClient extends Thread{
             if(!(msg.length < 2)){
                 for(int i = 0 ; i < clients.size(); i++){
                 	try{
-                        writer = new OutputStreamWriter(clients.get(i).getOutputStream()); 
-                        writer.write(msg.toString());
+                        writer = clients.get(i).getOutputStream(); 
+                        writer.write(msg);
                         writer.flush();
                 	} catch(IOException ioe){
                 		ioe.printStackTrace();
