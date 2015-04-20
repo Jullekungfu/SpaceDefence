@@ -7,22 +7,29 @@ public class Statebox{
     private volatile byte[] message;
 
     public Statebox(){
-        this.message = new byte[1];
+        this.message = null;
     }
 
     public synchronized byte[] readMessage(){
+    	while(message == null){ //TODO: This logic... ;)
+            try {
+                wait();
+            } catch (InterruptedException e){e.printStackTrace();}
+        }
+    	
         byte[] temp = this.message;
-        this.message = new byte[1];
+        this.message = null;;
         notifyAll();
         return temp;
     }
 
     public synchronized void writeMessage(byte[] msg){
-       while(!(this.message.length < 2)){ //TODO: This logic... ;)
+       while(message != null){ //TODO: This logic... ;)
             try {
                 wait();
             } catch (InterruptedException e){e.printStackTrace();}
         }
         this.message = msg;
+        notifyAll();
     }
 }
