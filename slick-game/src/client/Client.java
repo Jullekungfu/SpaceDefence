@@ -13,7 +13,7 @@ import org.newdawn.slick.SlickException;
 
 import slimpleslickgame.Application;
 
-public class Client extends Thread{
+public class Client{
 
     public static int WIDTH   = 1920;
     public static int HEIGHT  = 1080;
@@ -41,6 +41,7 @@ public class Client extends Thread{
     private Socket connection;
     private InputStream in;
     private OutputStream out;
+    private ClientInput inputThread;
 
     public Client(Socket connection, String name){
         this.connection = connection;
@@ -55,6 +56,11 @@ public class Client extends Thread{
             container.setTargetFrameRate(FPS);
             container.setShowFPS(true);
             container.start();
+            
+            //This to be changed later. Maybe?
+            inputThread = new ClientInput(connection);
+            inputThread.start();
+            
 		} catch (SlickException e){
 			e.printStackTrace();
 		} catch(IOException ioe){
@@ -62,27 +68,6 @@ public class Client extends Thread{
 		}
     }
     
-    //TODO: Implement to get info from game.
-    public void run(){
-        String line = new String();
-        byte[] byteArray;
-		while(true){
-			try {
-				Thread.sleep((long) (100 * Math.random()));
-		    
-				int c;
-			    line = "";
-			    while ((c = in.read( )) != '\n') {                    
-			        line += (char) c;
-			    }
-			    this.writeMessage(line.getBytes());
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			} catch(IOException ioe){
-				ioe.printStackTrace();
-			}
-         }
-    }
 
     public void writeMessage(byte[] msg){
         try{
