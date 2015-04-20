@@ -15,15 +15,15 @@ import slimpleslickgame.Application;
 
 public class Client extends Thread{
 
-    public static int WIDTH   = 1920;
-    public static int HEIGHT  = 1080;
+    public static int WIDTH   = 1280;
+    public static int HEIGHT  = 720;
     public static final int FPS     = 60;
     public static final double VERSION = 1.0;
 
 	public static void main(String[] args) {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		WIDTH = (int) screenSize.getWidth();
-		HEIGHT = (int) screenSize.getHeight();
+		//WIDTH = (int) screenSize.getWidth();
+		//HEIGHT = (int) screenSize.getHeight();
 		//TODO: implement
 		
 		try{
