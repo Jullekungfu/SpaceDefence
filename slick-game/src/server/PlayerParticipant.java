@@ -7,15 +7,12 @@ import java.net.Socket;
 
 public class PlayerParticipant extends Thread {
 	private InputStream input;
-	private OutputStream output;
 	private Socket socket;
 	private Statebox stateBox;
-	private String name;
 
 	public PlayerParticipant(Socket socket, Statebox stateBox) {
 		try {
 			this.input = socket.getInputStream();
-			this.output = socket.getOutputStream();
 			this.socket = socket;
 			this.stateBox = stateBox;
 		} catch (IOException e) {
@@ -35,26 +32,12 @@ public class PlayerParticipant extends Thread {
 					stateBox.writeMessage(message.getBytes());
 				}
 			}
-
-			output.flush();
 			socket.shutdownInput();
 			socket.shutdownOutput();
 			socket.close();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void writeToParticipant(String message) {
-		try {
-			if (!socket.isClosed()) {
-				output.write(message.getBytes());
-				output.flush();
-			}
-		} catch (IOException e) {
-			System.out.println("write operation did not work");
 			e.printStackTrace();
 		}
 	}

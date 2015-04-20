@@ -29,6 +29,7 @@ public class Server {
         try{
             while(true){
                 connection = ss.accept();
+                new PlayerParticipant(connection, mb).start();
                 rt.addSocket(connection);
             }
         }catch(IOException ioe){ioe.printStackTrace();}
@@ -53,7 +54,7 @@ class ReadThread extends Thread{
     public void run(){
         while(true){
             try{
-                this.sleep((long)(Math.random() * 1000));
+                Thread.sleep((long)(100));
             } catch(InterruptedException ie){
                 ie.printStackTrace();
             }
