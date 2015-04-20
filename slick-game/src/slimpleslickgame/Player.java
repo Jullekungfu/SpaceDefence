@@ -32,7 +32,8 @@ public class Player {
 	}
 
 	public void setDirection(Vector2f dir) {
-		this.direction = dir.normalise();
+		dir.normalise();
+		this.direction = dir.scale(5);
 	}
 	
 }
