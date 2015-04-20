@@ -38,6 +38,35 @@ public class ParseBytes extends Thread {
 			float ypos = bytesToFloat(byteQueue);
 			Vector2f pos = new Vector2f(xpos, ypos);
 			
+			//TODO: remove carriagereturn in end of byte array
+			Byte b = null;
+			while((b = byteQueue.poll()) != null){
+				switch(b){
+				case EventProtocol.died:
+					//TODO: tell monitor
+					break;
+				case EventProtocol.hurtCreep:{
+					byte creepId = byteQueue.poll();
+					//TODO: tell monitor
+					break;
+				}
+				case EventProtocol.killedCreep:{
+					byte creepId = byteQueue.poll();
+					//TODO: tell monitor
+					break;
+				}
+				case EventProtocol.sentCreeps:
+					byte nbrOfCreeps = byteQueue.poll();
+					byte creepLvl = byteQueue.poll();
+					//TODO: tell monitor
+					break;
+				case EventProtocol.upgraded:
+					byte lvl = byteQueue.poll();
+					//TODO: tell monitor
+					break;
+				}
+			}
+			
 			//Parse bytes to gamestats	
 		}
 	}
