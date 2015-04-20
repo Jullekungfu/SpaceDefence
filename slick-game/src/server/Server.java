@@ -52,12 +52,7 @@ class ReadThread extends Thread{
     }
     
     public void run(){
-        while(true){
-            try{
-                Thread.sleep((long)(100));
-            } catch(InterruptedException ie){
-                ie.printStackTrace();
-            }
+        while(true){          
             msg = this.statebox.readMessage();    
             
             if(!(msg.length < 2)){
