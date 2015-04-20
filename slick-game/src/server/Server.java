@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.Vector;
 import java.lang.Math;
+
 import client.Client;
 
 public class Server {
@@ -14,19 +15,10 @@ public class Server {
 		si.startServer();
 	}
 
-	public Server() {
-		try {
-			ss = new ServerSocket(30001);
-			System.out.println("Server booting...");
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
-	}
-
 	public void startServer() {
 		Socket connection;
 		Statebox mb = new Statebox();
-		ReadThread rt = new ReadThread(mb);
+		UpdateToClient rt = new UpdateToClient(mb);
 		rt.start();
 		try {
 			while (true) {
@@ -40,13 +32,13 @@ public class Server {
 	}
 }
 
-class ReadThread extends Thread {
+class UpdateToClient extends Thread {
 	private Statebox statebox;
 	private byte[] msg;
 	private Vector<Socket> clients;
-	private Writer writer;
+	private OutputStream writer;
 
-	public ReadThread(Statebox statebox) {
+	public UpdateToClient(Statebox statebox) {
 		this.statebox = statebox;
 		this.clients = new Vector<Socket>();
 	}
@@ -58,14 +50,16 @@ class ReadThread extends Thread {
 	public void run() {
 		while (true) {
 			msg = this.statebox.readMessage();
-			for (int i = 0; i < clients.size(); i++) {
-				try {
-					writer = new OutputStreamWriter(clients.get(i)
-							.getOutputStream());
-					writer.write(msg.toString(), 0, msg.length);
-					writer.flush();
-				} catch (IOException ioe) {
-					ioe.printStackTrace();
+
+			if (!(msg.length < 2)) {
+				for (int i = 0; i < clients.size(); i++) {
+					try {
+						writer = clients.get(i).getOutputStream();
+						writer.write(msg);
+						writer.flush();
+					} catch (IOException ioe) {
+						ioe.printStackTrace();
+					}
 				}
 			}
 		}
