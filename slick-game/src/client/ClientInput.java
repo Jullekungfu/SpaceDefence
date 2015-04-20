@@ -3,7 +3,11 @@ package client;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
-
+/**
+ * Reads server input and forwards it to ByteMonitor
+ * @author antonlin
+ *
+ */
 public class ClientInput extends Thread {
 	private Socket connection;
 	private ByteMonitor monitor;
