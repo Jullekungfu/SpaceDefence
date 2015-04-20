@@ -14,17 +14,17 @@ public class ClientInput extends Thread {
 	@Override
 	public void run() {
 		String line = new String();
-		InputStream in;
 		try {
-			in = connection.getInputStream();
+			InputStream input = connection.getInputStream();
 			byte[] byteArray;
-			while (true) {
+			while (!connection.isClosed()) {
 				int c;
 				line = "";
-				while ((c = in.read()) != '\n') {
+				while ((c = input.read()) != '\n') {
 					line += (char) c;
 				}
 			}
+			input.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
