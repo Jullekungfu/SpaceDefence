@@ -7,7 +7,6 @@ import java.util.Vector;
 import java.lang.Math;
 
 import server.Server;
-import server.Statebox;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
@@ -36,59 +35,52 @@ public class Client extends Thread{
 		} catch (SlickException e){
 			e.printStackTrace();
 		}
-
 	}
 	
-	
 	private String name;
-    volatile private Socket connection;
-    private Statebox statebox;
-    private InputStreamReader in;
+    private Socket connection;
+    private InputStream in;
+    private OutputStream out;
 
-    public Client(Socket connection, Statebox statebox, String name){
+    public Client(Socket connection, String name){
         this.connection = connection;
-        this.statebox = statebox;
         this.name = name;
         
         try{
-			AppGameContainer container = new AppGameContainer(new Application("SpaceDefence"));
+        	in = connection.getInputStream();
+    		out = connection.getOutputStream();
+        	
+        	AppGameContainer container = new AppGameContainer(new Application("SpaceDefence"));
             container.setDisplayMode(WIDTH, HEIGHT, false);
             container.setTargetFrameRate(FPS);
             container.setShowFPS(true);
             container.start();
 		} catch (SlickException e){
 			e.printStackTrace();
+		} catch(IOException ioe){
+			ioe.printStackTrace();
 		}
     }
     
     //TODO: Implement to get info from game.
     public void run(){
         String line = new String();
-        /*
-		InputStream raw = connection.getInputStream();
-		BufferedInputStream buffer = new BufferedInputStream(raw);
-		in = new InputStreamReader(buffer, "UTF-8");
-		*/
+        byte[] byteArray;
 		while(true){
-			 try {
-				Thread.sleep((long) (1000 * Math.random()));
+			try {
+				Thread.sleep((long) (100 * Math.random()));
+		    
+				int c;
+			    line = "";
+			    while ((c = in.read( )) != '\n') {                    
+			        line += (char) c;
+			    }
+			    this.writeMessage(line.getBytes());
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch(IOException ioe){
+				ioe.printStackTrace();
 			}
-		    /*
-			int c;
-		    line = "";
-		    while ((c = in.read( )) != '\n') {                    
-		        line += (char) c;
-		    }
-		    if(line.contains("quit")){
-		        connection.close();
-		        break;
-		    }
-		    */
-			line = "hej";
-		    this.statebox.writeMessage(line.getBytes());
          }
     }
 
@@ -100,6 +92,4 @@ public class Client extends Thread{
             writer.flush();
         }catch(IOException ioe){ioe.printStackTrace();}
     }
-
-
 }
