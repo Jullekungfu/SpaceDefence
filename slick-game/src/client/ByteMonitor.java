@@ -1,5 +1,8 @@
 package client;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.LinkedList;
 
 
@@ -11,11 +14,35 @@ import java.util.LinkedList;
 public class ByteMonitor {
 	private LinkedList<byte[]> fromServer;
 	private LinkedList<byte[]> toServer;
+	private Socket socket;
+	private String ipport;
 	
-	
-	public ByteMonitor(){
+	/**
+	 * Init monitor
+	 * @param ipport
+	 */
+	public ByteMonitor(String ipport){
 		fromServer = new LinkedList<byte[]>();
 		toServer = new LinkedList<byte[]>();
+		this.ipport = ipport;
+	}
+	
+	/**
+	 * Init connection to server.
+	 * @return success
+	 */
+	public boolean initConnection(){
+		int split = ipport.indexOf(':');
+		String ip = ipport.substring(0, split);
+		int port = Integer.parseInt(ipport.substring(split+1));
+		try {
+			socket = new Socket(ip, port);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return socket.isConnected();
 	}
 	
 	
@@ -72,5 +99,4 @@ public class ByteMonitor {
 		notifyAll();
 		return tmp;
 	}
-
 }

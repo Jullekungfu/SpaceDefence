@@ -57,10 +57,6 @@ public class Client{
             container.setShowFPS(true);
             container.start();
             
-            //This to be changed later. Maybe?
-            inputThread = new ClientInput(connection);
-            inputThread.start();
-            
 		} catch (SlickException e){
 			e.printStackTrace();
 		} catch(IOException ioe){
