@@ -59,7 +59,7 @@ class UpdateToClient extends Thread{
                 for(int i = 0 ; i < clients.size(); i++){
                 	try{
                         writer = new OutputStreamWriter(clients.get(i).getOutputStream()); 
-                        writer.write(msg.toString(), 0, msg.length);
+                        writer.write(msg.toString());
                         writer.flush();
                 	} catch(IOException ioe){
                 		ioe.printStackTrace();
