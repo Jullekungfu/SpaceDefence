@@ -17,13 +17,20 @@ public class ByteMonitor {
 	private Socket socket;
 	private String ipport;
 	
-	
+	/**
+	 * Init monitor
+	 * @param ipport
+	 */
 	public ByteMonitor(String ipport){
 		fromServer = new LinkedList<byte[]>();
 		toServer = new LinkedList<byte[]>();
 		this.ipport = ipport;
 	}
 	
+	/**
+	 * Init connection to server.
+	 * @return success
+	 */
 	public boolean initConnection(){
 		int split = ipport.indexOf(':');
 		String ip = ipport.substring(0, split);
@@ -36,7 +43,6 @@ public class ByteMonitor {
 			e.printStackTrace();
 		}
 		return socket.isConnected();
-		
 	}
 	
 	
@@ -93,5 +99,4 @@ public class ByteMonitor {
 		notifyAll();
 		return tmp;
 	}
-
 }
