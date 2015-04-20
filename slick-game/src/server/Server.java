@@ -1,10 +1,9 @@
 package server;
+
 import java.io.*;
 import java.net.*;
 import java.util.Vector;
 import java.lang.Math;
-import java.lang.Object;
-
 import client.Client;
 
 public class Server {

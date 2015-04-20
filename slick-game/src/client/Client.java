@@ -1,8 +1,11 @@
 package client;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.*;
 import java.net.*;
 import java.util.Vector;
 import java.lang.Math;
+
 import server.Server;
 import server.Statebox;
 
@@ -13,12 +16,15 @@ import slimpleslickgame.Application;
 
 public class Client extends Thread{
 
-    public static final int WIDTH   = 1920;
-    public static final int HEIGHT  = 1080;
+    public static int WIDTH   = 1920;
+    public static int HEIGHT  = 1080;
     public static final int FPS     = 60;
     public static final double VERSION = 1.0;
 
 	public static void main(String[] args) {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		WIDTH = (int) screenSize.getWidth();
+		HEIGHT = (int) screenSize.getHeight();
 		//TODO: implement
 		
 		try{
@@ -43,7 +49,16 @@ public class Client extends Thread{
         this.connection = connection;
         this.statebox = statebox;
         this.name = name;
-        //getUserName();
+        
+        try{
+			AppGameContainer container = new AppGameContainer(new Application("SpaceDefence"));
+            container.setDisplayMode(WIDTH, HEIGHT, false);
+            container.setTargetFrameRate(FPS);
+            container.setShowFPS(true);
+            container.start();
+		} catch (SlickException e){
+			e.printStackTrace();
+		}
     }
     
     //TODO: Implement to get info from game.
@@ -56,7 +71,7 @@ public class Client extends Thread{
 		*/
 		while(true){
 			 try {
-				this.sleep((long) (1000 * Math.random()));
+				Thread.sleep((long) (1000 * Math.random()));
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
