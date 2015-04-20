@@ -13,6 +13,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
+//TODO: deprecated!!
 public class SimpleSlickGame extends BasicGame {
 
 	// TODO: sprites can wait, rectangles are fine
