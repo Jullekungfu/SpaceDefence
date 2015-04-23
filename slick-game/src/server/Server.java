@@ -56,6 +56,10 @@ class UpdateToClient extends Thread {
 	}
 
 	public void addSocket(Socket s) {
+		if(clients.size() >= 4){
+			try {s.close();} catch (IOException e) {e.printStackTrace();}
+			return;
+		}
 		clients.add(s);
 		byte[] idMessage = new byte[3];
 		idMessage[0] = EventProtocol.PLAYER_ID;
