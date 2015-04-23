@@ -31,8 +31,9 @@ public class ParseBytes extends Thread {
 			}
 
 			byte id = byteQueue.poll();
-
-			// TODO: remove carriagereturn in end of byte array
+			//PlayerEvent event = new PlayerEvent(id);
+			
+			// TODO: remove carriagereturn in end of byte array?
 			Byte b = null;
 			while ((b = byteQueue.poll()) != null) {
 				switch (b) {
@@ -43,11 +44,18 @@ public class ParseBytes extends Thread {
 						float xpos = bytesToFloat(byteQueue);
 						float ypos = bytesToFloat(byteQueue);
 						Vector2f pos = new Vector2f(xpos, ypos);
-						// gsMonitor.putPosition(id, pos);
+						//event.putPosition(pos);
+						break;
+					case EventProtocol.PLAYER_DIR:
+						float xdir = bytesToFloat(byteQueue);
+						float ydir = bytesToFloat(byteQueue);
+						Vector2f dir = new Vector2f(xdir, ydir);
+						//event.putDir(dir);
 						break;
 
 				}
 			}
+			//gsMonitor.putEvent(event);
 
 			// Parse bytes to gamestats
 		}
