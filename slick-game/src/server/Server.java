@@ -10,7 +10,11 @@ public class Server {
 	private ServerSocket ss;
 
 	public static void main(String[] args) {
-		Server si = new Server(Integer.parseInt(args[0]));
+		int port = 30000;
+		if(args.length > 0){
+			port = Integer.parseInt(args[0]);
+		}
+		Server si = new Server(port);
 		si.startServer();
 	}
 	
