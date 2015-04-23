@@ -15,17 +15,18 @@ public class LocalPlayer extends Player{
 	private GameContainer gc;
 	private ByteMonitor bm;
 	
-	public LocalPlayer(GameContainer gc){
+	public LocalPlayer(GameContainer gc, ByteMonitor bm){
 		this.gc = gc;
+		this.bm = bm;
 	}
 	
 	public void update(int delta) {
-		processInput(gc.getInput());
+		if(processInput(gc.getInput())){
+			if(bm != null){
+				bm.putArrayToServer(getPositionBytes(position));
+			}
+		}
 		super.updatePosition();
-	}
-	
-	public void addByteMonitor(ByteMonitor bm){
-		this.bm = bm;
 	}
 	
 	private boolean processInput(Input input) {
@@ -50,9 +51,6 @@ public class LocalPlayer extends Player{
 		if (input.isKeyDown(Input.KEY_DOWN)) {
 			direction.add(new Vector2f(0, 1));
 			dirChanged = true;
-		}
-		if(bm != null){
-			bm.putArrayToServer(getPositionBytes(position));
 		}
 		//System.out.println("Input processed, direction: " + direction);
 		// TODO: add shooting capabilities

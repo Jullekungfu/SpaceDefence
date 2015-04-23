@@ -22,17 +22,19 @@ public class PlayerParticipant extends Thread {
 
 	@Override
 	public void run() {
-		try {
-			String message = "";
-			while ((message = br.readLine()) != null) {
-				stateBox.writeMessage(message.getBytes());
+		while(!socket.isClosed()){
+			try {
+				String message = "";
+				while ((message = br.readLine()) != null) {
+					stateBox.writeMessage(message.getBytes());
+				}
+				socket.shutdownInput();
+				socket.shutdownOutput();
+				socket.close();
+	
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			socket.shutdownInput();
-			socket.shutdownOutput();
-			socket.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 }

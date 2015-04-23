@@ -61,10 +61,11 @@ class UpdateToClient extends Thread {
 			return;
 		}
 		clients.add(s);
-		byte[] idMessage = new byte[3];
+		byte[] idMessage = new byte[4];
 		idMessage[0] = EventProtocol.PLAYER_ID;
 		idMessage[1] = (byte) clients.size();
-		idMessage[2] = '\n';
+		idMessage[2] = EventProtocol.LOCAL_PLAYER_INIT;
+		idMessage[3] = '\n';
 		try {
 			sendMessage(idMessage, s.getOutputStream());
 			System.out.println("Client id sent: " + idMessage[1]);
@@ -79,16 +80,20 @@ class UpdateToClient extends Thread {
 	public void run() {
 		while (true) {
 			msg = this.statebox.readMessage();
+			byte[] tmp = new byte[msg.length+1];
+			for(int i = 0;i<msg.length; i++){
+				tmp[i] = msg[i];
+			}
+			tmp[msg.length] = '\n';
 
-			if (!(msg.length < 2)) {
-				for (int i = 0; i < clients.size(); i++) {
-					try {
-						sendMessage(msg, clients.get(i).getOutputStream());
-					} catch (IOException ioe) {
-						ioe.printStackTrace();
-					}
+			for (int i = 0; i < clients.size(); i++) {
+				try {
+					sendMessage(msg, clients.get(i).getOutputStream());
+				} catch (IOException ioe) {
+					ioe.printStackTrace();
 				}
 			}
+
 		}
 	}
 }

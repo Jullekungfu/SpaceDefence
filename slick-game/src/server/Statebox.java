@@ -3,13 +3,10 @@ package server;
 //TODO: This should contain a better buffer. Maybe a ringbuffer? Maybe one buffer per client?
 
 public class Statebox{
-	//TODO: why volatile??
-    private volatile byte[] message;
-    private byte currentId;
+    private byte[] message;
 
     public Statebox(){
         this.message = null;
-        currentId = 0x0; // first player gets id 0
     }
 
     public synchronized byte[] readMessage(){

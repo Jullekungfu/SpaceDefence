@@ -9,6 +9,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import util.EventProtocol;
 import client.ByteMonitor;
 import client.GameStatsEvents;
 
@@ -18,11 +19,11 @@ public class Game extends BasicGameState {
 	private List<Player> players;
 	private GameStatsEvents gse;
 	private GameContainer gc;
+	private ByteMonitor bm;
 
 	public void addGSM(GameStatsEvents gse, ByteMonitor byteMonitor) {
 		this.gse = gse;
-		LocalPlayer p = new LocalPlayer(gc);
-		p.addByteMonitor(byteMonitor);
+		this.bm = byteMonitor;
 	}
 
 	@Override
@@ -32,9 +33,6 @@ public class Game extends BasicGameState {
 		this.gc = gc;
 		players = new ArrayList<Player>();
 		
-		LocalPlayer player = new LocalPlayer(gc);
-		player.init();
-		players.add(player);
 	}
 
 	@Override
@@ -64,6 +62,15 @@ public class Game extends BasicGameState {
 		OpponentPlayer op = new OpponentPlayer(this.gse, playerId);
 		op.init();
 		players.add(op);
+	}
+	
+	public void addLocalPlayer(byte playerId){
+
+		LocalPlayer player = new LocalPlayer(gc, bm);
+		player.init();
+		players.add(player);
+		byte[] msg = {EventProtocol.OPPONENT_PLAYER_INIT};
+		bm.putArrayToServer(msg);
 	}
 	
 	

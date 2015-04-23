@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import util.EventProtocol;
+
 /**
  * @author nille
  *
@@ -34,6 +36,9 @@ public class OutThread extends Thread {
 		while(!this.socket.isClosed()){
 			msg = this.bm.readArrayToServer();
 			try {
+				if(msg[2] == EventProtocol.OPPONENT_PLAYER_INIT){
+					System.out.println("sent opp init");
+				}
 				os.write(msg);
 				os.flush();
 			} catch (IOException ioe) {

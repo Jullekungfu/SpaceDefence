@@ -44,9 +44,12 @@ public class ParseBytes extends Thread {
 			Byte b = null;
 			while ((b = byteQueue.poll()) != null) {
 				switch (b) {
-//					case EventProtocol.PLAYER_INIT:
-//						gsMonitor.addPlayer(id);
-//						break;
+					case EventProtocol.LOCAL_PLAYER_INIT:
+						gsMonitor.addLocalPlayer(id);
+						break;
+					case EventProtocol.OPPONENT_PLAYER_INIT:
+						gsMonitor.addOpponentPlayer(id);
+						break;
 					case EventProtocol.PLAYER_POS:
 						float xpos = bytesToFloat(byteQueue);
 						float ypos = bytesToFloat(byteQueue);

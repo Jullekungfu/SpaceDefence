@@ -19,7 +19,6 @@ public class GameStatsEvents {
 	
 	public GameStatsEvents(Game game){
 		events = new ConcurrentHashMap<Byte, Queue<GameEvent>>();
-		events.put((byte) 0x1, new LinkedList<GameEvent>());//TODO: change id
 		this.game = game;
 	}
 
@@ -43,9 +42,21 @@ public class GameStatsEvents {
 		queue.offer(event);
 	}
 	
-	public boolean addPlayer(byte id){
+	public boolean addOpponentPlayer(byte id){
+		System.out.println("added player " + id);
 		if(!events.containsKey(id)){
 			game.addPlayer(id);
+			return events.put(id, new LinkedList<GameEvent>()) != null;
+		}
+		return false;
+	}
+
+	public boolean addLocalPlayer(byte id) {
+		if(!events.containsKey(id)){
+			for(byte i = 1; i < id;i++){
+				addOpponentPlayer(i);
+			}
+			game.addLocalPlayer(id);
 			return events.put(id, new LinkedList<GameEvent>()) != null;
 		}
 		return false;

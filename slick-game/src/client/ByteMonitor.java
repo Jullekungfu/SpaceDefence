@@ -89,7 +89,7 @@ public class ByteMonitor {
 		
 		System.out.println("Recieved msg from Server: " + tmp[0]);
 		//Checks if it is a message from server containing this clients id.
-		if(tmp[0] == EventProtocol.PLAYER_ID){
+		if(tmp[2] == EventProtocol.LOCAL_PLAYER_INIT){
 			this.setClientId(tmp[1]);
 		}
 		
@@ -101,10 +101,11 @@ public class ByteMonitor {
 	 * @param msg
 	 */
 	public synchronized void putArrayToServer(byte[] msg){
-		byte[] temp = new byte[msg.length + 2];
-		temp[0] = (byte) client_id;
+		byte[] temp = new byte[msg.length + 3];
+		temp[0] = EventProtocol.PLAYER_ID;
+		temp[1] = (byte) client_id;
 		for(int i = 0; i < msg.length; i++){
-			temp[i+1] = msg[i];
+			temp[i+2] = msg[i];
 		}
 		temp[temp.length-1] = '\n';
 		toServer.add(temp);

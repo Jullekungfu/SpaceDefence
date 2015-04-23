@@ -17,7 +17,7 @@ public class OpponentPlayer extends Player {
 	public void update(int delta) {
 		GameEvent e = gse.pop(id);
 		if(e != null){
-			//pop event data
+			super.position = e.getPosition();
 		}
 		super.updatePosition();
 	}
