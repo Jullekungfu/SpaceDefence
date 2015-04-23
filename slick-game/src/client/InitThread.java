@@ -3,7 +3,7 @@ package client;
 import slimpleslickgame.Game;
 
 public class InitThread extends Thread {
-	private GameStatsMonitor gameStatsMonitor;
+	private GameStatsEvents gameStatsMonitor;
 	private ByteMonitor byteMonitor;
 	private ParseBytes parseBytes;
 	private ParseGameStats parseGameStats;
@@ -17,7 +17,7 @@ public class InitThread extends Thread {
 	
 	public void run(){
 		byteMonitor = new ByteMonitor(ipport);
-		gameStatsMonitor = new GameStatsMonitor();
+		gameStatsMonitor = new GameStatsEvents();
 		parseBytes = new ParseBytes(gameStatsMonitor, byteMonitor);
 		parseGameStats = new ParseGameStats(gameStatsMonitor, byteMonitor);
 		game.addGSM(gameStatsMonitor);
