@@ -38,6 +38,7 @@ public class ByteMonitor {
 		String ip = ipport.substring(0, split);
 		int port = Integer.parseInt(ipport.substring(split+1));
 		try {
+			System.out.println("connecting to " + ip);
 			socket = new Socket(ip, port);
 			outThread = new OutThread(this, socket);
 			inThread = new InThread(this, socket);

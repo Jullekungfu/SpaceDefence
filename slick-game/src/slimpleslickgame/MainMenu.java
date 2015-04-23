@@ -52,7 +52,7 @@ public class MainMenu extends BasicGameState {
         if(input.isKeyDown(Input.KEY_1)){
         	String port = JOptionPane.showInputDialog("Please enter port.");
         	ipport = "127.0.0.1:"+port;
-        	new ServerThread(port).start(); 
+        	initServer(port); 
         	inp = true;
         } else if(input.isKeyDown(Input.KEY_2)){
         	ipport = JOptionPane.showInputDialog("Connect to server using ip:port.");
@@ -69,20 +69,9 @@ public class MainMenu extends BasicGameState {
 		return ID;
 	}
 	
-	
-	private class ServerThread extends Thread{
-		private String port;
-		public ServerThread(String port){
-			this.port = port;
-		}
-		
-		public void run(){
-			initServer(port);
-		}
-		
-		private void initServer(String port){
-			String[] sp = {port};
-			Server.main(sp);
-		}
+
+	private void initServer(String port){
+		String[] sp = {port};
+		Server.main(sp);
 	}
 }
