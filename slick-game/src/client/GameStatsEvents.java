@@ -5,6 +5,8 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import slimpleslickgame.Game;
+
 /**
  * Contains events for all players currently in game.
  * 
@@ -13,9 +15,11 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class GameStatsEvents {
 	private ConcurrentMap<Byte, Queue<GameEvent>> events;
+	private Game game;
 	
-	public GameStatsEvents(){
+	public GameStatsEvents(Game game){
 		events = new ConcurrentHashMap<Byte, Queue<GameEvent>>();
+		this.game = game;
 	}
 
 	public GameEvent pop(byte id) {
@@ -40,7 +44,7 @@ public class GameStatsEvents {
 	
 	public boolean addPlayer(byte id){
 		if(!events.containsKey(id)){
-			//TODO: game.addPlayer(id);
+			game.addPlayer(id);
 			return events.put(id, new LinkedList<GameEvent>()) != null;
 		}
 		return false;
