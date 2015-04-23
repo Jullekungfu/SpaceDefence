@@ -16,6 +16,8 @@ public class ByteMonitor {
 	private LinkedList<byte[]> toServer;
 	private Socket socket;
 	private String ipport;
+	private InThread inThread;
+	private OutThread outThread;
 	
 	/**
 	 * Init monitor
@@ -37,6 +39,8 @@ public class ByteMonitor {
 		int port = Integer.parseInt(ipport.substring(split+1));
 		try {
 			socket = new Socket(ip, port);
+			outThread = new OutThread(this, socket);
+			inThread = new InThread(this, socket);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
