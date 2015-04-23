@@ -59,6 +59,7 @@ public class ByteMonitor {
 	private void setClientId(int client_id){
 		//TODO: Implement.
 		System.out.println("Received client id: " + client_id);	
+		this.client_id = client_id;
 	}
 	
 	/**
