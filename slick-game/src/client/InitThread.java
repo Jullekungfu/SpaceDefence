@@ -20,5 +20,6 @@ public class InitThread extends Thread {
 		gameStatsMonitor = new GameStatsEvents();
 		parseBytes = new ParseBytes(gameStatsMonitor, byteMonitor);
 		game.addGSM(gameStatsMonitor, byteMonitor);
+		parseBytes.start();
 	}
 }
