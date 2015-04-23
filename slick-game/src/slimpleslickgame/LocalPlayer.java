@@ -52,8 +52,10 @@ public class LocalPlayer extends Player{
 			direction.add(new Vector2f(0, 1));
 			dirChanged = true;
 		}
-		bm.putArrayToServer(getPositionBytes(position));
-
+		if(bm != null){
+			bm.putArrayToServer(getPositionBytes(position));
+		}
+		System.out.println("Input processed, direction: " + direction);
 		// TODO: add shooting capabilities
 		super.setDirection(direction);
 		return dirChanged;
