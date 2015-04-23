@@ -42,6 +42,8 @@ public class ByteMonitor {
 			socket = new Socket(ip, port);
 			outThread = new OutThread(this, socket);
 			inThread = new InThread(this, socket);
+			outThread.start();
+			inThread.start();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
