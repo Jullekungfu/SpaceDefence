@@ -6,7 +6,7 @@ import java.util.Vector;
 
 import util.EventProtocol;
 
-public class Server {
+public class Server extends Thread {
 	private ServerSocket ss;
 
 	public static void main(String[] args) {
@@ -15,7 +15,7 @@ public class Server {
 			port = Integer.parseInt(args[0]);
 		}
 		Server si = new Server(port);
-		si.startServer();
+		si.start();
 	}
 	
 	public Server(int port){
@@ -27,7 +27,7 @@ public class Server {
 		}
 	}
 
-	public void startServer() {
+	public void run() {
 		Socket connection;
 		Statebox mb = new Statebox();
 		UpdateToClient rt = new UpdateToClient(mb);
