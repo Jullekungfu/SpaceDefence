@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.*;
 import java.util.Vector;
 
+import client.EventProtocol;
+
 public class Server {
 	private ServerSocket ss;
 
@@ -41,8 +43,12 @@ class UpdateToClient extends Thread {
 
 	public void addSocket(Socket s) {
 		clients.add(s);
-		byte[] idMessage = null;
+		byte[] idMessage = new byte[2];
 		//TODO: Create a ID message for the participant.
+		idMessage[0] = EventProtocol.PLAYER_ID;
+		idMessage[1] = (byte) clients.size();
+		System.out.println("Idmessage-flag: " + idMessage[0]);
+		System.out.println("Id: " + idMessage[1]);
 		try {
 			sendMessage(idMessage, s.getOutputStream());
 		} catch (IOException e) {e.printStackTrace();}
