@@ -10,8 +10,17 @@ public class Server {
 	private ServerSocket ss;
 
 	public static void main(String[] args) {
-		Server si = new Server();
+		Server si = new Server(Integer.parseInt(args[0]));
 		si.startServer();
+	}
+	
+	public Server(int port){
+		try {
+			ss = new ServerSocket(port);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void startServer() {
