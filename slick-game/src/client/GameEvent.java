@@ -2,13 +2,13 @@ package client;
 
 import org.newdawn.slick.geom.Vector2f;
 
-public class PlayerEvent {
+public class GameEvent {
 	private byte id;
 	private Vector2f pos;
 	private Vector2f dir;
 	
 	
-	public PlayerEvent(byte id) {
+	public GameEvent(byte id) {
 		this.id = id;
 	}
 

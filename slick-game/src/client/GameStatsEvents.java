@@ -6,20 +6,20 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * Contains gamestats for all players currently in game.
+ * Contains events for all players currently in game.
  * 
  * @author timdolck
  *
  */
 public class GameStatsEvents {
-	private ConcurrentMap<Byte, Queue<PlayerEvent>> events;
+	private ConcurrentMap<Byte, Queue<GameEvent>> events;
 	
 	public GameStatsEvents(){
-		events = new ConcurrentHashMap<Byte, Queue<PlayerEvent>>();
+		events = new ConcurrentHashMap<Byte, Queue<GameEvent>>();
 	}
 
-	public PlayerEvent pop(byte id) {
-		Queue<PlayerEvent> queue = events.get(id);
+	public GameEvent pop(byte id) {
+		Queue<GameEvent> queue = events.get(id);
 		if (queue == null) {
 			throw new IllegalArgumentException("Id does not exist, id: " + id);
 		}
@@ -29,8 +29,8 @@ public class GameStatsEvents {
 		return queue.poll();
 	}
 	
-	public void put(byte id, PlayerEvent event){
-		Queue<PlayerEvent> queue = this.events.get(id);
+	public void put(byte id, GameEvent event){
+		Queue<GameEvent> queue = this.events.get(id);
 		if(queue == null){
 			throw new IllegalArgumentException("Id does not exist, id: " + id);
 		}
@@ -40,7 +40,8 @@ public class GameStatsEvents {
 	
 	public boolean addPlayer(byte id){
 		if(!events.containsKey(id)){
-			return events.put(id, new LinkedList<PlayerEvent>()) != null;
+			//TODO: game.addPlayer(id);
+			return events.put(id, new LinkedList<GameEvent>()) != null;
 		}
 		return false;
 	}

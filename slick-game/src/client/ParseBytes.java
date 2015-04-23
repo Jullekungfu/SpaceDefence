@@ -31,7 +31,7 @@ public class ParseBytes extends Thread {
 			}
 
 			byte id = byteQueue.poll();
-			PlayerEvent event = new PlayerEvent(id);
+			GameEvent event = new GameEvent(id);
 			
 			// TODO: remove carriagereturn in end of byte array?
 			Byte b = null;
