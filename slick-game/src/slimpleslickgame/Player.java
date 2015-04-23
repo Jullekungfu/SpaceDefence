@@ -8,12 +8,14 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
-public class Player {
+public abstract class Player {
 	
-	private Vector2f position;
-	private Vector2f direction;
-	private Shape shape;
-	private ShapeFill shapeFill;
+	protected Vector2f position;
+	protected Vector2f direction;
+	protected Shape shape;
+	protected ShapeFill shapeFill;
+	private float speed = 5;
+	protected byte id;
 	
 	public void init(){
 		shape = new Rectangle(0, 0, 50, 50);
@@ -22,7 +24,9 @@ public class Player {
 		direction = new Vector2f(0,0);
 	}
 	
-	public void update(int delta){
+	public abstract void update(int delta);
+	
+	protected void updatePosition(){
 		position.add(direction);
 		shape.setLocation(position);
 	}
@@ -31,9 +35,9 @@ public class Player {
 		graphics.fill(shape, shapeFill);
 	}
 
-	public void setDirection(Vector2f dir) {
+	protected void setDirection(Vector2f dir) {
 		dir.normalise();
-		this.direction = dir.scale(5);
+		this.direction = dir.scale(speed);
 	}
 	
 }

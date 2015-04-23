@@ -67,9 +67,7 @@ public class ParseBytes extends Thread {
 
 				}
 			}
-			//gsMonitor.putEvent(event);
-
-			// Parse bytes to gamestats
+			gsMonitor.put(id, event);
 		}
 	}
 
