@@ -6,11 +6,10 @@ import client.GameStatsEvents;
 public class OpponentPlayer extends Player {
 
 	private GameStatsEvents gse;
-	private byte id;
 	
 	public OpponentPlayer(GameStatsEvents gse, byte id){
 		this.gse = gse;
-		this.id = id;
+		super.id = id;
 	}
 	
 	@Override

@@ -66,11 +66,11 @@ public class Game extends BasicGameState {
 	
 	public void addLocalPlayer(byte playerId){
 
-		LocalPlayer player = new LocalPlayer(gc, bm);
+		LocalPlayer player = new LocalPlayer(gc, bm, playerId);
 		player.init();
 		players.add(player);
 		byte[] msg = {EventProtocol.OPPONENT_PLAYER_INIT};
-		bm.putArrayToServer(msg);
+		bm.putArrayToServer(msg, playerId);
 	}
 	
 	

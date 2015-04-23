@@ -20,7 +20,6 @@ public class ByteMonitor {
 	private String ipport;
 	private InThread inThread;
 	private OutThread outThread;
-	private int client_id;
 	
 	/**
 	 * Init monitor
@@ -30,7 +29,6 @@ public class ByteMonitor {
 		fromServer = new LinkedList<byte[]>();
 		toServer = new LinkedList<byte[]>();
 		this.ipport = ipport;
-		this.client_id = -1;
 	}
 	
 	/**
@@ -54,12 +52,6 @@ public class ByteMonitor {
 			e.printStackTrace();
 		}
 		return socket.isConnected();
-	}
-	
-	private void setClientId(int client_id){
-		//TODO: Implement.
-		System.out.println("Received client id: " + client_id);	
-		this.client_id = client_id;
 	}
 	
 	/**
@@ -86,10 +78,6 @@ public class ByteMonitor {
 		byte[] tmp = fromServer.poll();
 		
 		System.out.println("Recieved msg from Server: " + tmp[0]);
-		//Checks if it is a message from server containing this clients id.
-		if(tmp[2] == EventProtocol.LOCAL_PLAYER_INIT){
-			this.setClientId(tmp[1]);
-		}
 
 		notifyAll();
 		return tmp;
@@ -99,10 +87,10 @@ public class ByteMonitor {
 	 * Messages sent from client are put here.
 	 * @param msg
 	 */
-	public synchronized void putArrayToServer(byte[] msg){
+	public synchronized void putArrayToServer(byte[] msg, byte id){
 		byte[] temp = new byte[msg.length + 3];
 		temp[0] = EventProtocol.PLAYER_ID;
-		temp[1] = (byte) client_id;
+		temp[1] = id;
 		for(int i = 0; i < msg.length; i++){
 			temp[i+2] = msg[i];
 		}

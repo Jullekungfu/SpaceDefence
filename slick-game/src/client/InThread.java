@@ -32,7 +32,7 @@ public class InThread extends Thread {
 					monitor.putArrayFromServer(line.getBytes());
 				}
 			}
-			input.close();
+			br.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

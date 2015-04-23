@@ -15,6 +15,7 @@ public abstract class Player {
 	protected Shape shape;
 	protected ShapeFill shapeFill;
 	private float speed = 5;
+	protected byte id;
 	
 	public void init(){
 		shape = new Rectangle(0, 0, 50, 50);

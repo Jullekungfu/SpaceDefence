@@ -15,15 +15,16 @@ public class LocalPlayer extends Player{
 	private GameContainer gc;
 	private ByteMonitor bm;
 	
-	public LocalPlayer(GameContainer gc, ByteMonitor bm){
+	public LocalPlayer(GameContainer gc, ByteMonitor bm, byte id){
 		this.gc = gc;
 		this.bm = bm;
+		super.id = id;
 	}
 	
 	public void update(int delta) {
 		if(processInput(gc.getInput())){
 			if(bm != null){
-				bm.putArrayToServer(getPositionBytes(position));
+				bm.putArrayToServer(getPositionBytes(position), id);
 			}
 			super.updatePosition();
 		}
