@@ -1,7 +1,9 @@
 package client;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.Socket;
 /**
  * Reads server input and forwards it to ByteMonitor
@@ -23,14 +25,12 @@ public class InThread extends Thread {
 		
 		try {
 			InputStream input = connection.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(input));
 			String line = "";
 			while (!connection.isClosed()) {
-				int c = input.read();
-				line += (char)c;
-				if((char) c == '\n'|| (char) c == '\r'){
+				while((line = br.readLine()) != null){
 					monitor.putArrayFromServer(line.getBytes());
 					System.out.println("Inthread - message received: " + line.getBytes());
-					line = "";
 				}
 			}
 			input.close();
