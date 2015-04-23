@@ -16,6 +16,8 @@ public class Application extends StateBasedGame {
     public static final int HEIGHT  = 480;
     public static final int FPS     = 60;
     public static final double VERSION = 1.0;
+    
+    
 
 	public Application(String appName) {
 		super(appName);
@@ -27,5 +29,13 @@ public class Application extends StateBasedGame {
         this.addState(new SplashScreen());
         this.addState(new MainMenu());
         this.addState(new Game());
+	}
+	
+	public void initNew(){
+		
+	}
+	
+	public void initExisting(){
+		
 	}
 }

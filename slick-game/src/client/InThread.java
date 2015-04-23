@@ -12,7 +12,7 @@ public class InThread extends Thread {
 	private Socket connection;
 	private ByteMonitor monitor;
 
-	public InThread(Socket connection, ByteMonitor monitor) {
+	public InThread(ByteMonitor monitor, Socket connection) {
 		this.connection = connection;
 		this.monitor = monitor;
 	}

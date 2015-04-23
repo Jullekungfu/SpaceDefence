@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.*;
 import java.util.Vector;
 
+import client.EventProtocol;
+
 public class Server {
 	private ServerSocket ss;
 
@@ -33,7 +35,6 @@ class UpdateToClient extends Thread {
 	private Statebox statebox;
 	private byte[] msg;
 	private Vector<Socket> clients;
-	private OutputStream writer;
 
 	public UpdateToClient(Statebox statebox) {
 		this.statebox = statebox;
@@ -42,7 +43,20 @@ class UpdateToClient extends Thread {
 
 	public void addSocket(Socket s) {
 		clients.add(s);
-		//Send to clients the new participants id
+		byte[] idMessage = new byte[2];
+		//TODO: Create a ID message for the participant.
+		idMessage[0] = EventProtocol.PLAYER_ID;
+		idMessage[1] = (byte) clients.size();
+		System.out.println("Idmessage-flag: " + idMessage[0]);
+		System.out.println("Id: " + idMessage[1]);
+		try {
+			sendMessage(idMessage, s.getOutputStream());
+		} catch (IOException e) {e.printStackTrace();}
+	}
+	
+	public void sendMessage(byte[] msg, OutputStream writer) throws IOException{
+		writer.write(msg);
+		writer.flush();
 	}
 
 	public void run() {
@@ -52,12 +66,8 @@ class UpdateToClient extends Thread {
 			if (!(msg.length < 2)) {
 				for (int i = 0; i < clients.size(); i++) {
 					try {
-						writer = clients.get(i).getOutputStream();
-						writer.write(msg);
-						writer.flush();
-					} catch (IOException ioe) {
-						ioe.printStackTrace();
-					}
+						sendMessage(msg, clients.get(i).getOutputStream());
+					} catch (IOException ioe) {ioe.printStackTrace();}
 				}
 			}
 		}
