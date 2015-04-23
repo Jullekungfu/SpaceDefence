@@ -42,7 +42,7 @@ public class ParseBytes extends Thread {
 			
 			// TODO: remove carriagereturn in end of byte array?
 			Byte b = null;
-			while ((b = byteQueue.poll()) != null) {
+			if ((b = byteQueue.poll()) != null) {
 				switch (b) {
 					case EventProtocol.LOCAL_PLAYER_INIT:
 						gsMonitor.addLocalPlayer(id);
@@ -53,6 +53,7 @@ public class ParseBytes extends Thread {
 					case EventProtocol.PLAYER_POS:
 						float xpos = bytesToFloat(byteQueue);
 						float ypos = bytesToFloat(byteQueue);
+						System.out.println("x: " + xpos + " y: " + ypos);
 						Vector2f pos = new Vector2f(xpos, ypos);
 						try {
 							event.putPosition(pos);

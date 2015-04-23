@@ -26,7 +26,7 @@ public abstract class Player {
 	public abstract void update(int delta);
 	
 	protected void updatePosition(){
-		position.add(direction);
+		//position.add(direction);
 		shape.setLocation(position);
 	}
 	

@@ -25,8 +25,8 @@ public class LocalPlayer extends Player{
 			if(bm != null){
 				bm.putArrayToServer(getPositionBytes(position));
 			}
+			super.updatePosition();
 		}
-		super.updatePosition();
 	}
 	
 	private boolean processInput(Input input) {
