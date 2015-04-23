@@ -61,7 +61,9 @@ public class Game extends BasicGameState {
 	}
 
 	public void addPlayer(byte playerId) {
-		players.add(new OpponentPlayer(this.gse, playerId));
+		OpponentPlayer op = new OpponentPlayer(this.gse, playerId);
+		op.init();
+		players.add(op);
 	}
 	
 	
