@@ -6,7 +6,6 @@ public class InitThread extends Thread {
 	private GameStatsEvents gameStatsMonitor;
 	private ByteMonitor byteMonitor;
 	private ParseBytes parseBytes;
-	private ParseGameStats parseGameStats;
 	private Game game;
 	private String ipport;
 	
@@ -20,7 +19,6 @@ public class InitThread extends Thread {
 		byteMonitor.initConnection();
 		gameStatsMonitor = new GameStatsEvents();
 		parseBytes = new ParseBytes(gameStatsMonitor, byteMonitor);
-		parseGameStats = new ParseGameStats(gameStatsMonitor, byteMonitor);
 		game.addGSM(gameStatsMonitor);
 	}
 }
