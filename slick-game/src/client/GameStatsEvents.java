@@ -19,6 +19,7 @@ public class GameStatsEvents {
 	
 	public GameStatsEvents(Game game){
 		events = new ConcurrentHashMap<Byte, Queue<GameEvent>>();
+		events.put((byte) 0x1, new LinkedList<GameEvent>());//TODO: change id
 		this.game = game;
 	}
 
