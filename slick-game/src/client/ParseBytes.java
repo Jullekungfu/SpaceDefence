@@ -5,6 +5,8 @@ import java.util.Queue;
 
 import org.newdawn.slick.geom.Vector2f;
 
+import util.EventProtocol;
+
 /**
  * Thread to parse bytes to gamestats
  * 

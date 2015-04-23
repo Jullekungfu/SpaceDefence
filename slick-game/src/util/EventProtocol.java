@@ -1,4 +1,4 @@
-package client;
+package util;
 
 /**
  * Protocol for events. To be updated!

@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.Vector;
 
-import client.EventProtocol;
+import util.EventProtocol;
 
 public class Server {
 	private ServerSocket ss;
