@@ -46,9 +46,11 @@ public class MainMenu extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input input = container.getInput();
         if(input.isKeyDown(Input.KEY_1)){
-        	JOptionPane.showInputDialog("");
+        	JOptionPane.showInputDialog("Please enter port.");
+        	game.enterState(Game.ID, new FadeOutTransition(org.newdawn.slick.Color.black), new FadeInTransition(org.newdawn.slick.Color.black));
+    		
         } else if(input.isKeyDown(Input.KEY_2)){
-        	String ipport = JOptionPane.showInputDialog("Connect to server using ip:port");
+        	String ipport = JOptionPane.showInputDialog("Connect to server using ip:port.");
         	game.enterState(Game.ID, new FadeOutTransition(org.newdawn.slick.Color.black), new FadeInTransition(org.newdawn.slick.Color.black));
     		
         }
