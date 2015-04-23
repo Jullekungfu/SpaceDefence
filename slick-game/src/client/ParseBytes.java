@@ -31,7 +31,12 @@ public class ParseBytes extends Thread {
 			for (Byte b : byteArray) {
 				byteQueue.add(b);
 			}
-
+			byte p = byteQueue.poll();
+			if(p != EventProtocol.PLAYER_ID){
+				System.err.println("ERROR IN PROTOCOL, recieved:" + p + " excpected:" + EventProtocol.PLAYER_ID);
+				continue;
+			}
+				
 			byte id = byteQueue.poll();
 			GameEvent event = new GameEvent(id);
 			
