@@ -8,10 +8,10 @@ package client;
  */
 public class ParseGameStats extends Thread {
 	
-	GameStatsMonitor gsMonitor;
+	GameStatsEvents gsMonitor;
 	ByteMonitor bMonitor;
 	
-	public ParseGameStats(GameStatsMonitor gsMonitor, ByteMonitor bMonitor){
+	public ParseGameStats(GameStatsEvents gsMonitor, ByteMonitor bMonitor){
 		this.gsMonitor = gsMonitor;
 		this.bMonitor = bMonitor;
 	}

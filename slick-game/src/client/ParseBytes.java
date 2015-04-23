@@ -13,10 +13,10 @@ import org.newdawn.slick.geom.Vector2f;
  */
 public class ParseBytes extends Thread {
 
-	GameStatsMonitor gsMonitor;
+	GameStatsEvents gsMonitor;
 	ByteMonitor bMonitor;
 
-	public ParseBytes(GameStatsMonitor gsMonitor, ByteMonitor bMonitor) {
+	public ParseBytes(GameStatsEvents gsMonitor, ByteMonitor bMonitor) {
 		this.gsMonitor = gsMonitor;
 		this.bMonitor = bMonitor;
 	}
@@ -56,7 +56,7 @@ public class ParseBytes extends Thread {
 						float ydir = bytesToFloat(byteQueue);
 						Vector2f dir = new Vector2f(xdir, ydir);
 						try {
-							event.putDir(dir);
+							event.putDirection(dir);
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
