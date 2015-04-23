@@ -43,10 +43,11 @@ public class GameStatsEvents {
 	}
 	
 	public boolean addOpponentPlayer(byte id){
-		System.out.println("added player " + id);
 		if(!events.containsKey(id)){
 			game.addPlayer(id);
-			return events.put(id, new LinkedList<GameEvent>()) != null;
+			System.out.println("added player " + id);
+			events.put(id, new LinkedList<GameEvent>());
+			return true;
 		}
 		return false;
 	}

@@ -30,7 +30,6 @@ public class InThread extends Thread {
 			while (!connection.isClosed()) {
 				while((line = br.readLine()) != null){
 					monitor.putArrayFromServer(line.getBytes());
-					System.out.println("Inthread - message received: " + line.getBytes());
 				}
 			}
 			input.close();

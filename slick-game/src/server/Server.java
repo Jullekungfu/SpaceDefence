@@ -88,7 +88,7 @@ class UpdateToClient extends Thread {
 
 			for (int i = 0; i < clients.size(); i++) {
 				try {
-					sendMessage(msg, clients.get(i).getOutputStream());
+					sendMessage(tmp, clients.get(i).getOutputStream());
 				} catch (IOException ioe) {
 					ioe.printStackTrace();
 				}

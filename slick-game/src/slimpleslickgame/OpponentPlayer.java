@@ -18,8 +18,8 @@ public class OpponentPlayer extends Player {
 		GameEvent e = gse.pop(id);
 		if(e != null){
 			super.position = e.getPosition();
+			super.updatePosition();
 		}
-		super.updatePosition();
 	}
 
 }

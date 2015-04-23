@@ -68,7 +68,6 @@ public class ByteMonitor {
 	 */
 	public synchronized void putArrayFromServer(byte[] msg){
 		fromServer.add(msg);
-		System.out.println("Bytemonitor - msg received.");
 		notifyAll();
 	}
 	
@@ -85,14 +84,14 @@ public class ByteMonitor {
 			}
 		}
 		byte[] tmp = fromServer.poll();
-		notifyAll();
 		
 		System.out.println("Recieved msg from Server: " + tmp[0]);
 		//Checks if it is a message from server containing this clients id.
 		if(tmp[2] == EventProtocol.LOCAL_PLAYER_INIT){
 			this.setClientId(tmp[1]);
 		}
-		
+
+		notifyAll();
 		return tmp;
 	}
 	
