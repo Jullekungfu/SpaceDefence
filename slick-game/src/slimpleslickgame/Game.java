@@ -21,11 +21,11 @@ public class Game extends BasicGameState {
 	}
 
 	@Override
-	public void init(GameContainer arg0, StateBasedGame arg1)
+	public void init(GameContainer gc, StateBasedGame arg1)
 			throws SlickException {
 		// TODO: Setup game stuff
 
-		player = new Player();
+		player = new LocalPlayer(gc);
 		player.init();
 	}
 
@@ -40,32 +40,7 @@ public class Game extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
 		// TODO: Update all logic
-		processInput(gc.getInput());
 		player.update(delta);
-	}
-	
-	private void processInput(Input input) {
-		Vector2f direction = new Vector2f(0, 0);
-
-		if (input.isKeyDown(Input.KEY_LEFT)) {
-			direction.add(new Vector2f(-1, 0));
-		}
-
-		if (input.isKeyDown(Input.KEY_RIGHT)) {
-			direction.add(new Vector2f(1, 0));
-		}
-
-		if (input.isKeyDown(Input.KEY_UP)) {
-			direction.add(new Vector2f(0, -1));
-		}
-
-		if (input.isKeyDown(Input.KEY_DOWN)) {
-			direction.add(new Vector2f(0, 1));
-		}
-
-		// TODO: add shooting capabilities
-
-		player.setDirection(direction);
 	}
 
 	@Override
