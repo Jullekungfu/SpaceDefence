@@ -8,11 +8,11 @@ import java.net.Socket;
  * @author antonlin
  *
  */
-public class ClientInput extends Thread {
+public class InThread extends Thread {
 	private Socket connection;
 	private ByteMonitor monitor;
 
-	public ClientInput(Socket connection, ByteMonitor monitor) {
+	public InThread(Socket connection, ByteMonitor monitor) {
 		this.connection = connection;
 		this.monitor = monitor;
 	}

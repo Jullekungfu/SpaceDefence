@@ -5,13 +5,15 @@ package server;
 public class Statebox{
 	//TODO: why volatile??
     private volatile byte[] message;
+    private byte currentId;
 
     public Statebox(){
         this.message = null;
+        currentId = 0x0; // first player gets id 0
     }
 
     public synchronized byte[] readMessage(){
-    	while(message == null){ //TODO: This logic... ;)
+    	while(message == null){ 
             try {
                 wait();
             } catch (InterruptedException e){e.printStackTrace();}
@@ -24,7 +26,7 @@ public class Statebox{
     }
 
     public synchronized void writeMessage(byte[] msg){
-       while(message != null){ //TODO: This logic... ;)
+       while(message != null){ 
             try {
                 wait();
             } catch (InterruptedException e){e.printStackTrace();}

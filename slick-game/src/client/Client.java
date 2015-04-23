@@ -41,7 +41,7 @@ public class Client{
     private Socket connection;
     private InputStream in;
     private OutputStream out;
-    private ClientInput inputThread;
+    private InThread inputThread;
 
     public Client(Socket connection, String name){
         this.connection = connection;
