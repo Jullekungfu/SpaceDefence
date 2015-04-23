@@ -1,6 +1,10 @@
 package client;
 
+import java.nio.ByteBuffer;
+
 import org.newdawn.slick.geom.Vector2f;
+
+import util.EventProtocol;
 
 public class GameEvent {
 	private byte id;
@@ -32,8 +36,34 @@ public class GameEvent {
 		return this.pos;
 	}
 	
+	public byte[] getPositionBytes(){
+		byte[] position = new byte[1];
+		position[0] = EventProtocol.PLAYER_POS;
+		byte[] x = floatToByte(pos.x);
+		byte[] y = floatToByte(pos.y);
+		
+		byte[] both = appendByteArray(position, x);
+		both = appendByteArray(both, y);
+		return both;
+	}
+	
+	public byte[] appendByteArray(byte[] first, byte[] second){
+		byte[] both = new byte[first.length + second.length];	
+		for(int i = 0 ; i < first.length; i++){
+			both[i] = first[i];
+		}
+		for(int i = 0 ; i < second.length; i++){
+			both[i+first.length] = second[i];
+		}	
+		return both;
+	}
+	
 	public Vector2f getDirection(){
 		return this.dir;
 	}
-
+	
+	public byte[] floatToByte(float f){
+		
+		return ByteBuffer.allocate(4).putFloat(f).array();
+	}
 }
