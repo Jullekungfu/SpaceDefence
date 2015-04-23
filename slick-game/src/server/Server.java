@@ -35,6 +35,7 @@ public class Server extends Thread {
 		try {
 			while (true) {
 				connection = ss.accept();
+				System.out.println("Client connected.");
 				new PlayerParticipant(connection, mb).start();
 				rt.addSocket(connection);
 			}
@@ -56,11 +57,13 @@ class UpdateToClient extends Thread {
 
 	public void addSocket(Socket s) {
 		clients.add(s);
-		byte[] idMessage = new byte[2];
+		byte[] idMessage = new byte[3];
 		idMessage[0] = EventProtocol.PLAYER_ID;
 		idMessage[1] = (byte) clients.size();
+		idMessage[2] = '\n';
 		try {
 			sendMessage(idMessage, s.getOutputStream());
+			System.out.println("Client id sent: " + idMessage[1]);
 		} catch (IOException e) {e.printStackTrace();}
 	}
 	

@@ -15,6 +15,7 @@ public class InThread extends Thread {
 	public InThread(ByteMonitor monitor, Socket connection) {
 		this.connection = connection;
 		this.monitor = monitor;
+		System.out.println("Inthread created.");
 	}
 
 	@Override
@@ -28,6 +29,7 @@ public class InThread extends Thread {
 				line += (char)c;
 				if((char) c == '\n'|| (char) c == '\r'){
 					monitor.putArrayFromServer(line.getBytes());
+					System.out.println("Inthread - message received: " + line.getBytes());
 					line = "";
 				}
 			}

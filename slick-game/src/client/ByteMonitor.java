@@ -3,7 +3,6 @@ package client;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import util.EventProtocol;
@@ -59,6 +58,7 @@ public class ByteMonitor {
 	
 	private void setClientId(int client_id){
 		//TODO: Implement.
+		System.out.println("Received client id: " + client_id);	
 	}
 	
 	/**
@@ -67,6 +67,7 @@ public class ByteMonitor {
 	 */
 	public synchronized void putArrayFromServer(byte[] msg){
 		fromServer.add(msg);
+		System.out.println("Bytemonitor - msg received.");
 		notifyAll();
 	}
 	
@@ -85,6 +86,7 @@ public class ByteMonitor {
 		byte[] tmp = fromServer.poll();
 		notifyAll();
 		
+		System.out.println("Recieved msg from Server: " + tmp[0]);
 		//Checks if it is a message from server containing this clients id.
 		if(tmp[0] == EventProtocol.PLAYER_ID){
 			this.setClientId(tmp[1]);
@@ -98,11 +100,12 @@ public class ByteMonitor {
 	 * @param msg
 	 */
 	public synchronized void putArrayToServer(byte[] msg){
-		byte[] temp = new byte[msg.length + 1];
+		byte[] temp = new byte[msg.length + 2];
 		temp[0] = (byte) client_id;
 		for(int i = 0; i < msg.length; i++){
 			temp[i+1] = msg[i];
 		}
+		temp[temp.length-1] = '\n';
 		toServer.add(temp);
 		notifyAll();
 	}

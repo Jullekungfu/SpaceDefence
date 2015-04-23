@@ -26,6 +26,7 @@ public class OutThread extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Outthread created.");
 	}
 	
 	public void run(){
