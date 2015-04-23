@@ -11,14 +11,14 @@ public class Server extends Thread {
 
 	public static void main(String[] args) {
 		int port = 30000;
-		if(args.length > 0){
+		if (args.length > 0) {
 			port = Integer.parseInt(args[0]);
 		}
 		Server si = new Server(port);
 		si.start();
 	}
-	
-	public Server(int port){
+
+	public Server(int port) {
 		try {
 			ss = new ServerSocket(port);
 		} catch (IOException e) {
@@ -32,15 +32,15 @@ public class Server extends Thread {
 		Statebox mb = new Statebox();
 		UpdateToClient rt = new UpdateToClient(mb);
 		rt.start();
-		try {
-			while (true) {
+		while (true) {
+			try {
 				connection = ss.accept();
 				System.out.println("Client connected.");
 				new PlayerParticipant(connection, mb).start();
 				rt.addSocket(connection);
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
 			}
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
 		}
 	}
 }
@@ -66,8 +66,8 @@ class UpdateToClient extends Thread {
 			System.out.println("Client id sent: " + idMessage[1]);
 		} catch (IOException e) {e.printStackTrace();}
 	}
-	
-	public void sendMessage(byte[] msg, OutputStream writer) throws IOException{
+
+	public void sendMessage(byte[] msg, OutputStream writer) throws IOException {
 		writer.write(msg);
 		writer.flush();
 	}
@@ -80,7 +80,9 @@ class UpdateToClient extends Thread {
 				for (int i = 0; i < clients.size(); i++) {
 					try {
 						sendMessage(msg, clients.get(i).getOutputStream());
-					} catch (IOException ioe) {ioe.printStackTrace();}
+					} catch (IOException ioe) {
+						ioe.printStackTrace();
+					}
 				}
 			}
 		}

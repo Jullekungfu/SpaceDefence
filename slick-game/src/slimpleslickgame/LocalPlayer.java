@@ -19,7 +19,6 @@ public class LocalPlayer extends Player{
 		this.gc = gc;
 	}
 	
-	@Override
 	public void update(int delta) {
 		processInput(gc.getInput());
 		super.updatePosition();
