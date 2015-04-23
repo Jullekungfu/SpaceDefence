@@ -3,9 +3,6 @@ package server;
 import java.io.*;
 import java.net.*;
 import java.util.Vector;
-import java.lang.Math;
-
-import client.Client;
 
 public class Server {
 	private ServerSocket ss;
@@ -45,6 +42,7 @@ class UpdateToClient extends Thread {
 
 	public void addSocket(Socket s) {
 		clients.add(s);
+		//Send to clients the new participants id
 	}
 
 	public void run() {

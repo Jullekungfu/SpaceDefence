@@ -2,7 +2,6 @@ package server;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 
 public class PlayerParticipant extends Thread {
@@ -16,7 +15,6 @@ public class PlayerParticipant extends Thread {
 			this.socket = socket;
 			this.stateBox = stateBox;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -37,7 +35,6 @@ public class PlayerParticipant extends Thread {
 			socket.close();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
