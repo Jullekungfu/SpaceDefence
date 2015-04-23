@@ -11,7 +11,7 @@ public class Server {
 
 	public static void main(String[] args) {
 		int port = 30000;
-		if(args.length < 1){
+		if(args.length > 0){
 			port = Integer.parseInt(args[0]);
 		}
 		Server si = new Server(port);
