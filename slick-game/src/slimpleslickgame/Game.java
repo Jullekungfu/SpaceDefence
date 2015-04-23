@@ -8,10 +8,17 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import client.GameStatsMonitor;
+
 public class Game extends BasicGameState {
 	public static final int ID = 2;
 	
 	private Player player;
+	private GameStatsMonitor gameStatsMonitor;
+	
+	public void addGSM(GameStatsMonitor gsm){
+		this.gameStatsMonitor = gsm;
+	}
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1)

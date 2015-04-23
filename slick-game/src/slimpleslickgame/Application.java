@@ -31,11 +31,4 @@ public class Application extends StateBasedGame {
         this.addState(new Game());
 	}
 	
-	public void initNew(){
-		
-	}
-	
-	public void initExisting(){
-		
-	}
 }

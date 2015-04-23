@@ -16,7 +16,9 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
+import server.Server;
 import client.Client;
+import client.InitThread;
 
 public class MainMenu extends BasicGameState {
 	public static final int ID = 1;
@@ -44,20 +46,27 @@ public class MainMenu extends BasicGameState {
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        Input input = container.getInput();
+        String ipport = "";
+		Input input = container.getInput();
         if(input.isKeyDown(Input.KEY_1)){
-        	JOptionPane.showInputDialog("Please enter port.");
-        	game.enterState(Game.ID, new FadeOutTransition(org.newdawn.slick.Color.black), new FadeInTransition(org.newdawn.slick.Color.black));
-    		
+        	String port = JOptionPane.showInputDialog("Please enter port.");
+        	ipport = "127.0.0.1:"+port;
+        	initServer(Integer.parseInt(port)); 
         } else if(input.isKeyDown(Input.KEY_2)){
-        	String ipport = JOptionPane.showInputDialog("Connect to server using ip:port.");
-        	game.enterState(Game.ID, new FadeOutTransition(org.newdawn.slick.Color.black), new FadeInTransition(org.newdawn.slick.Color.black));
-    		
+        	ipport = JOptionPane.showInputDialog("Connect to server using ip:port.");
         }
+        game.enterState(Game.ID, new FadeOutTransition(org.newdawn.slick.Color.black), new FadeInTransition(org.newdawn.slick.Color.black));
+		new InitThread(ipport, (Game) game.getState(Game.ID)).start();
 	}
 
 	@Override
 	public int getID() {
 		return ID;
+	}
+	
+	private void initServer(int port){
+		String[] sp = {String.valueOf(port)};
+		Server.main(sp);
+		//TODO: implement
 	}
 }
