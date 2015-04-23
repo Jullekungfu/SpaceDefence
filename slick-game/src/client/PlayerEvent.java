@@ -20,12 +20,20 @@ public class PlayerEvent {
 		}
 	}
 
-	public void putDir(Vector2f dir) throws Exception {
-		if(pos == null){
+	public void putDirection(Vector2f dir) throws Exception {
+		if(dir == null){
 			this.dir = dir;
 		}else{
 			throw new Exception("Direction already set");
 		}
+	}
+	
+	public Vector2f getPosition(){
+		return this.pos;
+	}
+	
+	public Vector2f getDirection(){
+		return this.dir;
 	}
 
 }
