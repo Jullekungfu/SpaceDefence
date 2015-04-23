@@ -25,8 +25,14 @@ public class ParseBytes extends Thread {
 
 	@Override
 	public void run() {
+		GameEvent event;
 		while (true) {
 			byte[] byteArray = bMonitor.readArrayFromServer();
+			System.out.println("polled new msg:");
+			for(byte b : byteArray){
+				System.out.print(" "+b);
+			}
+			System.out.println();
 			Queue<Byte> byteQueue = new LinkedList<Byte>();
 			for (Byte b : byteArray) {
 				byteQueue.add(b);
@@ -38,7 +44,7 @@ public class ParseBytes extends Thread {
 			}
 				
 			byte id = byteQueue.poll();
-			GameEvent event = new GameEvent(id);
+			event = new GameEvent(id);
 			
 			// TODO: remove carriagereturn in end of byte array?
 			Byte b = null;
@@ -53,12 +59,10 @@ public class ParseBytes extends Thread {
 					case EventProtocol.PLAYER_POS:
 						float xpos = bytesToFloat(byteQueue);
 						float ypos = bytesToFloat(byteQueue);
-						System.out.println("x: " + xpos + " y: " + ypos);
 						Vector2f pos = new Vector2f(xpos, ypos);
 						try {
 							event.putPosition(pos);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						break;

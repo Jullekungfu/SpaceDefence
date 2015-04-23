@@ -75,12 +75,12 @@ public class LocalPlayer extends Player{
 	}
 	
 	public byte[] getPositionBytes(Vector2f pos){
-		byte[] position = new byte[1];
-		position[0] = EventProtocol.PLAYER_POS;
+		byte[] posi = new byte[1];
+		posi[0] = EventProtocol.PLAYER_POS;
 		byte[] x = floatToByte(pos.x);
 		byte[] y = floatToByte(pos.y);
 		
-		byte[] both = appendByteArray(position, x);
+		byte[] both = appendByteArray(posi, x);
 		both = appendByteArray(both, y);
 		return both;
 	}
