@@ -12,13 +12,14 @@ import client.GameStatsEvents;
 public class Game extends BasicGameState {
 	public static final int ID = 2;
 
-	private Player player;
+	private LocalPlayer player;
 	//private GameStatsEvents gameStatsMonitor;
 	private ByteMonitor byteMonitor;
 
 	public void addGSM(GameStatsEvents gsm, ByteMonitor byteMonitor) {
 		//this.gameStatsMonitor = gsm;
 		this.byteMonitor = byteMonitor;
+		player.addByteMonitor(byteMonitor);
 	}
 
 	@Override

@@ -3,7 +3,10 @@ package client;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.LinkedList;
+
+import util.EventProtocol;
 
 
 /**
@@ -18,6 +21,7 @@ public class ByteMonitor {
 	private String ipport;
 	private InThread inThread;
 	private OutThread outThread;
+	private int client_id;
 	
 	/**
 	 * Init monitor
@@ -27,6 +31,7 @@ public class ByteMonitor {
 		fromServer = new LinkedList<byte[]>();
 		toServer = new LinkedList<byte[]>();
 		this.ipport = ipport;
+		this.client_id = -1;
 	}
 	
 	/**
@@ -52,6 +57,9 @@ public class ByteMonitor {
 		return socket.isConnected();
 	}
 	
+	private void setClientId(int client_id){
+		//TODO: Implement.
+	}
 	
 	/**
 	 * Messages sent from server are put here.
@@ -76,17 +84,26 @@ public class ByteMonitor {
 		}
 		byte[] tmp = fromServer.poll();
 		notifyAll();
+		
+		//Checks if it is a message from server containing this clients id.
+		if(tmp[0] == EventProtocol.PLAYER_ID){
+			this.setClientId(tmp[1]);
+		}
+		
 		return tmp;
 	}
 	
-	
-
 	/**
 	 * Messages sent from client are put here.
 	 * @param msg
 	 */
 	public synchronized void putArrayToServer(byte[] msg){
-		toServer.add(msg);
+		byte[] temp = new byte[msg.length + 1];
+		temp[0] = (byte) client_id;
+		for(int i = 0; i < msg.length; i++){
+			temp[i+1] = msg[i];
+		}
+		toServer.add(temp);
 		notifyAll();
 	}
 	
