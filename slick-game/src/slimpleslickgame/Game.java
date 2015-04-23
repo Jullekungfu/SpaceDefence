@@ -17,18 +17,19 @@ public class Game extends BasicGameState {
 
 	private List<Player> players;
 	private GameStatsEvents gse;
-	private ByteMonitor byteMonitor;
+	private GameContainer gc;
 
-	public void addGSM(GameStatsEvents gsm, ByteMonitor byteMonitor) {
-		this.gse = gsm;
-		this.byteMonitor = byteMonitor;
+	public void addGSM(GameStatsEvents gse, ByteMonitor byteMonitor) {
+		this.gse = gse;
+		LocalPlayer p = new LocalPlayer(gc);
+		p.addByteMonitor(byteMonitor);
 	}
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame arg1)
 			throws SlickException {
 		// TODO: Setup game stuff
-		
+		this.gc = gc;
 		players = new ArrayList<Player>();
 		
 		LocalPlayer player = new LocalPlayer(gc);

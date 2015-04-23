@@ -6,11 +6,14 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 
+import client.ByteMonitor;
+
 import util.EventProtocol;
 
 public class LocalPlayer extends Player{
 
 	private GameContainer gc;
+	private ByteMonitor bm;
 	
 	public LocalPlayer(GameContainer gc){
 		this.gc = gc;
@@ -19,6 +22,10 @@ public class LocalPlayer extends Player{
 	public void update(int delta) {
 		processInput(gc.getInput());
 		super.updatePosition();
+	}
+	
+	public void addByteMonitor(ByteMonitor bm){
+		this.bm = bm;
 	}
 	
 	private boolean processInput(Input input) {
@@ -44,9 +51,9 @@ public class LocalPlayer extends Player{
 			direction.add(new Vector2f(0, 1));
 			dirChanged = true;
 		}
+		bm.putArrayToServer(getPositionBytes(position));
 
 		// TODO: add shooting capabilities
-
 		super.setDirection(direction);
 		return dirChanged;
 	}
