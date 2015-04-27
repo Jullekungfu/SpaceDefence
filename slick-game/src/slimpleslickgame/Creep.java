@@ -19,7 +19,7 @@ public class Creep {
 	
 	public Creep(Vector2f initPos){
 		hp = 100;
-		shape = new Rectangle(10, 10, 20, 20);
+		shape = new Rectangle(0, 0, 20, 20);
 		shapeFill = new GradientFill(0,0, new Color(0, 255, 0), 20, 20, new Color(0, 0, 255), true);
 		position = initPos;
 		direction = new Vector2f(0, 0.01f*speed);
