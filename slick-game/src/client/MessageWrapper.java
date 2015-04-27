@@ -55,7 +55,7 @@ public class MessageWrapper {
 	 */
 	public static byte[] getDirectionBytes(Vector2f pos){
 		byte[] posi = new byte[1];
-		posi[0] = EventProtocol.PLAYER_POS;
+		posi[0] = EventProtocol.PLAYER_DIR;
 		
 		return appendByteArray(posi, getVector2fBytes(pos));
 	}
