@@ -58,7 +58,8 @@ public class GameStatsEvents {
 				addOpponentPlayer(i);
 			}
 			game.addLocalPlayer(id);
-			return events.put(id, new LinkedList<GameEvent>()) != null;
+			events.put(id, new LinkedList<GameEvent>());
+			return true;
 		}
 		return false;
 	}

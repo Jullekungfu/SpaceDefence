@@ -21,7 +21,7 @@ public class GameEvent {
 	}
 
 	public void putDirection(Vector2f dir) throws Exception {
-		if(dir == null){
+		if(this.dir == null){
 			this.dir = dir;
 		}else{
 			throw new Exception("Direction already set");

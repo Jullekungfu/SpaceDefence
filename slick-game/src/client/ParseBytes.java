@@ -71,6 +71,7 @@ public class ParseBytes extends Thread {
 						float xdir = bytesToFloat(byteQueue);
 						float ydir = bytesToFloat(byteQueue);
 						Vector2f dir = new Vector2f(xdir, ydir);
+						System.out.println(dir);
 						try {
 							event.putDirection(dir);
 						} catch (Exception e) {
