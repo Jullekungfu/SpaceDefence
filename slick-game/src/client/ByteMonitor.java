@@ -1,4 +1,5 @@
 package client;
+import java.nio.ByteBuffer;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -88,13 +89,18 @@ public class ByteMonitor {
 	 * @param msg
 	 */
 	public synchronized void putArrayToServer(byte[] msg, byte id){
-		byte[] temp = new byte[msg.length + 3];
-		temp[0] = EventProtocol.PLAYER_ID;
-		temp[1] = id;
+		byte[] temp = new byte[msg.length + 7];
+		byte[] msgLength = ByteBuffer.allocate(4).putInt(msg.length).array(); 
+		temp[0] = EventProtocol.MESSAGE_LENGTH;
+		temp[1] = msgLength[0];
+		temp[2] = msgLength[1];
+		temp[3] = msgLength[2];
+		temp[4] = msgLength[3];
+		temp[5] = EventProtocol.PLAYER_ID;
+		temp[6] = id;
 		for(int i = 0; i < msg.length; i++){
-			temp[i+2] = msg[i];
+			temp[i+7] = msg[i];
 		}
-		temp[temp.length-1] = '\n';
 		toServer.add(temp);
 		notifyAll();
 	}
