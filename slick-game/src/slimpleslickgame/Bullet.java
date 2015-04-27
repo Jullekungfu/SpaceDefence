@@ -16,7 +16,7 @@ public class Bullet {
 	private Vector2f dir;
 	
 	public Bullet(Vector2f initPos){
-		this.position = initPos;
+		this.position = initPos.copy();
 		this.dir = new Vector2f(0, -2);
 		this.shape = new Circle(this.position.x, this.position.y, 5);
 		this.fill = new GradientFill(0, 0, Color.white, 10, 10, Color.white, true);
