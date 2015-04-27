@@ -27,7 +27,7 @@ public class ParseBytes extends Thread {
 	@Override
 	public void run() {
 		GameEvent event;
-		while (true) {
+		while (bMonitor.isOpen()) {
 			byte[] byteArray = bMonitor.readArrayFromServer();
 			System.out.println("polled new msg:");
 			for(byte b : byteArray){

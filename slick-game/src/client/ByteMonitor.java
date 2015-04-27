@@ -124,4 +124,12 @@ public class ByteMonitor {
 			ioe.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Returns if the socket is open or not.
+	 * @return
+	 */
+	public boolean isOpen(){
+		return !socket.isClosed();
+	}
 }
