@@ -40,6 +40,8 @@ public class PlayerParticipant extends Thread {
 				}
 				stateBox.writeMessage(msg);
 	
+			} catch(ArrayIndexOutOfBoundsException aioobe){
+				System.out.println("Message not complete.");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
