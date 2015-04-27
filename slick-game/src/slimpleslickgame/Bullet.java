@@ -24,6 +24,7 @@ public class Bullet {
 	
 	public void update(int delta){
 		this.position.add(dir);
+		shape.setLocation(position);
 	}
 	
 	public void render(Graphics graphics){
