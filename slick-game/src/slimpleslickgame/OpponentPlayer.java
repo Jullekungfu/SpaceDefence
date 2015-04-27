@@ -20,7 +20,7 @@ public class OpponentPlayer extends Player {
 				super.position = e.getPosition();
 			
 			if(e.getDirection() != null){
-				super.direction = e.getDirection();
+				//super.direction = e.getDirection();
 			}
 		}
 		super.updatePosition();
