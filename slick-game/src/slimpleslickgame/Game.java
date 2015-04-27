@@ -52,4 +52,10 @@ public class Game extends BasicGameState {
 	public void addLocalPlayer(byte playerId){
 		playerMonitor.addLocalPlayer(gc, bm, playerId);
 	}
+	/**
+	 * Closes the connection held by the bytemonitorn.
+	 */
+	public void onClose(){
+		this.bm.closeConnection();
+	}
 }

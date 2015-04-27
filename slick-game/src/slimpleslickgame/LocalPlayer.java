@@ -21,7 +21,8 @@ public class LocalPlayer extends Player{
 	public void update(int delta) {
 		if(processInput(gc.getInput())){
 			if(bm != null){
-				bm.putArrayToServer(MessageWrapper.getPositionBytes(position), id);
+				byte[] bytes = MessageWrapper.appendByteArray(MessageWrapper.getPositionBytes(super.position), MessageWrapper.getDirectionBytes(super.direction));
+				bm.putArrayToServer(bytes, id);
 			}
 			super.updatePosition();
 		}

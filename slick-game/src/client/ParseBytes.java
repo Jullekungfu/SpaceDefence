@@ -47,7 +47,6 @@ public class ParseBytes extends Thread {
 			byte id = byteQueue.poll();
 			event = new GameEvent(id);
 			
-			// TODO: remove carriagereturn in end of byte array?
 			Byte b = null;
 			if ((b = byteQueue.poll()) != null) {
 				switch (b) {
@@ -68,6 +67,7 @@ public class ParseBytes extends Thread {
 						}
 						break;
 					case EventProtocol.PLAYER_DIR:
+						System.out.println("Parsing direction");
 						float xdir = bytesToFloat(byteQueue);
 						float ydir = bytesToFloat(byteQueue);
 						Vector2f dir = new Vector2f(xdir, ydir);
@@ -91,14 +91,6 @@ public class ParseBytes extends Thread {
 			floatBytes[i] = byteQueue.poll();
 		}
 		return ByteBuffer.wrap(floatBytes).asFloatBuffer().get();
-
-		/*int asInt = (floatBytes[0] & 0xFF) | ((floatBytes[1] & 0xFF) << 8)
-				| ((floatBytes[2] & 0xFF) << 16)
-				| ((floatBytes[3] & 0xFF) << 24);
-		return Float.intBitsToFloat(asInt);
-		*/
-		
-		
 	}
 
 }

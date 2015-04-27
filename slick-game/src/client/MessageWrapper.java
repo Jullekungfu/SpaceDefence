@@ -44,12 +44,27 @@ public class MessageWrapper {
 	public static byte[] getPositionBytes(Vector2f pos){
 		byte[] posi = new byte[1];
 		posi[0] = EventProtocol.PLAYER_POS;
-		byte[] x = floatToByte(pos.x);
-		byte[] y = floatToByte(pos.y);
+
+		return appendByteArray(posi, getVector2fBytes(pos));
+	}
+	
+	/**
+	 * Used in LocalPlayer to get direction bytes.
+	 * @param pos
+	 * @return
+	 */
+	public static byte[] getDirectionBytes(Vector2f pos){
+		byte[] posi = new byte[1];
+		posi[0] = EventProtocol.PLAYER_DIR;
 		
-		byte[] both = appendByteArray(posi, x);
-		both = appendByteArray(both, y);
-		return both;
+		return appendByteArray(posi, getVector2fBytes(pos));
+	}
+	
+	private static byte[] getVector2fBytes(Vector2f vec){
+		byte[] x = floatToByte(vec.x);
+		byte[] y = floatToByte(vec.y);
+		
+		return appendByteArray(x, y);
 	}
 	
 	/**
@@ -68,7 +83,7 @@ public class MessageWrapper {
 	 * @param second
 	 * @return First+second in one array.
 	 */
-	private static byte[] appendByteArray(byte[] first, byte[] second){
+	public static byte[] appendByteArray(byte[] first, byte[] second){
 		byte[] both = new byte[first.length + second.length];	
 		for(int i = 0 ; i < first.length; i++){
 			both[i] = first[i];

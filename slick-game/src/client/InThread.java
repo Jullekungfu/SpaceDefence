@@ -26,7 +26,7 @@ public class InThread extends Thread {
 		
 		try {
 			InputStream input = connection.getInputStream();
-			while(true){
+			while(!connection.isClosed()){
 				byte[] intBytes = new byte[4];
 				for(int i = 0; i < 4; i++){
 					intBytes[i] = (byte) input.read();

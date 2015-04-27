@@ -1,9 +1,7 @@
 package server;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
@@ -46,6 +44,6 @@ public class PlayerParticipant extends Thread {
 				e.printStackTrace();
 			}
 		}
-
+		stateBox.removeClientSocket(socket);
 	}
 }

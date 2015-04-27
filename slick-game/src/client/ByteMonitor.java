@@ -109,4 +109,15 @@ public class ByteMonitor {
 		notifyAll();
 		return tmp;
 	}
+
+	/**
+	 * Closes the socket-connection.
+	 */
+	public void closeConnection() {
+		try{
+		this.socket.close();
+		}catch(IOException ioe){
+			ioe.printStackTrace();
+		}
+	}
 }
