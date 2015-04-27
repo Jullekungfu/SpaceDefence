@@ -1,12 +1,8 @@
 package client;
-import java.nio.ByteBuffer;
-
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
-
-import util.EventProtocol;
 
 
 /**
