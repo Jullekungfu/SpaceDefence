@@ -17,11 +17,11 @@ public class Creep {
 	private ShapeFill shapeFill;
 	private float speed = 5;
 	
-	public Creep(){
+	public Creep(Vector2f initPos){
 		hp = 100;
 		shape = new Rectangle(10, 10, 20, 20);
 		shapeFill = new GradientFill(0,0, new Color(0, 255, 0), 20, 20, new Color(0, 0, 255), true);
-		position = new Vector2f(50,300);
+		position = initPos;
 		direction = new Vector2f(0, 0.01f*speed);
 		shape.setLocation(position);
 	}
