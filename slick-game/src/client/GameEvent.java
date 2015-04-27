@@ -3,13 +3,11 @@ package client;
 import org.newdawn.slick.geom.Vector2f;
 
 public class GameEvent {
-	private byte id;
 	private Vector2f pos;
 	private Vector2f dir;
 	
 	
-	public GameEvent(byte id) {
-		this.id = id;
+	public GameEvent() {
 	}
 
 	public void putPosition(Vector2f pos) throws Exception {
