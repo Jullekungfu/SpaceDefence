@@ -42,16 +42,20 @@ public class PlayerParticipant extends Thread {
 	
 			} catch(ArrayIndexOutOfBoundsException aioobe){
 				System.out.println("Message not complete.");
-				try {
-					socket.close();
-					System.out.println("Socket closed.");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				closeConnection();
 			} catch (IOException e) {
 				e.printStackTrace();
+				closeConnection();
 			}
 		}
 		stateBox.removeClientSocket(socket);
+	}
+	
+	private void closeConnection(){
+		try {
+			socket.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 }
