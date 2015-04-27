@@ -81,9 +81,9 @@ class UpdateToClient extends Thread {
 		while (true) {
 			msg = this.statebox.readMessage();
 
-			for (int i = 0; i < clients.size(); i++) {
+			for (Socket s : clients) {
 				try {
-					sendMessage(msg, clients.get(i).getOutputStream());
+					sendMessage(msg, s.getOutputStream());
 				} catch (IOException ioe) {
 					ioe.printStackTrace();
 				}
