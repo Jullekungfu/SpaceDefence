@@ -73,7 +73,7 @@ public class MessageWrapper {
 	 * @return
 	 */
 	private static byte[] floatToByte(float f) {
-		System.out.println(ByteBuffer.allocate(4).putFloat(f).array());
+		//System.out.println(ByteBuffer.allocate(4).putFloat(f).array());
 		return ByteBuffer.allocate(4).putFloat(f).array();
 	}
 	
