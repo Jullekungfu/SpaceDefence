@@ -36,8 +36,8 @@ public abstract class Player {
 	}
 	
 	public void render(Graphics graphics){
-		graphics.fill(shape, shapeFill);
 		gun.render(graphics);
+		graphics.fill(shape, shapeFill);
 	}
 
 	protected void setDirection(Vector2f dir) {

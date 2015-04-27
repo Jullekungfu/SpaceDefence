@@ -54,7 +54,8 @@ public class LocalPlayer extends Player{
 		}
 		// TODO: add shooting capabilities
 		if(input.isKeyPressed(Input.KEY_SPACE)) {
-			this.gun.shoot(this.position);
+			Vector2f shotPos = new Vector2f(this.position.x + this.shape.getWidth()/2, this.position.y + this.shape.getHeight()/2);
+			this.gun.shoot(shotPos);
 		}
 		
 		super.setDirection(direction);
