@@ -12,7 +12,7 @@ public class Server extends Thread {
 
 	public static void main(String[] args) {
 		int port = 30000;
-		if (args.length > 0) {
+		if (args.length > 0 && !args[0].isEmpty()) {
 			port = Integer.parseInt(args[0]);
 		}
 		Server si = new Server(port);
