@@ -88,13 +88,19 @@ public class ByteMonitor {
 	 * @param msg
 	 */
 	public synchronized void putArrayToServer(byte[] msg, byte id){
-		byte[] temp = new byte[msg.length + 3];
+		byte[] temp = new byte[msg.length + 6];
+		
 		temp[0] = EventProtocol.PLAYER_ID;
 		temp[1] = id;
+		int len = msg.length;
+		temp[2] = (byte) (len >>> 24);
+		temp[3] = (byte) (len >>> 16);
+		temp[4] = (byte) (len >>> 8);
+		temp[5] = (byte) len;
 		for(int i = 0; i < msg.length; i++){
-			temp[i+2] = msg[i];
+			temp[i+6] = msg[i];
 		}
-		temp[temp.length-1] = '\n';
+//		temp[temp.length-1] = '\n';
 		toServer.add(temp);
 		notifyAll();
 	}
