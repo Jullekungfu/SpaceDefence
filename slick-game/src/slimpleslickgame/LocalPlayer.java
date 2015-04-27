@@ -26,6 +26,7 @@ public class LocalPlayer extends Player{
 			}
 			super.updatePosition();
 		}
+		gun.update(delta);
 	}
 	
 	private boolean processInput(Input input) {
@@ -53,7 +54,7 @@ public class LocalPlayer extends Player{
 		}
 		// TODO: add shooting capabilities
 		if(input.isKeyPressed(Input.KEY_SPACE)) {
-			
+			this.gun.shoot(this.position);
 		}
 		
 		super.setDirection(direction);
