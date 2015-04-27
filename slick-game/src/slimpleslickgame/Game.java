@@ -1,4 +1,6 @@
 package slimpleslickgame;
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -14,6 +16,7 @@ public class Game extends BasicGameState {
 	private GameContainer gc;
 	private ByteMonitor bm;
 	private PlayerMonitor playerMonitor;
+	private ArrayList<Player> players;
 
 	public void addGSM(GameStatsEvents gse, ByteMonitor byteMonitor, PlayerMonitor playerMonitor) {
 		this.bm = byteMonitor;
@@ -25,21 +28,29 @@ public class Game extends BasicGameState {
 			throws SlickException {
 		// TODO: Setup game stuff
 		this.gc = gc;
+		players = new ArrayList<Player>();
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics g)
 			throws SlickException {
 		// TODO:render all stuff here
-		if(playerMonitor != null)
-			playerMonitor.render(gc, arg1, g);
+
+		for(Player p : players){
+			p.render(g);
+		}
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
-		if(playerMonitor != null)
-			playerMonitor.update(gc, arg1, delta);
+		Player player = null;
+		if(playerMonitor != null&&(player = playerMonitor.getPlayer()) != null){
+			players.add(player);
+		}
+		for(Player p : players){
+			p.update(delta);
+		}
 	}
 
 	@Override

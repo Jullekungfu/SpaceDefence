@@ -1,7 +1,8 @@
 package slimpleslickgame;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,11 +15,11 @@ import client.GameStatsEvents;
 
 public class PlayerMonitor {
 	
-	private List<Player> players;
+	private Queue<Player> players;
 	private GameStatsEvents gse;
 	
 	public PlayerMonitor(GameStatsEvents gse){
-		players = new ArrayList<Player>();
+		players = new LinkedList<Player>();
 		this.gse = gse;
 	}
 	
@@ -36,15 +37,15 @@ public class PlayerMonitor {
 		byte[] msg = {EventProtocol.OPPONENT_PLAYER_INIT};
 		bm.putArrayToServer(msg, playerId);
 	}
-		
-	public synchronized void render(GameContainer gc, StateBasedGame arg1, Graphics g)
-			throws SlickException {
-		// TODO:render all stuff here
-		for(Player p : players){
-			p.render(g);
-		}
-	}
 	
+	public synchronized Player getPlayer(){
+		if(!players.isEmpty()){
+			Player returnPlayer = players.poll();
+			return returnPlayer;
+		}
+		return null;
+	}
+		
 	public synchronized void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
 		// TODO: Update all logic
