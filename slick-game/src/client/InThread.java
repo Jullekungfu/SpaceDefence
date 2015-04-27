@@ -5,8 +5,6 @@ import java.io.InputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
-
-import util.EventProtocol;
 /**
  * Reads server input and forwards it to ByteMonitor
  * @author antonlin
@@ -47,6 +45,9 @@ public class InThread extends Thread {
 					//TODO: fix when server dies
 				}
 			}
+		} catch(NegativeArraySizeException nsae){
+			System.out.println("NegativeArraySizeException when declaring msg.");
+			monitor.closeConnection();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
