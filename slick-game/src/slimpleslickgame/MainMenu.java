@@ -25,6 +25,7 @@ public class MainMenu extends BasicGameState {
 	private StateBasedGame game;
 	private UnicodeFont ufont;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		this.game = game;
@@ -59,7 +60,7 @@ public class MainMenu extends BasicGameState {
         	inp = true;
         }
         if(inp){
-        	game.enterState(Game.ID, new FadeOutTransition(org.newdawn.slick.Color.black), new FadeInTransition(org.newdawn.slick.Color.black));
+        	this.game.enterState(Game.ID, new FadeOutTransition(org.newdawn.slick.Color.black), new FadeInTransition(org.newdawn.slick.Color.black));
 			new InitThread(ipport, (Game) game.getState(Game.ID)).start();
         }
 	}

@@ -52,6 +52,10 @@ public class LocalPlayer extends Player{
 			dirChanged = true;
 		}
 		// TODO: add shooting capabilities
+		if(input.isKeyPressed(Input.KEY_SPACE)) {
+			
+		}
+		
 		super.setDirection(direction);
 		return dirChanged;
 	}
