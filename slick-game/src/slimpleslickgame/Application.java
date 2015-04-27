@@ -35,8 +35,10 @@ public class Application extends StateBasedGame {
 	@Override
     public boolean closeRequested(){
 		GameState currGS = this.getCurrentState();
+		if(currGS.getID() == GAME){
+			((Game) currGS).onClose();
+		}
 		System.exit(0); 
 		return false;
-    }
-	
+    }	
 }

@@ -73,7 +73,12 @@ public class Game extends BasicGameState {
 		bm.putArrayToServer(msg, playerId);
 	}
 	
-	
+	/**
+	 * Closes the connection held by the bytemonitorn.
+	 */
+	public void onClose(){
+		this.bm.closeConnection();
+	}
 	
 	
 
