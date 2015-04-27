@@ -20,8 +20,4 @@ public abstract class EventProtocol {
 	public static final byte CREEP_DIED = 0x11;
 	public static final byte CREEP_SENT = 0x12;
 	public static final byte CREEP_INIT = 0x13;
-
-	// Must be set in last function before being sent to server/client meaning
-	// "putArrayToServer" client side and "sendMessage" server side.
-	public static final byte MESSAGE_LENGTH = 0x20;
 }

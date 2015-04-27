@@ -26,37 +26,21 @@ public class InThread extends Thread {
 		
 		try {
 			InputStream input = connection.getInputStream();
-			int b = -1;
-			int id = -1;
 			while(true){
-				b = input.read();
-				if(b != EventProtocol.PLAYER_ID){
-					//Out of sync...
-				}
-				id = input.read();
 				byte[] intBytes = new byte[4];
 				for(int i = 0; i < 4; i++){
 					intBytes[i] = (byte) input.read();
 				}
 				int msgLen = ByteBuffer.wrap(intBytes).getInt();
 				
-				int readBytes = 0;
 				byte[] msg = new byte[msgLen];
-				while(readBytes < msgLen){
-					b = input.read(msg, readBytes, msgLen);
-					
-							
-				}
-				
+				int read = 0, offset = 0, toRead = msgLen;
+				while(toRead > 0 && (read = input.read(msg, offset, toRead)) > 0){
+					toRead -= read;
+					offset += read;
+				}	
+				monitor.putArrayFromServer(msg);
 			}
-			
-//			String line = "";
-//			while (!connection.isClosed()) {
-//				while((line = br.readLine()) != null){
-//					monitor.putArrayFromServer(line.getBytes());
-//				}
-//			}
-//			br.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

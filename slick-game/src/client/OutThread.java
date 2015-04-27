@@ -36,7 +36,7 @@ public class OutThread extends Thread {
 		while(!this.socket.isClosed()){
 			msg = this.bm.readArrayToServer();
 			try {
-				if(msg[2] == EventProtocol.OPPONENT_PLAYER_INIT){
+				if(msg[6] == EventProtocol.OPPONENT_PLAYER_INIT){
 					System.out.println("sent opp init");
 				}
 				os.write(msg);
