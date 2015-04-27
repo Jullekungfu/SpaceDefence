@@ -39,20 +39,20 @@ public class Game extends BasicGameState {
 			throws SlickException {
 		// TODO:render all stuff here
 
-		for(Player p : players){
-			p.render(g);
+		synchronized (players){
+			for(Player p : players){
+				p.render(g);
+			}
 		}
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
-//		Player player = null;
-//		if(playerMonitor != null&&(player = playerMonitor.getPlayer()) != null){
-//			players.add(player);
-//		}
-		for(Player p : players){
-			p.update(delta);
+		synchronized (players) {
+			for(Player p : players){
+				p.update(delta);
+			}
 		}
 	}
 
