@@ -39,6 +39,7 @@ public class InThread extends Thread {
 					toRead -= read;
 					offset += read;
 				}	
+				monitor.putArrayFromServer(msg);
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
