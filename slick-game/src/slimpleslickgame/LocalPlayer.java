@@ -21,7 +21,7 @@ public class LocalPlayer extends Player{
 	public void update(int delta) {
 		if(processInput(gc.getInput())){
 			if(bm != null){
-				bm.putArrayToServer(getPositionBytes(position), id);
+				bm.putArrayToServer(MessageWrapper.getPositionBytes(position), id);
 			}
 			super.updatePosition();
 		}
@@ -54,10 +54,6 @@ public class LocalPlayer extends Player{
 		// TODO: add shooting capabilities
 		super.setDirection(direction);
 		return dirChanged;
-	}
-	
-	public byte[] getPositionBytes(Vector2f pos){
-		return MessageWrapper.getPositionBytes(pos);
 	}
 
 }

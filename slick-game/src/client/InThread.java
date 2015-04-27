@@ -38,8 +38,13 @@ public class InThread extends Thread {
 				while(toRead > 0 && (read = input.read(msg, offset, toRead)) > 0){
 					toRead -= read;
 					offset += read;
-				}	
-				monitor.putArrayFromServer(msg);
+				}
+				if(read > 0){
+					monitor.putArrayFromServer(msg);
+				}else{
+					break;
+					//TODO: fix when server dies
+				}
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
