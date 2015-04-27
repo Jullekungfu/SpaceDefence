@@ -1,5 +1,7 @@
 package slimpleslickgame;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -7,6 +9,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import util.EventProtocol;
 import client.ByteMonitor;
 import client.GameStatsEvents;
 
@@ -15,12 +18,12 @@ public class Game extends BasicGameState {
 
 	private GameContainer gc;
 	private ByteMonitor bm;
-	private PlayerMonitor playerMonitor;
-	private ArrayList<Player> players;
+	private List<Player> players;
+	private GameStatsEvents gse;
 
-	public void addGSM(GameStatsEvents gse, ByteMonitor byteMonitor, PlayerMonitor playerMonitor) {
+	public void addGSM(GameStatsEvents gse, ByteMonitor byteMonitor) {
 		this.bm = byteMonitor;
-		this. playerMonitor = playerMonitor;
+		this.gse = gse;
 	}
 
 	@Override
@@ -28,7 +31,7 @@ public class Game extends BasicGameState {
 			throws SlickException {
 		// TODO: Setup game stuff
 		this.gc = gc;
-		players = new ArrayList<Player>();
+		players = Collections.synchronizedList(new ArrayList<Player>());
 	}
 
 	@Override
@@ -44,10 +47,10 @@ public class Game extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
-		Player player = null;
-		if(playerMonitor != null&&(player = playerMonitor.getPlayer()) != null){
-			players.add(player);
-		}
+//		Player player = null;
+//		if(playerMonitor != null&&(player = playerMonitor.getPlayer()) != null){
+//			players.add(player);
+//		}
 		for(Player p : players){
 			p.update(delta);
 		}
@@ -59,11 +62,21 @@ public class Game extends BasicGameState {
 	}
 
 	public void addPlayer(byte playerId) {
-		playerMonitor.addPlayer(playerId);
+		OpponentPlayer op = new OpponentPlayer(this.gse, playerId);
+		op.init();
+		synchronized(players){
+			players.add(op);
+		}
 	}
 	
 	public void addLocalPlayer(byte playerId){
-		playerMonitor.addLocalPlayer(gc, bm, playerId);
+		LocalPlayer player = new LocalPlayer(gc, bm, playerId);
+		player.init();
+		synchronized(players){
+			players.add(player);
+		}
+		byte[] msg = {EventProtocol.OPPONENT_PLAYER_INIT};
+		bm.putArrayToServer(msg, playerId);
 	}
 	/**
 	 * Closes the connection held by the bytemonitorn.
