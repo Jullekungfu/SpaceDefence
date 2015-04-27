@@ -16,12 +16,14 @@ public abstract class Player {
 	protected ShapeFill shapeFill;
 	private float speed = 5;
 	protected byte id;
+	protected Gun gun;
 	
 	public void init(){
 		shape = new Rectangle(0, 0, 50, 50);
 		shapeFill = new GradientFill(0,0, new Color(255, 0, 0), 50, 50, new Color(0, 0, 255), true);
 		position = new Vector2f(50,300);
 		direction = new Vector2f(0,0);
+		gun = new Gun();
 	}
 	
 	public abstract void update(int delta);
@@ -35,6 +37,7 @@ public abstract class Player {
 	
 	public void render(Graphics graphics){
 		graphics.fill(shape, shapeFill);
+		gun.render(graphics);
 	}
 
 	protected void setDirection(Vector2f dir) {

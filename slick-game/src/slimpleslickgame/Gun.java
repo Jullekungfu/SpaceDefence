@@ -3,8 +3,11 @@
  */
 package slimpleslickgame;
 
+import java.util.LinkedList;
+
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.ShapeFill;
 import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.geom.Rectangle;
@@ -16,7 +19,7 @@ import org.newdawn.slick.geom.Shape;
  */
 public class Gun {
 
-	private ArrayList<Bullet> bullets;
+	private LinkedList<Bullet> bullets;
 	private Vector2f position;
 	private Shape shape;
 	private Vector2f direction;
@@ -29,25 +32,24 @@ public class Gun {
 		this.firerate = 1;
 		this.damage = 10;
 		this.level = 1;
-		bullets = new ArrayList<Bullet>();
+		bullets = new LinkedList<Bullet>();
 	}
 	
 	public void shoot(Vector2f fromPosition){
+		bullets.add(new Bullet(fromPosition));
 	}
 	
-	protected void updatePosition(){
-		if(position != null){
-			position.add(direction);
-			shape.setLocation(position);
+	public void render(Graphics graphics){
+		for(Bullet b: bullets){
+			b.render(graphics);
 		}
 	}
 	
-	
-	protected void setDirection(Vector2f dir) {
-		dir.normalise();
-		this.direction = dir.scale(speed);
+	public void update(int delta){
+		for(Bullet b: bullets){
+			b.update(delta);
+		}
 	}
-	
 	
 	/**
 	 * When upgrading weapon.
