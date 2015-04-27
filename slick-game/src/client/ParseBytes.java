@@ -1,5 +1,6 @@
 package client;
 
+import java.nio.ByteBuffer;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -89,12 +90,15 @@ public class ParseBytes extends Thread {
 		for (int i = 0; i < 4; i++) {
 			floatBytes[i] = byteQueue.poll();
 		}
+		return ByteBuffer.wrap(floatBytes).asFloatBuffer().get();
 
-		int asInt = (floatBytes[0] & 0xFF) | ((floatBytes[1] & 0xFF) << 8)
+		/*int asInt = (floatBytes[0] & 0xFF) | ((floatBytes[1] & 0xFF) << 8)
 				| ((floatBytes[2] & 0xFF) << 16)
 				| ((floatBytes[3] & 0xFF) << 24);
 		return Float.intBitsToFloat(asInt);
-
+		*/
+		
+		
 	}
 
 }
