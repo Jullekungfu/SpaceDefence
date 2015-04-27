@@ -5,6 +5,8 @@ import java.net.*;
 import java.nio.ByteBuffer;
 import java.util.Vector;
 
+import client.MessageWrapper;
+
 import util.EventProtocol;
 
 public class Server extends Thread {
@@ -62,15 +64,8 @@ class UpdateToClient extends Thread {
 			return;
 		}
 		clients.add(s);
-		byte[] msgLength = ByteBuffer.allocate(4).putInt(3).array(); 
-		byte[] idMessage = new byte[7];
-		idMessage[0] = msgLength[0];
-		idMessage[1] = msgLength[1];
-		idMessage[2] = msgLength[2];
-		idMessage[3] = msgLength[3];
-		idMessage[4] = EventProtocol.PLAYER_ID;
-		idMessage[5] = (byte) clients.size();
-		idMessage[6] = EventProtocol.LOCAL_PLAYER_INIT;
+		byte[] msg = { EventProtocol.LOCAL_PLAYER_INIT };
+		byte[] idMessage = MessageWrapper.wrapMessageToServer(msg, (byte) clients.size());
 		try {
 			sendMessage(idMessage, s.getOutputStream());
 			System.out.println("Client id sent: " + idMessage[1]);
