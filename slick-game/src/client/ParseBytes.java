@@ -54,7 +54,7 @@ public class ParseBytes extends Thread {
 						gsMonitor.addLocalPlayer(id);
 						break;
 					case EventProtocol.OPPONENT_PLAYER_INIT:
-						System.out.println(gsMonitor.addOpponentPlayer(id));
+						gsMonitor.addOpponentPlayer(id);
 						break;
 					case EventProtocol.PLAYER_POS:
 						float xpos = bytesToFloat(byteQueue);
@@ -67,15 +67,12 @@ public class ParseBytes extends Thread {
 						}
 						break;
 					case EventProtocol.PLAYER_DIR:
-						System.out.println("Parsing direction");
 						float xdir = bytesToFloat(byteQueue);
 						float ydir = bytesToFloat(byteQueue);
 						Vector2f dir = new Vector2f(xdir, ydir);
-						System.out.println(dir);
 						try {
 							event.putDirection(dir);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						break;
