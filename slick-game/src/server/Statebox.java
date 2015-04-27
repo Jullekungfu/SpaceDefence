@@ -46,7 +46,8 @@ public class Statebox{
 	}
 	
 	public synchronized Socket[] getClientSockets(){
-		return (Socket[]) clients.toArray();
+		Socket[] ss = new Socket[clients.size()];
+		return clients.toArray(ss);
 	}
 	
 	public synchronized boolean removeClientSocket(Socket s){
