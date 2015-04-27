@@ -67,6 +67,7 @@ public class ParseBytes extends Thread {
 						}
 						break;
 					case EventProtocol.PLAYER_DIR:
+						System.out.println("Parsing direction");
 						float xdir = bytesToFloat(byteQueue);
 						float ydir = bytesToFloat(byteQueue);
 						Vector2f dir = new Vector2f(xdir, ydir);
