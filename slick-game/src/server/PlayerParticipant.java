@@ -44,6 +44,6 @@ public class PlayerParticipant extends Thread {
 				e.printStackTrace();
 			}
 		}
-
+		stateBox.removeClientSocket(socket);
 	}
 }
