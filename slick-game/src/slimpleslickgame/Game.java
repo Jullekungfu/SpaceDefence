@@ -31,13 +31,15 @@ public class Game extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics g)
 			throws SlickException {
 		// TODO:render all stuff here
-		playerMonitor.render(gc, arg1, g);
+		if(playerMonitor != null)
+			playerMonitor.render(gc, arg1, g);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
-		playerMonitor.update(gc, arg1, delta);
+		if(playerMonitor != null)
+			playerMonitor.update(gc, arg1, delta);
 	}
 
 	@Override
