@@ -19,7 +19,7 @@ public class OpponentPlayer extends Player {
 			//System.out.println("Got position: " + e.getPosition());
 			super.position = e.getPosition();
 			if(e.getDirection() != null){
-				System.out.println("Gor direction");
+				System.out.println("Got direction");
 				super.direction = e.getDirection();
 			}
 			super.updatePosition();

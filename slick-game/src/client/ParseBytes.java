@@ -48,7 +48,7 @@ public class ParseBytes extends Thread {
 			event = new GameEvent(id);
 			
 			Byte b = null;
-			if ((b = byteQueue.poll()) != null) {
+			while ((b = byteQueue.poll()) != null) {
 				switch (b) {
 					case EventProtocol.LOCAL_PLAYER_INIT:
 						gsMonitor.addLocalPlayer(id);
@@ -71,6 +71,7 @@ public class ParseBytes extends Thread {
 						float xdir = bytesToFloat(byteQueue);
 						float ydir = bytesToFloat(byteQueue);
 						Vector2f dir = new Vector2f(xdir, ydir);
+						System.out.println(dir);
 						try {
 							event.putDirection(dir);
 						} catch (Exception e) {
