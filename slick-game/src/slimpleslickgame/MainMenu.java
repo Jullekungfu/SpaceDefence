@@ -52,6 +52,9 @@ public class MainMenu extends BasicGameState {
 		Input input = container.getInput();
         if(input.isKeyDown(Input.KEY_1)){
         	String port = JOptionPane.showInputDialog("Please enter port.");
+        	if(port.isEmpty()){
+        		port = "30000";
+        	}
         	ipport = "127.0.0.1:"+port;
         	initServer(port); 
         	inp = true;
