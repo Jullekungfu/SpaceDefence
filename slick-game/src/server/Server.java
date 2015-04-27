@@ -23,7 +23,6 @@ public class Server extends Thread {
 		try {
 			ss = new ServerSocket(port);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -36,7 +35,6 @@ public class Server extends Thread {
 		while (true) {
 			try {
 				connection = ss.accept();
-				System.out.println("Client connected.");
 				new PlayerParticipant(connection, mb).start();
 				rt.addSocket(connection);
 			} catch (IOException ioe) {
@@ -68,7 +66,6 @@ class UpdateToClient extends Thread {
 		byte[] idMessage = MessageWrapper.wrapMessageToServer(msg, (byte) statebox.getCurrentClients());
 		try {
 			sendMessage(idMessage, s.getOutputStream());
-			System.out.println("Client id sent: " + idMessage[1]);
 		} catch (IOException e) {e.printStackTrace();}
 	}
 
