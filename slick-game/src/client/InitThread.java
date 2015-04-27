@@ -16,10 +16,10 @@ public class InitThread extends Thread {
 	
 	public void run(){
 		byteMonitor = new ByteMonitor(ipport);
-		byteMonitor.initConnection();
 		gameStatsMonitor = new GameStatsEvents(game);
 		parseBytes = new ParseBytes(gameStatsMonitor, byteMonitor);
 		game.addGSM(gameStatsMonitor, byteMonitor);
 		parseBytes.start();
+		byteMonitor.initConnection();
 	}
 }
