@@ -98,7 +98,7 @@ public class ByteMonitor {
 		temp[5] = EventProtocol.PLAYER_ID;
 		temp[6] = id;
 		for(int i = 0; i < msg.length; i++){
-			temp[i+7] = msg[i];
+			temp[i+6] = msg[i];
 		}
 		toServer.add(temp);
 		notifyAll();
