@@ -2,7 +2,6 @@ package server;
 
 import java.io.*;
 import java.net.*;
-import java.util.Vector;
 
 import client.MessageWrapper;
 
@@ -50,21 +49,23 @@ public class Server extends Thread {
 class UpdateToClient extends Thread {
 	private Statebox statebox;
 	private byte[] msg;
-	private Vector<Socket> clients;
 
 	public UpdateToClient(Statebox statebox) {
 		this.statebox = statebox;
-		this.clients = new Vector<Socket>();
 	}
 
 	public void addSocket(Socket s) {
-		if(clients.size() >= 4){
-			try {s.close();} catch (IOException e) {e.printStackTrace();}
+		if(statebox.getCurrentClients() >= 4){
+			try {
+				s.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			return;
 		}
-		clients.add(s);
+		statebox.addClient(s);
 		byte[] msg = { EventProtocol.LOCAL_PLAYER_INIT };
-		byte[] idMessage = MessageWrapper.wrapMessageToServer(msg, (byte) clients.size());
+		byte[] idMessage = MessageWrapper.wrapMessageToServer(msg, (byte) statebox.getCurrentClients());
 		try {
 			sendMessage(idMessage, s.getOutputStream());
 			System.out.println("Client id sent: " + idMessage[1]);
@@ -81,7 +82,7 @@ class UpdateToClient extends Thread {
 		while (true) {
 			msg = this.statebox.readMessage();
 
-			for (Socket s : clients) {
+			for (Socket s : statebox.getClientSockets()) {
 				try {
 					sendMessage(msg, s.getOutputStream());
 				} catch (IOException ioe) {
