@@ -13,7 +13,11 @@ public class GameEvent {
 	}
 
 	public void putPosition(Vector2f pos) throws Exception {
+		if(this.pos == null){
 			this.pos = pos;
+		}else{
+			throw new Exception("Position already set");
+		}
 	}
 
 	public void putDirection(Vector2f dir) throws Exception {

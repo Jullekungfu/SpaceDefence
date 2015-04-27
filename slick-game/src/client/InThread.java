@@ -39,7 +39,7 @@ public class InThread extends Thread {
 					toRead -= read;
 					offset += read;
 				}
-				if(read > 0){
+				if(read >= 0){
 					monitor.putArrayFromServer(msg);
 				}else{
 					break;
