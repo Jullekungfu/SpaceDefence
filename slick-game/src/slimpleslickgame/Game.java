@@ -35,6 +35,7 @@ public class Game extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics g)
 			throws SlickException {
 		// TODO:render all stuff here
+
 		for(Player p : players){
 			p.render(g);
 		}
@@ -43,8 +44,8 @@ public class Game extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
-		Player player = playerMonitor.getPlayer();
-		if(player != null){
+		Player player = null;
+		if(playerMonitor != null&&(player = playerMonitor.getPlayer()) != null){
 			players.add(player);
 		}
 		for(Player p : players){
