@@ -18,6 +18,7 @@ public class ByteMonitor {
 	private String ipport;
 	private InThread inThread;
 	private OutThread outThread;
+	private boolean started = false;
 
 	/**
 	 * Init monitor
@@ -51,6 +52,8 @@ public class ByteMonitor {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		started = true;
+		notifyAll();
 		return socket.isConnected();
 	}
 
@@ -129,7 +132,14 @@ public class ByteMonitor {
 	 * Returns if the socket is open or not.
 	 * @return
 	 */
-	public boolean isOpen(){
+	public synchronized boolean isOpen(){
+		while(!started){
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		return !socket.isClosed();
 	}
 }
