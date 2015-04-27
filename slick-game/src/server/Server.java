@@ -62,7 +62,7 @@ class UpdateToClient extends Thread {
 			return;
 		}
 		clients.add(s);
-		byte[] msgLength = ByteBuffer.allocate(4).putInt(7).array(); 
+		byte[] msgLength = ByteBuffer.allocate(4).putInt(3).array(); 
 		byte[] idMessage = new byte[7];
 		idMessage[0] = msgLength[0];
 		idMessage[1] = msgLength[1];

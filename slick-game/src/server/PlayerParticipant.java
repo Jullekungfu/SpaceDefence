@@ -2,11 +2,13 @@ package server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 
 public class PlayerParticipant extends Thread {
-	private BufferedReader br;
+	private InputStream input;
 	private Socket socket;
 	private Statebox stateBox;
 
@@ -14,7 +16,7 @@ public class PlayerParticipant extends Thread {
 		try {
 			this.socket = socket;
 			this.stateBox = stateBox;
-			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			input = socket.getInputStream();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -24,17 +26,26 @@ public class PlayerParticipant extends Thread {
 	public void run() {
 		while(!socket.isClosed()){
 			try {
-				String message = "";
-				while ((message = br.readLine()) != null) {
-					stateBox.writeMessage(message.getBytes());
+				byte[] intBytes = new byte[4];
+				for(int i = 0; i < 4; i++){
+					intBytes[i] = (byte) input.read();
 				}
-				socket.shutdownInput();
-				socket.shutdownOutput();
-				socket.close();
+				int msgLen = ByteBuffer.wrap(intBytes).getInt();
+				
+				byte[] msg = new byte[msgLen+4];
+				for(int i = 0; i < 4; i++){
+					msg[i] = intBytes[i];
+				}
+				
+				for(int i = 4; i < msg.length; i++){
+					msg[i] = (byte) input.read();
+				}
+				stateBox.writeMessage(msg);
 	
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+
 	}
 }
