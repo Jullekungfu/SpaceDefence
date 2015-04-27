@@ -2,6 +2,7 @@ package slimpleslickgame;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Application extends StateBasedGame {
@@ -30,5 +31,12 @@ public class Application extends StateBasedGame {
         this.addState(new MainMenu());
         this.addState(new Game());
 	}
+	
+	@Override
+    public boolean closeRequested(){
+		GameState currGS = this.getCurrentState();
+		System.exit(0); 
+		return false;
+    }
 	
 }
