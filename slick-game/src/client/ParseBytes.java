@@ -45,7 +45,7 @@ public class ParseBytes extends Thread {
 			}
 				
 			byte id = byteQueue.poll();
-			event = new GameEvent(id);
+			event = new GameEvent();
 			
 			Byte b = null;
 			while ((b = byteQueue.poll()) != null) {

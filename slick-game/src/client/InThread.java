@@ -3,7 +3,6 @@ package client;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
-import java.net.SocketException;
 import java.nio.ByteBuffer;
 /**
  * Reads server input and forwards it to ByteMonitor
