@@ -38,10 +38,19 @@ public abstract class Player {
 	
 	public abstract void update(int delta, Shape containerShape);
 	
-	protected void updatePosition(){
+	protected void updatePosition(Shape containerShape){
 		if(position != null){
 			position.add(direction);
 			shape.setLocation(position);
+			if(shape.intersects(containerShape)){
+				if(direction.x < 0){
+					position.set(containerShape.getX(), position.y);
+				}else if(direction.x > 0){
+					position.set(containerShape.getMaxX()-WIDTH, position.y);
+				}
+				
+				shape.setLocation(position);
+			}
 		}
 	}
 	
