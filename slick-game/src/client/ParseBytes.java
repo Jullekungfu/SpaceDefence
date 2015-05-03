@@ -103,6 +103,29 @@ public class ParseBytes extends Thread {
 					event.setDead();
 					break;
 				}
+				case EventProtocol.BULLET_INIT: {
+					byteQueue.poll();// get rid of CREEP_ID byte
+					byte bulletId = byteQueue.poll();
+					byteQueue.poll();// get rid of CREEP_POS byte
+					float xpos = bytesToFloat(byteQueue);
+					float ypos = bytesToFloat(byteQueue);
+					Vector2f pos = new Vector2f(xpos, ypos);
+					event = new GameEvent(GameRole.BULLET, bulletId);
+					try {
+						event.putPosition(pos);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					break;
+				}
+				case EventProtocol.BULLET_DIED: {
+					byte bulletId = byteQueue.poll();
+					event = new GameEvent(GameRole.BULLET, bulletId);
+					event.setDead();
+					break;
+				}
 				}
 			}
 			gsMonitor.put(id, event);
