@@ -35,7 +35,7 @@ public class LocalPlayer extends Player{
 		time++;
 		if(processInput(gc.getInput())){
 			if(bm != null){
-				byte[] bytes = MessageWrapper.appendByteArray(MessageWrapper.getPositionBytes(super.position), MessageWrapper.getDirectionBytes(super.direction));
+				byte[] bytes = MessageWrapper.appendByteArray(MessageWrapper.getPlayerPositionBytes(super.position), MessageWrapper.getPlayerDirectionBytes(super.direction));
 				bm.putArrayToServer(bytes, id);
 			}
 			super.updatePosition(containerShape);
@@ -43,11 +43,10 @@ public class LocalPlayer extends Player{
 
 		if(time % 60 == 0){
 			Vector2f initPos = new Vector2f(super.position.x, 0);
-			Creep c = new Creep(initPos);
-			super.creeps.put(creepID, c);
-			creepID++;
-			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_INIT, EventProtocol.CREEP_ID, (byte) creepID, EventProtocol.CREEP_POS}, MessageWrapper.getPositionBytes(initPos));
+			super.creeps.put(creepID, new Creep(initPos));
+			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_INIT, EventProtocol.CREEP_ID, (byte) creepID, EventProtocol.CREEP_POS}, MessageWrapper.getVector2fBytes(initPos));
 			bm.putArrayToServer(bytes, super.id);
+			creepID++;
 		}
 		for(Creep c : super.creeps.values()){
 			c.update(delta);

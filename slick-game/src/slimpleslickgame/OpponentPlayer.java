@@ -8,24 +8,38 @@ import client.GameStatsEvents;
 public class OpponentPlayer extends Player {
 
 	private GameStatsEvents gse;
-	
-	public OpponentPlayer(GameStatsEvents gse, byte id){
+
+	public OpponentPlayer(GameStatsEvents gse, byte id) {
 		this.gse = gse;
 		super.id = id;
 	}
-	
+
 	@Override
 	public void update(int delta, Shape containerShape) {
 		GameEvent e;
-		while((e = gse.pop(id)) != null){
-			if(e.getPosition() != null)
-				super.position = e.getPosition();
-			
-			if(e.getDirection() != null){
-				//super.direction = e.getDirection();
+		while ((e = gse.pop(id)) != null) {
+			switch (e.getRole()) {
+			case CREEP: {
+				super.creeps.put((int) e.getId(), new Creep(e.getPosition()));
+				System.out.println(e.getPosition().x);
+				break;
+			}
+			case PLAYER: {
+				if (e.getPosition() != null)
+					super.position = e.getPosition();
+
+				if (e.getDirection() != null) {
+					// super.direction = e.getDirection();
+				}
+				super.updatePosition(containerShape);
+				break;
+			}
 			}
 		}
-		super.updatePosition(containerShape);
+		for(Creep c : super.creeps.values()){
+			c.update(delta);
+		}
+
 	}
 
 }

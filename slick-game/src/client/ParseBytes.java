@@ -85,7 +85,14 @@ public class ParseBytes extends Thread {
 					byteQueue.poll();// get rid of CREEP_POS byte
 					float xpos = bytesToFloat(byteQueue);
 					float ypos = bytesToFloat(byteQueue);
-					gsMonitor.addCreep(id, creepId, xpos, ypos);
+					Vector2f pos = new Vector2f(xpos, ypos);
+					gsMonitor.addCreep(id, creepId, pos);
+					break;
+				}
+				case EventProtocol.CREEP_POS: {
+					byteQueue.poll();// get rid of CREEP_POS byte
+					float xpos = bytesToFloat(byteQueue);
+					float ypos = bytesToFloat(byteQueue);
 					break;
 				}
 				}
