@@ -31,7 +31,7 @@ public class OpponentPlayer extends Player {
 				if (e.getDirection() != null) {
 					// super.direction = e.getDirection();
 				}
-				super.updatePosition();
+				super.updatePosition(containerShape);
 				break;
 			}
 			}

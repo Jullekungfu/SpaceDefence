@@ -4,7 +4,7 @@
 package slimpleslickgame;
 
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Path;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -14,10 +14,15 @@ import org.newdawn.slick.geom.Vector2f;
  */
 public class Board {
 
-	private Shape shape;
+	private Path shape;
 	
 	public Board(Vector2f pos, Vector2f size){
-		shape = new Rectangle(pos.x, pos.y, size.x, size.y);
+		//shape = new Rectangle(pos.x, pos.y, size.x, size.y);
+		shape = new Path(pos.x, pos.y);
+		shape.lineTo(pos.x, pos.y + size.y);
+		shape.lineTo(pos.x + size.x, pos.y + size.y);
+		shape.lineTo(pos.x + size.x, pos.y);
+		shape.lineTo(pos.x, pos.y);
 	}
 	
 	public void render(Graphics graphics){

@@ -38,7 +38,7 @@ public class LocalPlayer extends Player{
 				byte[] bytes = MessageWrapper.appendByteArray(MessageWrapper.getPlayerPositionBytes(super.position), MessageWrapper.getPlayerDirectionBytes(super.direction));
 				bm.putArrayToServer(bytes, id);
 			}
-			super.updatePosition();
+			super.updatePosition(containerShape);
 		}
 
 		if(time % 60 == 0){
