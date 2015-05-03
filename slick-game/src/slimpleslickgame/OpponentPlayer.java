@@ -22,7 +22,7 @@ public class OpponentPlayer extends Player {
 			case CREEP: {
 				if(!e.isDead()){
 					super.creeps.put((int) e.getId(), new Creep(e.getPosition()));
-					System.out.println(e.getPosition().x);
+//					System.out.println(e.getPosition().x);
 				} else {
 					super.creeps.remove(e.getId());
 				}
