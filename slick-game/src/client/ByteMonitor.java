@@ -36,7 +36,7 @@ public class ByteMonitor {
 	 * 
 	 * @return success
 	 */
-	public boolean initConnection() {
+	public synchronized boolean initConnection() {
 		int split = ipport.indexOf(':');
 		String ip = ipport.substring(0, split);
 		int port = Integer.parseInt(ipport.substring(split + 1));

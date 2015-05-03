@@ -12,10 +12,14 @@ public class LocalPlayer extends Player{
 
 	private GameContainer gc;
 	private ByteMonitor bm;
+	private int time;
+	private int creepID;
 	
 	public LocalPlayer(GameContainer gc, ByteMonitor bm, byte id){
 		this.gc = gc;
 		this.bm = bm;
+		time = 0;
+		creepID = 1;
 		super.id = id;
 	}
 	
@@ -27,12 +31,24 @@ public class LocalPlayer extends Player{
 	}
 
 	public void update(int delta) {
+		time++;
 		if(processInput(gc.getInput())){
 			if(bm != null){
 				byte[] bytes = MessageWrapper.appendByteArray(MessageWrapper.getPositionBytes(super.position), MessageWrapper.getDirectionBytes(super.direction));
 				bm.putArrayToServer(bytes, id);
 			}
 			super.updatePosition();
+		}
+
+		if(time % 60 == 0){
+			Vector2f initPos = new Vector2f(super.position.x, 0);
+			Creep c = new Creep(initPos);
+			super.creeps.put(creepID, c);
+			creepID++;
+			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.PLAYER_ID, super.id, EventProtocol.CREEP_INIT, EventProtocol.CREEP_ID, (byte) creepID}, MessageWrapper.getPositionBytes(initPos));
+		}
+		for(Creep c : super.creeps.values()){
+			c.update(delta);
 		}
 		gun.update(delta);
 	}
