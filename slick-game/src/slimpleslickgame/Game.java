@@ -9,7 +9,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import util.EventProtocol;
 import client.ByteMonitor;
 import client.GameStatsEvents;
 

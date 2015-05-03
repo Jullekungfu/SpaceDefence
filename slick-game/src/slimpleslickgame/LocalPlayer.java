@@ -45,7 +45,8 @@ public class LocalPlayer extends Player{
 			Creep c = new Creep(initPos);
 			super.creeps.put(creepID, c);
 			creepID++;
-			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.PLAYER_ID, super.id, EventProtocol.CREEP_INIT, EventProtocol.CREEP_ID, (byte) creepID, EventProtocol.CREEP_POS}, MessageWrapper.getPositionBytes(initPos));
+			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_INIT, EventProtocol.CREEP_ID, (byte) creepID, EventProtocol.CREEP_POS}, MessageWrapper.getPositionBytes(initPos));
+			bm.putArrayToServer(bytes, super.id);
 		}
 		for(Creep c : super.creeps.values()){
 			c.update(delta);
