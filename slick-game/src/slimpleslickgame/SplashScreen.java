@@ -14,6 +14,7 @@ import client.Client;
 public class SplashScreen extends BasicGameState {
 
 	public static final int ID = 0;
+	private static final int DELAY = 500;
 	private int time;
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
@@ -31,7 +32,7 @@ public class SplashScreen extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		time += delta;
-		if(time > 3000){
+		if(time > DELAY){
 			game.enterState(MainMenu.ID, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
 		}
 	}
