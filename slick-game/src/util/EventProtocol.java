@@ -26,4 +26,5 @@ public abstract class EventProtocol {
 	public static final byte BULLET_INIT = 0x30;
 	public static final byte BULLET_ID = 0x31;
 	public static final byte BULLET_POS = 0x32;
+	public static final byte BULLET_DIED = 0x33;
 }
