@@ -8,6 +8,7 @@ import java.nio.ByteBuffer;
 import org.newdawn.slick.geom.Vector2f;
 
 import util.EventProtocol;
+import util.Logger;
 
 /**
  * @author nille
@@ -73,7 +74,7 @@ public class MessageWrapper {
 	 * @return
 	 */
 	private static byte[] floatToByte(float f) {
-		//System.out.println(ByteBuffer.allocate(4).putFloat(f).array());
+		//Logger.log(ByteBuffer.allocate(4).putFloat(f).array());
 		return ByteBuffer.allocate(4).putFloat(f).array();
 	}
 	

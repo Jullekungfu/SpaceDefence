@@ -5,6 +5,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
 
+import util.Logger;
+
 /**
  * Stores byte arrays sent from client/server
  * 
@@ -41,7 +43,7 @@ public class ByteMonitor {
 		String ip = ipport.substring(0, split);
 		int port = Integer.parseInt(ipport.substring(split + 1));
 		try {
-			System.out.println("connecting to " + ip);
+			Logger.log("connecting to " + ip);
 			socket = new Socket(ip, port);
 			outThread = new OutThread(this, socket);
 			inThread = new InThread(this, socket);
@@ -82,7 +84,7 @@ public class ByteMonitor {
 		}
 		byte[] tmp = fromServer.poll();
 
-		//System.out.println("Recieved msg from Server: " + tmp[0]);
+		//Logger.log("Recieved msg from Server: " + tmp[0]);
 
 		notifyAll();
 		return tmp;
@@ -122,7 +124,7 @@ public class ByteMonitor {
 	public void closeConnection() {
 		try {
 			this.socket.close();
-			System.out.println("ByteMonitor - Closing connection");
+			Logger.log("ByteMonitor - Closing connection");
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}

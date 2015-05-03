@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import util.Logger;
+
 
 /**
  * @author nille
@@ -27,7 +29,7 @@ public class OutThread extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Outthread created.");
+		Logger.log("Outthread created.");
 	}
 	
 	public void run(){

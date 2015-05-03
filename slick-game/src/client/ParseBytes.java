@@ -8,6 +8,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 import util.EventProtocol;
 import util.GameRole;
+import util.Logger;
 
 /**
  * Thread to parse bytes to gamestats
@@ -30,18 +31,20 @@ public class ParseBytes extends Thread {
 		GameEvent event;
 		while (bMonitor.isOpen()) {
 			byte[] byteArray = bMonitor.readArrayFromServer();
-//			System.out.println("polled new msg:");
+//			Logger.log("polled new msg:");
+//			StringBuilder msg = new StringBuilder();
 //			for (byte b : byteArray) {
-//				System.out.print(" " + b);
+//				msg.append(" " + b);
 //			}
-//			System.out.println();
+//			Logger.log(msg.toString());
+			
 			Queue<Byte> byteQueue = new LinkedList<Byte>();
 			for (Byte b : byteArray) {
 				byteQueue.add(b);
 			}
 			byte p = byteQueue.poll();
 			if (p != EventProtocol.PLAYER_ID) {
-				System.err.println("ERROR IN PROTOCOL, recieved:" + p
+				Logger.log("ERROR IN PROTOCOL, recieved:" + p
 						+ " excpected:" + EventProtocol.PLAYER_ID);
 				continue;
 			}

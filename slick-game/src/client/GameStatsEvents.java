@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentMap;
 import org.newdawn.slick.geom.Vector2f;
 import slimpleslickgame.Game;
 import util.GameRole;
+import util.Logger;
 
 /**
  * Contains events for all players currently in game.
@@ -46,7 +47,7 @@ public class GameStatsEvents {
 	
 	public boolean addOpponentPlayer(byte id){
 		if(!events.containsKey(id)){
-			//System.out.println("added player " + id);
+			//Logger.log("added player " + id);
 			events.put(id, new LinkedList<GameEvent>());
 			game.addOpponentPlayer(id);
 			return true;

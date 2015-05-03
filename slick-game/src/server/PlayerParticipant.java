@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
+import util.Logger;
+
 public class PlayerParticipant extends Thread {
 	private InputStream input;
 	private Socket socket;
@@ -41,7 +43,7 @@ public class PlayerParticipant extends Thread {
 				stateBox.writeMessage(msg);
 	
 			} catch(ArrayIndexOutOfBoundsException aioobe){
-				System.err.println("Message not complete.");
+				Logger.log("Message not complete.");
 				closeConnection();
 			} catch (IOException e) {
 				e.printStackTrace();
