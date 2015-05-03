@@ -15,7 +15,7 @@ public class Creep {
 	private Vector2f direction;
 	private Shape shape;
 	private ShapeFill shapeFill;
-	private float speed = 5;
+	private float speed = 50;
 	
 	public Creep(Vector2f initPos){
 		hp = 100;
