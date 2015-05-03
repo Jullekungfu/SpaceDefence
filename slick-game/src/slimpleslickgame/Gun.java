@@ -5,13 +5,9 @@ package slimpleslickgame;
 
 import java.util.LinkedList;
 
-import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.ShapeFill;
-import org.newdawn.slick.fills.GradientFill;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.Vector2f;
 
 /**
  * @author nille
