@@ -14,8 +14,8 @@ public class OpponentPlayer extends Player {
 	
 	@Override
 	public void update(int delta) {
-		GameEvent e = gse.pop(id);
-		if(e != null){
+		GameEvent e;
+		while((e = gse.pop(id)) != null){
 			if(e.getPosition() != null)
 				super.position = e.getPosition();
 			
