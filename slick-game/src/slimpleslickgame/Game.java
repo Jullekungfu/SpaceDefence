@@ -61,23 +61,21 @@ public class Game extends BasicGameState {
 		return ID;
 	}
 
-	public void addPlayer(byte playerId) {
-		OpponentPlayer op = new OpponentPlayer(this.gse, playerId);
-		op.init();
-		synchronized(players){
-			players.add(op);
-		}
+	public void addOpponentPlayer(byte playerId) {
+		addPlayer(new OpponentPlayer(this.gse, playerId));
 	}
 	
 	public void addLocalPlayer(byte playerId){
-		LocalPlayer player = new LocalPlayer(gc, bm, playerId);
+		addPlayer(new LocalPlayer(gc, bm, playerId));
+	}
+	
+	private void addPlayer(Player player){
 		player.init();
 		synchronized(players){
 			players.add(player);
 		}
-		byte[] msg = {EventProtocol.OPPONENT_PLAYER_INIT};
-		bm.putArrayToServer(msg, playerId);
 	}
+	
 	/**
 	 * Closes the connection held by the bytemonitorn.
 	 */

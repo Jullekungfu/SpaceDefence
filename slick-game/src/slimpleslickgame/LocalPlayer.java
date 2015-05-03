@@ -4,6 +4,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 
+import util.EventProtocol;
 import client.ByteMonitor;
 import client.MessageWrapper;
 
@@ -18,6 +19,13 @@ public class LocalPlayer extends Player{
 		super.id = id;
 	}
 	
+	@Override
+	public void init() {
+		super.init();
+		byte[] msg = {EventProtocol.OPPONENT_PLAYER_INIT};
+		bm.putArrayToServer(msg, super.id);
+	}
+
 	public void update(int delta) {
 		if(processInput(gc.getInput())){
 			if(bm != null){
