@@ -3,11 +3,15 @@
  */
 package slimpleslickgame;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
+
+import util.EventProtocol;
+import client.MessageWrapper;
 
 /**
  * @author nille
@@ -15,7 +19,8 @@ import org.newdawn.slick.geom.Vector2f;
  */
 public class Gun {
 
-	private LinkedList<Bullet> bullets;
+	private HashMap<Integer, Bullet> bullets;
+	private int bulletID;
 	private Vector2f position;
 	private Shape shape;
 	private Vector2f direction;
@@ -28,23 +33,29 @@ public class Gun {
 		this.firerate = 1;
 		this.damage = 10;
 		this.level = 1;
-		bullets = new LinkedList<Bullet>();
+		bullets = new HashMap<Integer, Bullet>();
+		bulletID = 0;
 	}
 	
 	public void shoot(Vector2f fromPosition){
-		bullets.add(new Bullet(fromPosition));
+		bullets.put(bulletID, new Bullet(fromPosition));
+		bulletID++;
 	}
 	
 	public void render(Graphics graphics){
-		for(Bullet b: bullets){
+		for(Bullet b: bullets.values()){
 			b.render(graphics);
 		}
 	}
 	
 	public void update(int delta){
-		for(Bullet b: bullets){
+		for(Bullet b: bullets.values()){
 			b.update(delta);
 		}
+	}
+	
+	public int getbulletID(){
+		return bulletID;
 	}
 	
 	/**
