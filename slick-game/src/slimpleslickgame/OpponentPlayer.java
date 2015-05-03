@@ -20,8 +20,12 @@ public class OpponentPlayer extends Player {
 		while ((e = gse.pop(id)) != null) {
 			switch (e.getRole()) {
 			case CREEP: {
-				super.creeps.put((int) e.getId(), new Creep(e.getPosition()));
-				System.out.println(e.getPosition().x);
+				if(!e.isDead()){
+					super.creeps.put((int) e.getId(), new Creep(e.getPosition()));
+					System.out.println(e.getPosition().x);
+				} else {
+					super.creeps.remove(e.getId());
+				}
 				break;
 			}
 			case PLAYER: {
@@ -33,6 +37,8 @@ public class OpponentPlayer extends Player {
 				}
 				super.updatePosition(containerShape);
 				break;
+			} case BULLET: {
+				
 			}
 			}
 		}
