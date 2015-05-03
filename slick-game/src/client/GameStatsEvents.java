@@ -46,7 +46,7 @@ public class GameStatsEvents {
 	
 	public boolean addOpponentPlayer(byte id){
 		if(!events.containsKey(id)){
-			System.out.println("added player " + id);
+			//System.out.println("added player " + id);
 			events.put(id, new LinkedList<GameEvent>());
 			game.addOpponentPlayer(id);
 			return true;
@@ -68,7 +68,7 @@ public class GameStatsEvents {
 	
 	public boolean addCreep(byte playerId, byte creepId, Vector2f pos) {
 		if(events.containsKey(playerId)){
-			System.out.println("added creep" + creepId);
+			//System.out.println("added creep" + creepId);
 			GameEvent event = new GameEvent(GameRole.CREEP, creepId);
 			try {
 				event.putPosition(pos);
