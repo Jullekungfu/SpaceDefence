@@ -64,6 +64,13 @@ public class GameStatsEvents {
 		return false;
 	}
 	
-	
+//	public boolean addCreep(byte playerId, byte creepId, float posX, float posY) {
+//		if(events.containsKey(playerId)){
+//			System.out.println("added creep" + creepId);
+//			events.get(playerId).add(e)
+//			return true;
+//		}
+//		return false;
+//	}
 
 }

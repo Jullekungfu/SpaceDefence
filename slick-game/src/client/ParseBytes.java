@@ -30,8 +30,8 @@ public class ParseBytes extends Thread {
 		while (bMonitor.isOpen()) {
 			byte[] byteArray = bMonitor.readArrayFromServer();
 			System.out.println("polled new msg:");
-			for(byte b : byteArray){
-				System.out.print(" "+b);
+			for (byte b : byteArray) {
+				System.out.print(" " + b);
 			}
 			System.out.println();
 			Queue<Byte> byteQueue = new LinkedList<Byte>();
@@ -39,44 +39,55 @@ public class ParseBytes extends Thread {
 				byteQueue.add(b);
 			}
 			byte p = byteQueue.poll();
-			if(p != EventProtocol.PLAYER_ID){
-				System.err.println("ERROR IN PROTOCOL, recieved:" + p + " excpected:" + EventProtocol.PLAYER_ID);
+			if (p != EventProtocol.PLAYER_ID) {
+				System.err.println("ERROR IN PROTOCOL, recieved:" + p
+						+ " excpected:" + EventProtocol.PLAYER_ID);
 				continue;
 			}
-				
+
 			byte id = byteQueue.poll();
 			event = new GameEvent();
-			
+
 			Byte b = null;
 			while ((b = byteQueue.poll()) != null) {
 				switch (b) {
-					case EventProtocol.LOCAL_PLAYER_INIT:
-						gsMonitor.addLocalPlayer(id);
-						break;
-					case EventProtocol.OPPONENT_PLAYER_INIT:
-						gsMonitor.addOpponentPlayer(id);
-						break;
-					case EventProtocol.PLAYER_POS:
-						float xpos = bytesToFloat(byteQueue);
-						float ypos = bytesToFloat(byteQueue);
-						Vector2f pos = new Vector2f(xpos, ypos);
-						try {
-							event.putPosition(pos);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-						break;
-					case EventProtocol.PLAYER_DIR:
-						float xdir = bytesToFloat(byteQueue);
-						float ydir = bytesToFloat(byteQueue);
-						Vector2f dir = new Vector2f(xdir, ydir);
-						try {
-							event.putDirection(dir);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-						break;
-
+				case EventProtocol.LOCAL_PLAYER_INIT:
+					gsMonitor.addLocalPlayer(id);
+					break;
+				case EventProtocol.OPPONENT_PLAYER_INIT:
+					gsMonitor.addOpponentPlayer(id);
+					break;
+				case EventProtocol.PLAYER_POS: {
+					float xpos = bytesToFloat(byteQueue);
+					float ypos = bytesToFloat(byteQueue);
+					Vector2f pos = new Vector2f(xpos, ypos);
+					try {
+						event.putPosition(pos);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					break;
+				}
+				case EventProtocol.PLAYER_DIR: {
+					float xdir = bytesToFloat(byteQueue);
+					float ydir = bytesToFloat(byteQueue);
+					Vector2f dir = new Vector2f(xdir, ydir);
+					try {
+						event.putDirection(dir);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					break;
+				}
+				case EventProtocol.CREEP_INIT: {
+					byteQueue.poll();// get rid of CREEP_ID byte
+					byte creepId = byteQueue.poll();
+					byteQueue.poll();// get rid of CREEP_POS byte
+					float xpos = bytesToFloat(byteQueue);
+					float ypos = bytesToFloat(byteQueue);
+					gsMonitor.addCreep(id, creepId, xpos, ypos);
+					break;
+				}
 				}
 			}
 			gsMonitor.put(id, event);
