@@ -41,7 +41,7 @@ public class MessageWrapper {
 	 * @param pos
 	 * @return
 	 */
-	public static byte[] getPositionBytes(Vector2f pos){
+	public static byte[] getPlayerPositionBytes(Vector2f pos){
 		byte[] posi = new byte[1];
 		posi[0] = EventProtocol.PLAYER_POS;
 
@@ -53,14 +53,14 @@ public class MessageWrapper {
 	 * @param pos
 	 * @return
 	 */
-	public static byte[] getDirectionBytes(Vector2f pos){
+	public static byte[] getPlayerDirectionBytes(Vector2f pos){
 		byte[] posi = new byte[1];
 		posi[0] = EventProtocol.PLAYER_DIR;
 		
 		return appendByteArray(posi, getVector2fBytes(pos));
 	}
 	
-	private static byte[] getVector2fBytes(Vector2f vec){
+	public static byte[] getVector2fBytes(Vector2f vec){
 		byte[] x = floatToByte(vec.x);
 		byte[] y = floatToByte(vec.y);
 		

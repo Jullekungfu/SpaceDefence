@@ -21,6 +21,7 @@ public class OpponentPlayer extends Player {
 			switch (e.getRole()) {
 			case CREEP: {
 				super.creeps.put((int) e.getId(), new Creep(e.getPosition()));
+				System.out.println(e.getPosition().x);
 				break;
 			}
 			case PLAYER: {
