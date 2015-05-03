@@ -82,7 +82,7 @@ public class ByteMonitor {
 		}
 		byte[] tmp = fromServer.poll();
 
-		System.out.println("Recieved msg from Server: " + tmp[0]);
+		//System.out.println("Recieved msg from Server: " + tmp[0]);
 
 		notifyAll();
 		return tmp;

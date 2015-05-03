@@ -47,6 +47,7 @@ public class GameEvent {
 		return role;
 	}
 	
+	//Only for Role CREEP and BULLET
 	public byte getId(){
 		return id;
 	}

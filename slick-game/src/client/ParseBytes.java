@@ -29,11 +29,11 @@ public class ParseBytes extends Thread {
 		GameEvent event;
 		while (bMonitor.isOpen()) {
 			byte[] byteArray = bMonitor.readArrayFromServer();
-			System.out.println("polled new msg:");
-			for (byte b : byteArray) {
-				System.out.print(" " + b);
-			}
-			System.out.println();
+//			System.out.println("polled new msg:");
+//			for (byte b : byteArray) {
+//				System.out.print(" " + b);
+//			}
+//			System.out.println();
 			Queue<Byte> byteQueue = new LinkedList<Byte>();
 			for (Byte b : byteArray) {
 				byteQueue.add(b);
