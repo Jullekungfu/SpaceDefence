@@ -23,6 +23,13 @@ public class LocalPlayer extends Player{
 		super.id = id;
 	}
 	
+	@Override
+	public void init() {
+		super.init();
+		byte[] msg = {EventProtocol.OPPONENT_PLAYER_INIT};
+		bm.putArrayToServer(msg, super.id);
+	}
+
 	public void update(int delta) {
 		time++;
 		if(processInput(gc.getInput())){

@@ -23,5 +23,11 @@ public class Board {
 	public void render(Graphics graphics){
 		graphics.draw(shape);
 	}
+
+	public Vector2f getPlayerInitPos() {
+		float x = shape.getCenterX();
+		float y = shape.getMaxY() - 100;
+		return new Vector2f(x, y);
+	}
 	
 }

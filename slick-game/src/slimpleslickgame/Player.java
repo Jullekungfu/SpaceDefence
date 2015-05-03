@@ -19,16 +19,17 @@ public abstract class Player {
 	private float speed = 5;
 	protected byte id;
 	protected Gun gun;
+	protected boolean started;
+	private Vector2f moveTo;
 	protected HashMap<Integer, Creep> creeps;
-	private boolean isMoving;
 	
 	public void init(){
 		shape = new Rectangle(0, 0, 50, 50);
 		shapeFill = new GradientFill(0,0, new Color(255, 0, 0), 50, 50, new Color(0, 0, 255), true);
 		position = new Vector2f(50,300);
 		direction = new Vector2f(0,0);
-		isMoving = false;
 		gun = new Gun();
+		moveTo = null;
 		creeps = new HashMap<Integer, Creep>();
 	}
 	
@@ -55,8 +56,8 @@ public abstract class Player {
 	}
 	
 	public void moveTo(Vector2f pos){
-		isMoving = true;
-		//setDirection();
+		moveTo = pos;
+		setDirection(pos.sub(this.position));
 	}
 	
 }
