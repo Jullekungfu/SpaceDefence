@@ -20,4 +20,5 @@ public abstract class EventProtocol {
 	public static final byte CREEP_DIED = 0x11;
 	public static final byte CREEP_SENT = 0x12;
 	public static final byte CREEP_INIT = 0x13;
+	public static final byte CREEP_ID = 0x14;
 }
