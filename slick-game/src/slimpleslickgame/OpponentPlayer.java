@@ -40,14 +40,18 @@ public class OpponentPlayer extends Player {
 				super.updatePosition(containerShape);
 				break;
 			} case BULLET: {
-				
+				if(!e.isDead()){
+					super.gun.shoot(e.getPosition());
+				} else {
+					super.gun.delete(e.getId());
+				}
+				break;
 			}
 			}
 		}
 		for(Creep c : super.creeps.values()){
 			c.update(delta);
 		}
-
+		super.gun.update(delta);
 	}
-
 }

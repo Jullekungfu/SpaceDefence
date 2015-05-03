@@ -58,6 +58,10 @@ public class Gun {
 		return bulletID;
 	}
 	
+	public void delete(int id){
+		bullets.remove(id);
+	}
+	
 	/**
 	 * When upgrading weapon.
 	 */
