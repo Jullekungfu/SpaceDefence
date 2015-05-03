@@ -7,6 +7,7 @@ import java.util.Queue;
 import org.newdawn.slick.geom.Vector2f;
 
 import util.EventProtocol;
+import util.GameRole;
 
 /**
  * Thread to parse bytes to gamestats
@@ -86,13 +87,20 @@ public class ParseBytes extends Thread {
 					float xpos = bytesToFloat(byteQueue);
 					float ypos = bytesToFloat(byteQueue);
 					Vector2f pos = new Vector2f(xpos, ypos);
-					gsMonitor.addCreep(id, creepId, pos);
+					event = new GameEvent(GameRole.CREEP, creepId);
+					try {
+						event.putPosition(pos);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					break;
 				}
-				case EventProtocol.CREEP_POS: {
-					byteQueue.poll();// get rid of CREEP_POS byte
-					float xpos = bytesToFloat(byteQueue);
-					float ypos = bytesToFloat(byteQueue);
+				case EventProtocol.CREEP_DIED: {
+					byte creepId = byteQueue.poll();
+					event = new GameEvent(GameRole.CREEP, creepId);
+					event.setDead();
 					break;
 				}
 				}
