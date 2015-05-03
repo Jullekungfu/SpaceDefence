@@ -5,7 +5,9 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import org.newdawn.slick.geom.Vector2f;
 import slimpleslickgame.Game;
+import util.GameRole;
 
 /**
  * Contains events for all players currently in game.
@@ -64,10 +66,17 @@ public class GameStatsEvents {
 		return false;
 	}
 	
-	public boolean addCreep(byte playerId, byte creepId, float posX, float posY) {
+	public boolean addCreep(byte playerId, byte creepId, Vector2f pos) {
 		if(events.containsKey(playerId)){
 			System.out.println("added creep" + creepId);
-		//	events.get(playerId).add(e)
+			GameEvent event = new GameEvent(GameRole.CREEP, playerId);
+			try {
+				event.putPosition(pos);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			events.get(playerId).add(event);
 			return true;
 		}
 		return false;

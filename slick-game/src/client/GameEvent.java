@@ -2,12 +2,21 @@ package client;
 
 import org.newdawn.slick.geom.Vector2f;
 
+import util.GameRole;
+
 public class GameEvent {
 	private Vector2f pos;
 	private Vector2f dir;
-	
+	private GameRole role;
+	private byte id;
 	
 	public GameEvent() {
+		role = GameRole.PLAYER;
+	}
+	
+	public GameEvent(GameRole role, byte id){
+		this.role = role; 
+		this.id = id;
 	}
 
 	public void putPosition(Vector2f pos) throws Exception {
@@ -32,5 +41,13 @@ public class GameEvent {
 	
 	public Vector2f getDirection(){
 		return this.dir;
+	}
+	
+	public GameRole getRole(){
+		return role;
+	}
+	
+	public byte getId(){
+		return id;
 	}
 }
