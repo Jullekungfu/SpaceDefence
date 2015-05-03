@@ -38,13 +38,12 @@ public class OpponentPlayer extends Player {
 				super.updatePosition(containerShape);
 				break;
 			} case BULLET: {
-//				if(!e.isDead()){
-//					super.bu.put((int) e.getId(), new Creep(e.getPosition()));
-//					System.out.println(e.getPosition().x);
-//				} else {
-//					super.creeps.remove(e.getId());
-//				}
-//				break;
+				if(!e.isDead()){
+					super.gun.shoot(e.getPosition());
+				} else {
+					super.gun.delete(e.getId());
+				}
+				break;
 			}
 			}
 		}
