@@ -3,8 +3,6 @@
  */
 package slimpleslickgame;
 
-import java.util.List;
-
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -15,26 +13,23 @@ import org.newdawn.slick.geom.Vector2f;
 public class GameInstance {
 	
 	private Player player;
-	private List<Creep> creeps;
 	private Board board;
 	
-	public GameInstance(Player player, Vector2f pos, Vector2f size){
+	public GameInstance(Player player, Vector2f size){
+		float x = (int)(player.id-1)*size.x;
+		this.board = new Board(new Vector2f(x, 0), size);
+		player.init(board.getPlayerInitPos());
 		this.player = player;
-		this.board = new Board(pos, size);
-		this.player.moveTo(board.getPlayerInitPos());
-	}
-	
-	public void startCreeps(){
-		
 	}
 	
 	public void update(int delta){
-		player.update(delta);
+		player.update(delta, board.getShape());
 		
 	}
 	
 	public void render(Graphics graphics){
 		board.render(graphics);
+		player.render(graphics);
 	}
 	
 	

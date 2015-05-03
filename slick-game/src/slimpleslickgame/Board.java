@@ -29,5 +29,9 @@ public class Board {
 		float y = shape.getMaxY() - 100;
 		return new Vector2f(x, y);
 	}
+
+	public Shape getShape() {
+		return this.shape;
+	}
 	
 }

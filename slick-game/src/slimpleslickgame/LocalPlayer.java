@@ -2,6 +2,7 @@ package slimpleslickgame;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import util.EventProtocol;
@@ -24,13 +25,13 @@ public class LocalPlayer extends Player{
 	}
 	
 	@Override
-	public void init() {
-		super.init();
+	public void init(Vector2f pos) {
+		super.init(pos);
 		byte[] msg = {EventProtocol.OPPONENT_PLAYER_INIT};
 		bm.putArrayToServer(msg, super.id);
 	}
 
-	public void update(int delta) {
+	public void update(int delta, Shape containerShape) {
 		time++;
 		if(processInput(gc.getInput())){
 			if(bm != null){
