@@ -44,9 +44,9 @@ public abstract class Player {
 			shape.setLocation(position);
 			if(shape.intersects(containerShape)){
 				System.out.println("intersecting: " + position.toString());
-				if(position.x <= containerShape.getX()){
+				if(shape.getX() <= containerShape.getX()){
 					position.set(containerShape.getX(), position.y);
-				}else if(position.x + WIDTH >= containerShape.getMaxX()){
+				}else if(shape.getMaxX() >= containerShape.getMaxX()){
 					position.set(containerShape.getMaxX()-WIDTH, position.y);
 				}
 				
