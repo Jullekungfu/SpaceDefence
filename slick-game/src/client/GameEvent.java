@@ -9,14 +9,17 @@ public class GameEvent {
 	private Vector2f dir;
 	private GameRole role;
 	private byte id;
+	private boolean isDead;
 	
 	public GameEvent() {
 		role = GameRole.PLAYER;
+		isDead = false;
 	}
 	
 	public GameEvent(GameRole role, byte id){
 		this.role = role; 
 		this.id = id;
+		isDead = false;
 	}
 
 	public void putPosition(Vector2f pos) throws Exception {
@@ -50,5 +53,13 @@ public class GameEvent {
 	//Only for Role CREEP and BULLET
 	public byte getId(){
 		return id;
+	}
+	
+	public void setDead(){
+		isDead = true;
+	}
+	
+	public boolean isDead(){
+		return isDead;
 	}
 }

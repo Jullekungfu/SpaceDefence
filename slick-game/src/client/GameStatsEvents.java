@@ -65,21 +65,4 @@ public class GameStatsEvents {
 		}
 		return false;
 	}
-	
-	public boolean addCreep(byte playerId, byte creepId, Vector2f pos) {
-		if(events.containsKey(playerId)){
-			//System.out.println("added creep" + creepId);
-			GameEvent event = new GameEvent(GameRole.CREEP, creepId);
-			try {
-				event.putPosition(pos);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			events.get(playerId).add(event);
-			return true;
-		}
-		return false;
-	}
-
 }
