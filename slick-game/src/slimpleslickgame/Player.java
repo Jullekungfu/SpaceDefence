@@ -1,5 +1,7 @@
 package slimpleslickgame;
 
+import java.util.HashMap;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.ShapeFill;
@@ -17,6 +19,7 @@ public abstract class Player {
 	private float speed = 5;
 	protected byte id;
 	protected Gun gun;
+	protected HashMap<Integer, Creep> creeps;
 	
 	public void init(){
 		shape = new Rectangle(0, 0, 50, 50);
@@ -24,6 +27,7 @@ public abstract class Player {
 		position = new Vector2f(50,300);
 		direction = new Vector2f(0,0);
 		gun = new Gun();
+		creeps = new HashMap<Integer, Creep>();
 	}
 	
 	public abstract void update(int delta);
@@ -36,6 +40,9 @@ public abstract class Player {
 	}
 	
 	public void render(Graphics graphics){
+		for(Creep c : creeps.values()){
+			c.render(graphics);
+		}
 		gun.render(graphics);
 		graphics.fill(shape, shapeFill);
 	}
