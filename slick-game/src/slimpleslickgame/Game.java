@@ -6,10 +6,10 @@ import java.util.List;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import util.EventProtocol;
 import client.ByteMonitor;
 import client.GameStatsEvents;
 
@@ -18,8 +18,9 @@ public class Game extends BasicGameState {
 
 	private GameContainer gc;
 	private ByteMonitor bm;
-	private List<Player> players;
+	private List<GameInstance> instances;
 	private GameStatsEvents gse;
+	private Vector2f boardSize;
 
 	public void addGSM(GameStatsEvents gse, ByteMonitor byteMonitor) {
 		this.bm = byteMonitor;
@@ -31,17 +32,16 @@ public class Game extends BasicGameState {
 			throws SlickException {
 		// TODO: Setup game stuff
 		this.gc = gc;
-		players = Collections.synchronizedList(new ArrayList<Player>());
+		this.boardSize = new Vector2f(gc.getWidth()/5, gc.getHeight());
+		instances = Collections.synchronizedList(new ArrayList<GameInstance>());
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics g)
 			throws SlickException {
-		// TODO:render all stuff here
-
-		synchronized (players){
-			for(Player p : players){
-				p.render(g);
+		synchronized (instances){
+			for(GameInstance i : instances){
+				i.render(g);
 			}
 		}
 	}
@@ -49,9 +49,9 @@ public class Game extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
-		synchronized (players) {
-			for(Player p : players){
-				p.update(delta);
+		synchronized (instances) {
+			for(GameInstance i : instances){
+				i.update(delta);
 			}
 		}
 	}
@@ -61,23 +61,21 @@ public class Game extends BasicGameState {
 		return ID;
 	}
 
-	public void addPlayer(byte playerId) {
-		OpponentPlayer op = new OpponentPlayer(this.gse, playerId);
-		op.init();
-		synchronized(players){
-			players.add(op);
-		}
+	public void addOpponentPlayer(byte playerId) {
+		addPlayer(new OpponentPlayer(this.gse, playerId));
 	}
 	
 	public void addLocalPlayer(byte playerId){
-		LocalPlayer player = new LocalPlayer(gc, bm, playerId);
-		player.init();
-		synchronized(players){
-			players.add(player);
-		}
-		byte[] msg = {EventProtocol.OPPONENT_PLAYER_INIT};
-		bm.putArrayToServer(msg, playerId);
+		addPlayer(new LocalPlayer(gc, bm, playerId));
 	}
+	
+	private void addPlayer(Player player){
+		synchronized(instances){
+			GameInstance gs = new GameInstance(player, this.boardSize);
+			instances.add(gs);
+		}
+	}
+	
 	/**
 	 * Closes the connection held by the bytemonitorn.
 	 */

@@ -1,5 +1,7 @@
 package slimpleslickgame;
 
+import org.newdawn.slick.geom.Shape;
+
 import client.GameEvent;
 import client.GameStatsEvents;
 
@@ -13,7 +15,7 @@ public class OpponentPlayer extends Player {
 	}
 
 	@Override
-	public void update(int delta) {
+	public void update(int delta, Shape containerShape) {
 		GameEvent e;
 		while ((e = gse.pop(id)) != null) {
 			switch (e.getRole()) {

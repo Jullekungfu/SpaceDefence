@@ -2,6 +2,7 @@ package slimpleslickgame;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import util.EventProtocol;
@@ -23,7 +24,14 @@ public class LocalPlayer extends Player{
 		super.id = id;
 	}
 	
-	public void update(int delta) {
+	@Override
+	public void init(Vector2f pos) {
+		super.init(pos);
+		byte[] msg = {EventProtocol.OPPONENT_PLAYER_INIT};
+		bm.putArrayToServer(msg, super.id);
+	}
+
+	public void update(int delta, Shape containerShape) {
 		time++;
 		if(processInput(gc.getInput())){
 			if(bm != null){
@@ -38,7 +46,8 @@ public class LocalPlayer extends Player{
 			Creep c = new Creep(initPos);
 			super.creeps.put(creepID, c);
 			creepID++;
-			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.PLAYER_ID, super.id, EventProtocol.CREEP_INIT, EventProtocol.CREEP_ID, (byte) creepID}, MessageWrapper.getPositionBytes(initPos));
+			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_INIT, EventProtocol.CREEP_ID, (byte) creepID, EventProtocol.CREEP_POS}, MessageWrapper.getPositionBytes(initPos));
+			bm.putArrayToServer(bytes, super.id);
 		}
 		for(Creep c : super.creeps.values()){
 			c.update(delta);

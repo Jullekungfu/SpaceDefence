@@ -48,7 +48,7 @@ public class GameStatsEvents {
 		if(!events.containsKey(id)){
 			System.out.println("added player " + id);
 			events.put(id, new LinkedList<GameEvent>());
-			game.addPlayer(id);
+			game.addOpponentPlayer(id);
 			return true;
 		}
 		return false;
