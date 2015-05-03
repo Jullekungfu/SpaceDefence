@@ -69,7 +69,7 @@ public class GameStatsEvents {
 	public boolean addCreep(byte playerId, byte creepId, Vector2f pos) {
 		if(events.containsKey(playerId)){
 			System.out.println("added creep" + creepId);
-			GameEvent event = new GameEvent(GameRole.CREEP, playerId);
+			GameEvent event = new GameEvent(GameRole.CREEP, creepId);
 			try {
 				event.putPosition(pos);
 			} catch (Exception e) {
