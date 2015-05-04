@@ -1,5 +1,7 @@
 package slimpleslickgame;
 
+import java.util.Map.Entry;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Shape;
@@ -52,6 +54,17 @@ public class LocalPlayer extends Player{
 			c.update(delta);
 		}
 		gun.update(delta);
+		
+		for(Entry<Integer, Creep> c : creeps.entrySet()){
+			if(gun.bulletIntersectsCreep(c.getValue())){
+				this.delete(c.getKey());
+				break;
+			}
+		}
+	}
+	
+	public void delete(int id){
+		creeps.remove(id);
 	}
 	
 	private boolean processInput(Input input) {

@@ -16,6 +16,7 @@ public class Creep {
 	private Shape shape;
 	private ShapeFill shapeFill;
 	private float speed = 50;
+	private boolean isDestroyed;
 	
 	public Creep(Vector2f initPos){
 		hp = 100;
@@ -24,6 +25,7 @@ public class Creep {
 		position = initPos;
 		direction = new Vector2f(0, 0.01f*speed);
 		shape.setLocation(position);
+		isDestroyed = false;
 	}
 	
 	public void onHit(){
@@ -35,9 +37,23 @@ public class Creep {
 		shape.setLocation(position);
 	}
 	
+	public void destroy(){
+		this.isDestroyed = true;
+		this.direction = new Vector2f(0, 0);
+	}
+	
+	public boolean isAlive(){
+		return !isDestroyed;
+	}
+	
+	public boolean intersects(Bullet b){
+		return shape.intersects(b.getShape());
+	}
+	
 	public void render(Graphics graphics){
-		if(hp > 0)
+		if(hp > 0 && !isDestroyed){
 			graphics.fill(shape, shapeFill);
+		}
 	}
 	
 
