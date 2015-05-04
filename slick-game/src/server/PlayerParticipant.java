@@ -34,7 +34,7 @@ public class PlayerParticipant extends Thread {
 					intBytes[i] = (byte) input.read();
 				}
 				int msgLen = ByteBuffer.wrap(intBytes).getInt();
-				id = (byte)input.read();
+				
 				byte[] msg = new byte[msgLen+4];
 				for(int i = 0; i < 4; i++){
 					msg[i] = intBytes[i];
@@ -43,6 +43,8 @@ public class PlayerParticipant extends Thread {
 				for(int i = 4; i < msg.length; i++){
 					msg[i] = (byte) input.read();
 				}
+				
+				id = msg[5];
 				stateBox.writeMessage(msg);
 	
 			} catch(ArrayIndexOutOfBoundsException aioobe){

@@ -10,8 +10,6 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
-import util.Logger;
-
 public abstract class Player {
 	
 	protected Vector2f position;
@@ -45,11 +43,6 @@ public abstract class Player {
 			position.add(direction);
 			shape.setLocation(position);
 			if(shape.intersects(containerShape)){
-				Logger.log("position: " + position.toString());
-				Logger.log("shape: " + shape.getX());
-				Logger.log("shape minx: " + shape.getMinX());
-				Logger.log("container: " + containerShape.getX());
-				Logger.log("container minx: " + containerShape.getMinX());
 				if(shape.getX() <= containerShape.getMinX()){
 					position.set(containerShape.getMinX(), position.y);
 				}else if(shape.getMaxX() >= containerShape.getMaxX()){
