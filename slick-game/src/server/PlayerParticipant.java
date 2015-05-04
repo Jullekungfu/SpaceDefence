@@ -44,7 +44,7 @@ public class PlayerParticipant extends Thread {
 					msg[i] = (byte) input.read();
 				}
 				
-				id = msg[6];
+				id = msg[5];
 				stateBox.writeMessage(msg);
 	
 			} catch(ArrayIndexOutOfBoundsException aioobe){
