@@ -5,6 +5,7 @@ package slimpleslickgame;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map.Entry;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
@@ -60,6 +61,16 @@ public class Gun {
 	
 	public void delete(int id){
 		bullets.remove(id);
+	}
+	
+	public boolean bulletIntersectsCreep(Creep creep){
+		for(Entry<Integer, Bullet> bullet : bullets.entrySet()){
+			if(creep.intersects(bullet.getValue())){
+				this.delete(bullet.getKey());
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
