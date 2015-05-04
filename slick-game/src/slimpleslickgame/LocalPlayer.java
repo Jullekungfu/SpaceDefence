@@ -61,7 +61,6 @@ public class LocalPlayer extends Player {
 			creepID++;
 		}
 
-
 		for (Creep c : creeps.values()) {
 			c.update(delta);
 		}
