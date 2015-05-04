@@ -75,7 +75,7 @@ public class LocalPlayer extends Player {
 		gun.update(delta);
 		
 		for(Entry<Integer, Creep> c : creeps.entrySet()){
-			if(gun.bulletIntersectsCreep(c.getValue())){
+			if(gun.bulletIntersectsCreep(c.getValue().getShape())){
 				this.delete(c.getKey());
 				break;
 			}
