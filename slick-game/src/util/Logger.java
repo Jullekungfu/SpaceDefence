@@ -9,7 +9,7 @@ package util;
  */
 public abstract class Logger {
 	
-	private static boolean log = false;
+	private static boolean log = true;
 	
 	public static void log(String msg){
 		if(log){

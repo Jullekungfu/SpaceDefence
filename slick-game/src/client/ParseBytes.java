@@ -62,6 +62,7 @@ public class ParseBytes extends Thread {
 					gsMonitor.addOpponentPlayer(id);
 					break;
 				case EventProtocol.PLAYER_LOST_CONNECTION:
+					Logger.log("Player lost connection");
 					gsMonitor.removePlayer(id);
 					break;
 				case EventProtocol.PLAYER_POS: {

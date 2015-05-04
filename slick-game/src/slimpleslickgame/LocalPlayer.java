@@ -10,6 +10,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import util.EventProtocol;
+import util.Logger;
 import client.ByteMonitor;
 import client.MessageWrapper;
 
@@ -122,7 +123,7 @@ public class LocalPlayer extends Player {
 					MessageWrapper.appendByteArray(new byte[]{EventProtocol.BULLET_POS}, MessageWrapper.getVector2fBytes(shotPos)));
 			bm.putArrayToServer(bytes, super.id);
 		}
-
+		
 		super.setDirection(direction);
 		return dirChanged;
 	}

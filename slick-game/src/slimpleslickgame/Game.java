@@ -73,7 +73,8 @@ public class Game extends BasicGameState {
 	 * Closes the connection held by the bytemonitorn.
 	 */
 	public void onClose(){
-		this.bm.closeConnection();
+		if(this.bm.isOpen())
+			this.bm.closeConnection();
 	}
 
 	public void removePlayer(byte playerId) {

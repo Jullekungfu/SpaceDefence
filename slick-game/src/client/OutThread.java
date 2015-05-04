@@ -40,7 +40,7 @@ public class OutThread extends Thread {
 				os.write(msg);
 				os.flush();
 			} catch (IOException ioe) {
-				ioe.printStackTrace();
+				Logger.log("Socket closed");
 			}
 		}
 	}
