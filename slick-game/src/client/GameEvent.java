@@ -8,7 +8,7 @@ public class GameEvent {
 	private Vector2f pos;
 	private Vector2f dir;
 	private GameRole role;
-	private byte id;
+	private int id;
 	private boolean isDead;
 	
 	public GameEvent() {
@@ -16,7 +16,7 @@ public class GameEvent {
 		isDead = false;
 	}
 	
-	public GameEvent(GameRole role, byte id){
+	public GameEvent(GameRole role, int id){
 		this.role = role; 
 		this.id = id;
 		isDead = false;
@@ -51,7 +51,7 @@ public class GameEvent {
 	}
 	
 	//Only for Role CREEP and BULLET
-	public byte getId(){
+	public int getId(){
 		return id;
 	}
 	

@@ -85,7 +85,7 @@ public class ParseBytes extends Thread {
 				}
 				case EventProtocol.CREEP_INIT: {
 					byteQueue.poll();// get rid of CREEP_ID byte
-					byte creepId = byteQueue.poll();
+					int creepId = bytesToInt(byteQueue);
 					byteQueue.poll();// get rid of CREEP_POS byte
 					float xpos = bytesToFloat(byteQueue);
 					float ypos = bytesToFloat(byteQueue);
@@ -94,7 +94,6 @@ public class ParseBytes extends Thread {
 					try {
 						event.putPosition(pos);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
@@ -117,7 +116,6 @@ public class ParseBytes extends Thread {
 					try {
 						event.putPosition(pos);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
@@ -141,6 +139,15 @@ public class ParseBytes extends Thread {
 			floatBytes[i] = byteQueue.poll();
 		}
 		return ByteBuffer.wrap(floatBytes).asFloatBuffer().get();
+	}
+	
+	private int bytesToInt(Queue<Byte> byteQueue){
+		byte[] intBytes = new byte[4];
+		for (int i = 0; i < 4; i++) {
+			intBytes[i] = byteQueue.poll();
+		}
+		return ByteBuffer.wrap(intBytes).asIntBuffer().get();
+		
 	}
 
 }
