@@ -29,6 +29,7 @@ public class Server extends Thread {
 
 	@Override
 	public void run() {
+		Logger.log("Server started");
 		Socket connection;
 		Statebox mb = new Statebox();
 		UpdateToClient rt = new UpdateToClient(mb);
@@ -82,7 +83,6 @@ class UpdateToClient extends Thread {
 	public void run() {
 		while (true) {
 			msg = this.statebox.readMessage();
-
 			for (Socket s : statebox.getClientSockets()) {
 				try {
 					sendMessage(msg, s.getOutputStream());
