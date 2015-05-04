@@ -59,4 +59,8 @@ public class Creep {
 	public Vector2f getPosition(){
 		return position;
 	}
+	
+	public Shape getShape(){
+		return shape;
+	}
 }
