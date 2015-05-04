@@ -85,7 +85,7 @@ public class ParseBytes extends Thread {
 				
 				case EventProtocol.CREEP_INIT: {
 					byteQueue.poll();// get rid of CREEP_ID byte
-					byte creepId = byteQueue.poll();
+					int creepId = bytesToInt(byteQueue);
 					byteQueue.poll();// get rid of CREEP_POS byte
 					float xpos = bytesToFloat(byteQueue);
 					float ypos = bytesToFloat(byteQueue);
@@ -94,21 +94,20 @@ public class ParseBytes extends Thread {
 					try {
 						event.putPosition(pos);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
 					break;
 				}
 				case EventProtocol.CREEP_DIED: {
-					byte creepId = byteQueue.poll();
+					int creepId = bytesToInt(byteQueue);
 					event = new GameEvent(GameRole.CREEP, creepId);
 					event.setDead();
 					break;
 				}
 				case EventProtocol.BULLET_INIT: {
 					byteQueue.poll();// get rid of BULLET_ID byte
-					byte bulletId = byteQueue.poll();
+					int bulletId = bytesToInt(byteQueue);
 					byteQueue.poll();// get rid of BULLET_POS byte
 					float xpos = bytesToFloat(byteQueue);
 					float ypos = bytesToFloat(byteQueue);
@@ -117,14 +116,13 @@ public class ParseBytes extends Thread {
 					try {
 						event.putPosition(pos);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
 					break;
 				}
 				case EventProtocol.BULLET_DIED: {
-					byte bulletId = byteQueue.poll();
+					int bulletId = bytesToInt(byteQueue);
 					event = new GameEvent(GameRole.BULLET, bulletId);
 					event.setDead();
 					break;
@@ -141,6 +139,15 @@ public class ParseBytes extends Thread {
 			floatBytes[i] = byteQueue.poll();
 		}
 		return ByteBuffer.wrap(floatBytes).asFloatBuffer().get();
+	}
+	
+	private int bytesToInt(Queue<Byte> byteQueue){
+		byte[] intBytes = new byte[4];
+		for (int i = 0; i < 4; i++) {
+			intBytes[i] = byteQueue.poll();
+		}
+		return ByteBuffer.wrap(intBytes).asIntBuffer().get();
+		
 	}
 
 }
