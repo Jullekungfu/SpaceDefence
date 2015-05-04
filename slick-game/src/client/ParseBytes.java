@@ -72,7 +72,7 @@ public class ParseBytes extends Thread {
 					}
 					break;
 				}
-				case EventProtocol.PLAYER_DIR: {
+				case EventProtocol.PLAYER_DIR: 
 					float xdir = bytesToFloat(byteQueue);
 					float ydir = bytesToFloat(byteQueue);
 					Vector2f dir = new Vector2f(xdir, ydir);
@@ -82,7 +82,7 @@ public class ParseBytes extends Thread {
 						e.printStackTrace();
 					}
 					break;
-				}
+				
 				case EventProtocol.CREEP_INIT: {
 					byteQueue.poll();// get rid of CREEP_ID byte
 					byte creepId = byteQueue.poll();
