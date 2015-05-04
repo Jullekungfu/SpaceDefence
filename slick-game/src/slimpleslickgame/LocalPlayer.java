@@ -75,7 +75,7 @@ public class LocalPlayer extends Player {
 		
 		deadCreeps.clear();
 		for(Entry<Integer, Creep> c : creeps.entrySet()){
-			if(gun.bulletIntersectsCreep(c.getValue())){
+			if(gun.bulletIntersectsCreep(c.getValue().getShape())){
 				deadCreeps.add(c.getKey());
 			}
 		}

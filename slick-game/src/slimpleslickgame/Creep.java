@@ -46,10 +46,6 @@ public class Creep {
 		return !isDestroyed;
 	}
 	
-	public boolean intersects(Bullet b){
-		return shape.intersects(b.getShape());
-	}
-	
 	public void render(Graphics graphics){
 		if(hp > 0 && !isDestroyed){
 			graphics.fill(shape, shapeFill);
@@ -59,8 +55,8 @@ public class Creep {
 	public Vector2f getPosition(){
 		return position;
 	}
-	
-	public Shape getShape(){
+
+	public Shape getShape() {
 		return shape;
 	}
 }
