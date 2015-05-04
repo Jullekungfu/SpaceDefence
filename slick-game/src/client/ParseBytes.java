@@ -100,14 +100,14 @@ public class ParseBytes extends Thread {
 					break;
 				}
 				case EventProtocol.CREEP_DIED: {
-					byte creepId = byteQueue.poll();
+					int creepId = bytesToInt(byteQueue);
 					event = new GameEvent(GameRole.CREEP, creepId);
 					event.setDead();
 					break;
 				}
 				case EventProtocol.BULLET_INIT: {
 					byteQueue.poll();// get rid of BULLET_ID byte
-					byte bulletId = byteQueue.poll();
+					int bulletId = bytesToInt(byteQueue);
 					byteQueue.poll();// get rid of BULLET_POS byte
 					float xpos = bytesToFloat(byteQueue);
 					float ypos = bytesToFloat(byteQueue);
@@ -122,7 +122,7 @@ public class ParseBytes extends Thread {
 					break;
 				}
 				case EventProtocol.BULLET_DIED: {
-					byte bulletId = byteQueue.poll();
+					int bulletId = bytesToInt(byteQueue);
 					event = new GameEvent(GameRole.BULLET, bulletId);
 					event.setDead();
 					break;

@@ -57,7 +57,7 @@ public class LocalPlayer extends Player{
 		for(int i = 0; i < super.creeps.size(); i++){
 			Creep c = super.creeps.get(i);
 			if(c.getPosition().y > Application.HEIGHT){
-				byte[] bytes = new byte[]{EventProtocol.CREEP_DIED, EventProtocol.CREEP_ID,(byte)i}; 
+				byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_DIED, EventProtocol.CREEP_ID}, ByteBuffer.allocate(4).putInt(creepID).array()); 
 				bm.putArrayToServer(bytes, super.id);
 			}
 			c.update(delta);
@@ -92,7 +92,9 @@ public class LocalPlayer extends Player{
 		if(input.isKeyPressed(Input.KEY_SPACE)) {
 			Vector2f shotPos = new Vector2f(this.position.x + this.shape.getWidth()/2, this.position.y + this.shape.getHeight()/2);
 			super.gun.shoot(shotPos);
-			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.BULLET_INIT, EventProtocol.BULLET_ID, (byte) super.gun.getbulletID(), EventProtocol.BULLET_POS}, MessageWrapper.getVector2fBytes(shotPos));
+			byte[] bytes = MessageWrapper.appendByteArray(
+					MessageWrapper.appendByteArray(new byte[]{EventProtocol.BULLET_INIT, EventProtocol.BULLET_ID}, ByteBuffer.allocate(4).putInt(super.gun.getbulletID()).array()), 
+					MessageWrapper.appendByteArray(new byte[]{EventProtocol.BULLET_POS}, MessageWrapper.getVector2fBytes(shotPos)));
 			bm.putArrayToServer(bytes, super.id);
 		}
 		
