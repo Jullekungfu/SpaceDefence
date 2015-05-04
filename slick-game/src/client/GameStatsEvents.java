@@ -19,6 +19,7 @@ import util.Logger;
 public class GameStatsEvents {
 	private ConcurrentMap<Byte, Queue<GameEvent>> events;
 	private Game game;
+	private byte localId = -1;
 	
 	public GameStatsEvents(Game game){
 		events = new ConcurrentHashMap<Byte, Queue<GameEvent>>();
@@ -62,6 +63,7 @@ public class GameStatsEvents {
 			}
 			events.put(id, new LinkedList<GameEvent>());
 			game.addLocalPlayer(id);
+			this.localId = id;
 			return true;
 		}
 		return false;
@@ -72,5 +74,10 @@ public class GameStatsEvents {
 			game.removePlayer(id);
 		}
 		return false;
+	}
+
+	public void removeLocalPlayer() {
+		if(localId > -1)
+			this.removePlayer(localId);
 	}
 }
