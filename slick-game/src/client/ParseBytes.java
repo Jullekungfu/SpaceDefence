@@ -107,9 +107,9 @@ public class ParseBytes extends Thread {
 					break;
 				}
 				case EventProtocol.BULLET_INIT: {
-					byteQueue.poll();// get rid of CREEP_ID byte
+					byteQueue.poll();// get rid of BULLET_ID byte
 					byte bulletId = byteQueue.poll();
-					byteQueue.poll();// get rid of CREEP_POS byte
+					byteQueue.poll();// get rid of BULLET_POS byte
 					float xpos = bytesToFloat(byteQueue);
 					float ypos = bytesToFloat(byteQueue);
 					Vector2f pos = new Vector2f(xpos, ypos);

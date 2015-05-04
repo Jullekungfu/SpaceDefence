@@ -22,7 +22,7 @@ public class OpponentPlayer extends Player {
 		while ((e = gse.pop(id)) != null) {
 			switch (e.getRole()) {
 			case CREEP: {
-				if(!e.isDead()){
+				if(e.isAlive()){
 					super.creeps.put((int) e.getId(), new Creep(e.getPosition()));
 //					Logger.log(e.getPosition().x);
 				} else {
@@ -40,7 +40,7 @@ public class OpponentPlayer extends Player {
 				super.updatePosition(containerShape);
 				break;
 			} case BULLET: {
-				if(!e.isDead()){
+				if(e.isAlive()){
 					super.gun.shoot(e.getPosition());
 				} else {
 					super.gun.delete(e.getId());
