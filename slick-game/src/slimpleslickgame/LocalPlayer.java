@@ -53,7 +53,13 @@ public class LocalPlayer extends Player{
 			bm.putArrayToServer(bytes, super.id);
 			creepID++;
 		}
-		for(Creep c : super.creeps.values()){
+		
+		for(int i = 0; i < super.creeps.size(); i++){
+			Creep c = super.creeps.get(i);
+			if(c.getPosition().y > Application.HEIGHT){
+				byte[] bytes = new byte[]{EventProtocol.CREEP_DIED, EventProtocol.CREEP_ID,(byte)i}; 
+				bm.putArrayToServer(bytes, super.id);
+			}
 			c.update(delta);
 		}
 		gun.update(delta);

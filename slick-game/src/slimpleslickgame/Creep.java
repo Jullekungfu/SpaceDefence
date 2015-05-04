@@ -40,5 +40,7 @@ public class Creep {
 			graphics.fill(shape, shapeFill);
 	}
 	
-
+	public Vector2f getPosition(){
+		return position;
+	}
 }
