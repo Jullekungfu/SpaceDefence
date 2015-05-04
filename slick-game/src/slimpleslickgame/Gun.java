@@ -4,15 +4,11 @@
 package slimpleslickgame;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map.Entry;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
-
-import util.EventProtocol;
-import client.MessageWrapper;
 
 /**
  * @author nille

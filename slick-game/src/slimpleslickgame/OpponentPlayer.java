@@ -1,9 +1,6 @@
 package slimpleslickgame;
 
 import org.newdawn.slick.geom.Shape;
-
-import util.Logger;
-
 import client.GameEvent;
 import client.GameStatsEvents;
 

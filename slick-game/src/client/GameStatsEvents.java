@@ -5,10 +5,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import org.newdawn.slick.geom.Vector2f;
 import slimpleslickgame.Game;
-import util.GameRole;
-import util.Logger;
 
 /**
  * Contains events for all players currently in game.

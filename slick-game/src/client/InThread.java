@@ -54,8 +54,9 @@ public class InThread extends Thread {
 		} catch (NegativeArraySizeException nsae) {
 			Logger.log("NegativeArraySizeException when declaring msg.");
 		} catch (SocketException se) {
-			Logger.log("insocket closed");
+			Logger.log("(inthread) insocket already closed");
 		} catch (IOException e1) {
+			Logger.log("Exception: ");
 			e1.printStackTrace();
 		} finally {
 			monitor.closeConnection();
