@@ -134,6 +134,7 @@ public class ParseBytes extends Thread {
 			}
 			gsMonitor.put(id, event);
 		}
+		gsMonitor.removeLocalPlayer();
 	}
 
 	private float bytesToFloat(Queue<Byte> byteQueue) {

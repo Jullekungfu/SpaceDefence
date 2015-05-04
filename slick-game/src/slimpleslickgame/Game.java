@@ -78,6 +78,11 @@ public class Game extends BasicGameState {
 
 	public void removePlayer(byte playerId) {
 		//TODO: remove stuff inside instance?
-		instances.remove(playerId);
+		try{
+			instances.remove(playerId);
+		}catch(Exception e){
+			//TODO: end game
+		}
+		
 	}
 }

@@ -6,7 +6,6 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
 
-import util.EventProtocol;
 import util.Logger;
 
 /**
@@ -31,44 +30,35 @@ public class InThread extends Thread {
 		try {
 			InputStream input = connection.getInputStream();
 			while (!connection.isClosed()) {
-				try {
-					byte[] intBytes = new byte[4];
+				byte[] intBytes = new byte[4];
 
-					for (int i = 0; i < 4; i++) {
-						intBytes[i] = (byte) input.read();
-					}
-					int msgLen = ByteBuffer.wrap(intBytes).getInt();
+				for (int i = 0; i < 4; i++) {
+					intBytes[i] = (byte) input.read();
+				}
+				int msgLen = ByteBuffer.wrap(intBytes).getInt();
 
-					byte[] msg = new byte[msgLen];
-					int read = 0, offset = 0, toRead = msgLen;
-					while (toRead > 0
-							&& (read = input.read(msg, offset, toRead)) > 0) {
-						toRead -= read;
-						offset += read;
-					}
-					if (read >= 0) {
-						monitor.putArrayFromServer(msg);
-					} else {
-						break;
-						// TODO: fix when server dies
-					}
-				} catch (SocketException se) {
-					//TODO: socket closed, remove local
+				byte[] msg = new byte[msgLen];
+				int read = 0, offset = 0, toRead = msgLen;
+				while (toRead > 0
+						&& (read = input.read(msg, offset, toRead)) > 0) {
+					toRead -= read;
+					offset += read;
+				}
+				if (read >= 0) {
+					monitor.putArrayFromServer(msg);
+				} else {
+					break;
+					// TODO: fix when server dies
 				}
 			}
 		} catch (NegativeArraySizeException nsae) {
 			Logger.log("NegativeArraySizeException when declaring msg.");
-			monitor.closeConnection();
 		} catch (SocketException se) {
 			Logger.log("insocket closed");
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		} finally {
-			try {
-				this.connection.close();
-			} catch (IOException e) {
-				// Nothing more to be done.
-			}
+			monitor.closeConnection();
 		}
 	}
 }
