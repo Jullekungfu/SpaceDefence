@@ -58,15 +58,19 @@ public class LocalPlayer extends Player {
 			creepID++;
 		}
 
-		for (int i = 0; i < super.creeps.size(); i++) {
-			Creep c = super.creeps.get(i);
-			if (c != null) {
-				if (c.getPosition().y > Application.HEIGHT) {
-					byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_DIED, EventProtocol.CREEP_ID}, ByteBuffer.allocate(4).putInt(creepID).array());
-					bm.putArrayToServer(bytes, super.id);
-				}
-				c.update(delta);
-			}
+//		for (int i = 0; i < super.creeps.size(); i++) {
+//			Creep c = super.creeps.get(i);
+//			if (c != null) {
+//				if (c.getPosition().y > Application.HEIGHT) {
+//					byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_DIED, EventProtocol.CREEP_ID}, ByteBuffer.allocate(4).putInt(creepID).array());
+//					bm.putArrayToServer(bytes, super.id);
+//				}
+//				c.update(delta);
+//			}
+//		}
+		
+		for(Creep c : super.creeps.values()){
+			c.update(delta);
 		}
 		gun.update(delta);
 		
