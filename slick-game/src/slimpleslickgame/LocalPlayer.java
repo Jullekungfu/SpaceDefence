@@ -50,7 +50,7 @@ public class LocalPlayer extends Player {
 		}
 
 		if (time % 60 == 0) {
-			Vector2f initPos = new Vector2f(super.position.x, 0);
+			Vector2f initPos = new Vector2f(super.position.x, 20);
 			super.creeps.put(creepID, new Creep(initPos));
 
 			byte[] bytes = MessageWrapper.appendByteArray(
@@ -61,30 +61,25 @@ public class LocalPlayer extends Player {
 			creepID++;
 		}
 
-//		for (int i = 0; i < super.creeps.size(); i++) {
-//			Creep c = super.creeps.get(i);
-//			if (c != null) {
-//				if (c.getPosition().y > Application.HEIGHT) {
-//					byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_DIED, EventProtocol.CREEP_ID}, ByteBuffer.allocate(4).putInt(creepID).array());
-//					bm.putArrayToServer(bytes, super.id);
-//				}
-//				c.update(delta);
-//			}
-//		}
-		
-		for(Creep c : super.creeps.values()){
+
+		for (Creep c : creeps.values()) {
 			c.update(delta);
 		}
+		
 		gun.update(delta);
 		
 		deadCreeps.clear();
 		for(Entry<Integer, Creep> c : creeps.entrySet()){
 			if(gun.bulletIntersectsCreep(c.getValue().getShape())){
 				deadCreeps.add(c.getKey());
+			} else if(containerShape.intersects(c.getValue().getShape())){
+				deadCreeps.add(c.getKey());
 			}
 		}
 		for(int i : deadCreeps){
 			this.delete(i);
+			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_DIED, EventProtocol.CREEP_ID}, ByteBuffer.allocate(4).putInt(creepID).array());
+			bm.putArrayToServer(bytes, super.id);
 		}
 	}
 	
