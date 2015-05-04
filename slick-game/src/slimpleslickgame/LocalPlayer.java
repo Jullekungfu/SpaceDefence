@@ -10,7 +10,6 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import util.EventProtocol;
-import util.Logger;
 import client.ByteMonitor;
 import client.MessageWrapper;
 

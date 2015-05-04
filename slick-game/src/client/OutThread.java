@@ -39,9 +39,15 @@ public class OutThread extends Thread {
 			try {
 				os.write(msg);
 				os.flush();
-			} catch (IOException ioe) {
-				Logger.log("Socket closed");
+			} catch (Exception e) {
+				Logger.log("(OutThread) Socket closed");
 			}
+		}
+		try {
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
