@@ -31,7 +31,4 @@ public class GameInstance {
 		board.render(graphics);
 		player.render(graphics);
 	}
-	
-	
-
 }

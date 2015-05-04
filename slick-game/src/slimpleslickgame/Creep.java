@@ -56,5 +56,7 @@ public class Creep {
 		}
 	}
 	
-
+	public Vector2f getPosition(){
+		return position;
+	}
 }

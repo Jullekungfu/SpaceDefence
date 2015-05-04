@@ -1,7 +1,5 @@
 package slimpleslickgame;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -18,7 +16,7 @@ public class Game extends BasicGameState {
 
 	private GameContainer gc;
 	private ByteMonitor bm;
-	private List<GameInstance> instances;
+	private ConcurrentHashMap<Byte, GameInstance> instances;
 	private GameStatsEvents gse;
 	private Vector2f boardSize;
 
@@ -33,26 +31,23 @@ public class Game extends BasicGameState {
 		// TODO: Setup game stuff
 		this.gc = gc;
 		this.boardSize = new Vector2f(gc.getWidth()/5, gc.getHeight());
-		instances = Collections.synchronizedList(new ArrayList<GameInstance>());
+		//instances = Collections.synchronizedList(new ArrayList<GameInstance>());
+		instances = new ConcurrentHashMap<Byte, GameInstance>();
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics g)
 			throws SlickException {
-		synchronized (instances){
-			for(GameInstance i : instances){
-				i.render(g);
-			}
+		for(Byte b : instances.keySet()){
+			instances.get(b).render(g);
 		}
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
-		synchronized (instances) {
-			for(GameInstance i : instances){
-				i.update(delta);
-			}
+		for(Byte b : instances.keySet()){
+			instances.get(b).update(delta);
 		}
 	}
 
@@ -70,10 +65,8 @@ public class Game extends BasicGameState {
 	}
 	
 	private void addPlayer(Player player){
-		synchronized(instances){
-			GameInstance gs = new GameInstance(player, this.boardSize);
-			instances.add(gs);
-		}
+		GameInstance gs = new GameInstance(player, this.boardSize);
+		instances.put(player.id, gs);
 	}
 	
 	/**
@@ -81,5 +74,10 @@ public class Game extends BasicGameState {
 	 */
 	public void onClose(){
 		this.bm.closeConnection();
+	}
+
+	public void removePlayer(byte playerId) {
+		//TODO: remove stuff inside instance?
+		instances.remove(playerId);
 	}
 }

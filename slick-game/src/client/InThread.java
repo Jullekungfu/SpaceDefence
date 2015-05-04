@@ -3,6 +3,7 @@ package client;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.nio.ByteBuffer;
 
 import util.Logger;
@@ -49,8 +50,16 @@ public class InThread extends Thread {
 		} catch(NegativeArraySizeException nsae){
 			Logger.log("NegativeArraySizeException when declaring msg.");
 			monitor.closeConnection();
+		} catch(SocketException se){
+			Logger.log("insocket closed");
 		} catch (IOException e1) {
 			e1.printStackTrace();
+		} finally{
+			try {
+				this.connection.close();
+			} catch (IOException e) {
+				// Nothing more to be done.
+			}
 		}
 	}
 }

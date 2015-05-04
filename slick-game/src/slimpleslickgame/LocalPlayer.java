@@ -1,6 +1,7 @@
 package slimpleslickgame;
 
 import java.util.Map.Entry;
+import java.nio.ByteBuffer;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
@@ -11,47 +12,65 @@ import util.EventProtocol;
 import client.ByteMonitor;
 import client.MessageWrapper;
 
-public class LocalPlayer extends Player{
+public class LocalPlayer extends Player {
 
 	private GameContainer gc;
 	private ByteMonitor bm;
 	private int time;
 	private int creepID;
-	
-	public LocalPlayer(GameContainer gc, ByteMonitor bm, byte id){
+
+	public LocalPlayer(GameContainer gc, ByteMonitor bm, byte id) {
 		this.gc = gc;
 		this.bm = bm;
 		time = 0;
 		creepID = 1;
 		super.id = id;
 	}
-	
+
 	@Override
 	public void init(Vector2f pos) {
 		super.init(pos);
-		byte[] msg = {EventProtocol.OPPONENT_PLAYER_INIT};
+		byte[] msg = { EventProtocol.OPPONENT_PLAYER_INIT };
 		bm.putArrayToServer(msg, super.id);
 	}
 
 	public void update(int delta, Shape containerShape) {
 		time++;
-		if(processInput(gc.getInput())){
-			if(bm != null){
-				byte[] bytes = MessageWrapper.appendByteArray(MessageWrapper.getPlayerPositionBytes(super.position), MessageWrapper.getPlayerDirectionBytes(super.direction));
+		if (processInput(gc.getInput())) {
+			if (bm != null) {
+				byte[] bytes = MessageWrapper
+						.appendByteArray(
+								MessageWrapper
+										.getPlayerPositionBytes(super.position),
+								MessageWrapper
+										.getPlayerDirectionBytes(super.direction));
 				bm.putArrayToServer(bytes, id);
 			}
 			super.updatePosition(containerShape);
 		}
 
-		if(time % 60 == 0){
+		if (time % 60 == 0) {
 			Vector2f initPos = new Vector2f(super.position.x, 0);
 			super.creeps.put(creepID, new Creep(initPos));
-			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_INIT, EventProtocol.CREEP_ID, (byte) creepID, EventProtocol.CREEP_POS}, MessageWrapper.getVector2fBytes(initPos));
+
+			byte[] bytes = MessageWrapper.appendByteArray(
+					MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_INIT, EventProtocol.CREEP_ID}, ByteBuffer.allocate(4).putInt(creepID).array()), 
+					MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_POS}, MessageWrapper.getVector2fBytes(initPos)));
+			
 			bm.putArrayToServer(bytes, super.id);
 			creepID++;
 		}
-		for(Creep c : super.creeps.values()){
-			c.update(delta);
+
+		for (int i = 0; i < super.creeps.size(); i++) {
+			Creep c = super.creeps.get(i);
+			if (c != null) {
+				if (c.getPosition().y > Application.HEIGHT) {
+					byte[] bytes = new byte[] { EventProtocol.CREEP_DIED,
+							EventProtocol.CREEP_ID, (byte) i };
+					bm.putArrayToServer(bytes, super.id);
+				}
+				c.update(delta);
+			}
 		}
 		gun.update(delta);
 		
@@ -66,7 +85,7 @@ public class LocalPlayer extends Player{
 	public void delete(int id){
 		creeps.remove(id);
 	}
-	
+
 	private boolean processInput(Input input) {
 		Vector2f direction = new Vector2f(0, 0);
 		boolean dirChanged = false;
@@ -91,13 +110,18 @@ public class LocalPlayer extends Player{
 			dirChanged = true;
 		}
 		// TODO: add shooting capabilities
-		if(input.isKeyPressed(Input.KEY_SPACE)) {
-			Vector2f shotPos = new Vector2f(this.position.x + this.shape.getWidth()/2, this.position.y + this.shape.getHeight()/2);
+		if (input.isKeyPressed(Input.KEY_SPACE)) {
+			Vector2f shotPos = new Vector2f(this.position.x
+					+ this.shape.getWidth() / 2, this.position.y
+					+ this.shape.getHeight() / 2);
 			super.gun.shoot(shotPos);
-			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.BULLET_INIT, EventProtocol.BULLET_ID, (byte) super.gun.getbulletID(), EventProtocol.BULLET_POS}, MessageWrapper.getVector2fBytes(shotPos));
+
+			byte[] bytes = MessageWrapper.appendByteArray(
+					MessageWrapper.appendByteArray(new byte[]{EventProtocol.BULLET_INIT, EventProtocol.BULLET_ID}, ByteBuffer.allocate(4).putInt(super.gun.getbulletID()).array()), 
+					MessageWrapper.appendByteArray(new byte[]{EventProtocol.BULLET_POS}, MessageWrapper.getVector2fBytes(shotPos)));
 			bm.putArrayToServer(bytes, super.id);
 		}
-		
+
 		super.setDirection(direction);
 		return dirChanged;
 	}
