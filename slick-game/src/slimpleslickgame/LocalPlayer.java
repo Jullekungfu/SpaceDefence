@@ -1,5 +1,6 @@
 package slimpleslickgame;
 
+import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.nio.ByteBuffer;
 
@@ -18,6 +19,7 @@ public class LocalPlayer extends Player {
 	private ByteMonitor bm;
 	private int time;
 	private int creepID;
+	private ArrayList<Integer> deadCreeps;
 
 	public LocalPlayer(GameContainer gc, ByteMonitor bm, byte id) {
 		this.gc = gc;
@@ -25,6 +27,7 @@ public class LocalPlayer extends Player {
 		time = 0;
 		creepID = 1;
 		super.id = id;
+		deadCreeps = new ArrayList<>();
 	}
 
 	@Override
@@ -74,11 +77,14 @@ public class LocalPlayer extends Player {
 		}
 		gun.update(delta);
 		
+		deadCreeps.clear();
 		for(Entry<Integer, Creep> c : creeps.entrySet()){
 			if(gun.bulletIntersectsCreep(c.getValue().getShape())){
-				this.delete(c.getKey());
-				break;
+				deadCreeps.add(c.getKey());
 			}
+		}
+		for(int i : deadCreeps){
+			this.delete(i);
 		}
 	}
 	
