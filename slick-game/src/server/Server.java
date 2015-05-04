@@ -4,8 +4,8 @@ import java.io.*;
 import java.net.*;
 
 import client.MessageWrapper;
-
 import util.EventProtocol;
+import util.Logger;
 
 public class Server extends Thread {
 	private ServerSocket ss;
@@ -77,14 +77,14 @@ class UpdateToClient extends Thread {
 	}
 
 	public void run() {
-		while (true) {
+		while (statebox.getCurrentClients() > 0) {
 			msg = this.statebox.readMessage();
 
 			for (Socket s : statebox.getClientSockets()) {
 				try {
 					sendMessage(msg, s.getOutputStream());
 				} catch (IOException ioe) {
-					ioe.printStackTrace();
+					Logger.log("Couldn't send message");
 				}
 			}
 
