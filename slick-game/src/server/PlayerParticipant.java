@@ -33,7 +33,7 @@ public class PlayerParticipant extends Thread {
 				for(int i = 0; i < 4; i++){
 					intBytes[i] = (byte) input.read();
 				}
-				int msgLen = ByteBuffer.wrap(intBytes).getInt();
+				int msgLen = ByteBuffer.wrap(intBytes).asIntBuffer().get();
 				id = (byte)input.read();
 				byte[] msg = new byte[msgLen+4];
 				for(int i = 0; i < 4; i++){
