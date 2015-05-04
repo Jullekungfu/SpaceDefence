@@ -1,17 +1,17 @@
 package server;
 
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Vector;
 
 public class Statebox{
     private Queue<byte[]> messages;
-	private ArrayList<Socket> clients;
+	private Vector<Socket> clients;
 
     public Statebox(){
         this.messages = new LinkedList<byte[]>();
-		this.clients = new ArrayList<Socket>();
+		this.clients = new Vector<Socket>();
     }
     
     public synchronized int getCurrentClients(){
