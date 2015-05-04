@@ -4,11 +4,8 @@
 package client;
 
 import java.nio.ByteBuffer;
-
 import org.newdawn.slick.geom.Vector2f;
-
 import util.EventProtocol;
-import util.Logger;
 
 /**
  * @author nille
