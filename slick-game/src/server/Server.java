@@ -27,6 +27,7 @@ public class Server extends Thread {
 		}
 	}
 
+	@Override
 	public void run() {
 		Socket connection;
 		Statebox mb = new Statebox();
@@ -63,6 +64,7 @@ class UpdateToClient extends Thread {
 			return;
 		}
 		statebox.addClient(s);
+		Logger.log("Sending local player init id");
 		byte[] msg = { EventProtocol.LOCAL_PLAYER_INIT };
 		byte[] idMessage = MessageWrapper.wrapMessageToServer(msg, (byte) statebox.getCurrentClients());
 		try {
@@ -76,8 +78,9 @@ class UpdateToClient extends Thread {
 		writer.flush();
 	}
 
+	@Override
 	public void run() {
-		while (statebox.getCurrentClients() > 0) {
+		while (true) {
 			msg = this.statebox.readMessage();
 
 			for (Socket s : statebox.getClientSockets()) {

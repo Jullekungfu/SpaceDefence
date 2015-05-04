@@ -56,9 +56,11 @@ public class ParseBytes extends Thread {
 			while ((b = byteQueue.poll()) != null) {
 				switch (b) {
 				case EventProtocol.LOCAL_PLAYER_INIT:
+					Logger.log("Local player init");
 					gsMonitor.addLocalPlayer(id);
 					break;
 				case EventProtocol.OPPONENT_PLAYER_INIT:
+					Logger.log("opponent init");
 					gsMonitor.addOpponentPlayer(id);
 					break;
 				case EventProtocol.PLAYER_LOST_CONNECTION:

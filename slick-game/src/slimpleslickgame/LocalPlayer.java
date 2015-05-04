@@ -10,6 +10,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import util.EventProtocol;
+import util.Logger;
 import client.ByteMonitor;
 import client.MessageWrapper;
 
@@ -33,6 +34,7 @@ public class LocalPlayer extends Player {
 	@Override
 	public void init(Vector2f pos) {
 		super.init(pos);
+		Logger.log("Sending Opponent player init");
 		byte[] msg = { EventProtocol.OPPONENT_PLAYER_INIT };
 		bm.putArrayToServer(msg, super.id);
 	}
