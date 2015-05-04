@@ -58,6 +58,7 @@ public class PlayerParticipant extends Thread {
 		}
 		stateBox.removeClientSocket(socket);
 		if(id > -1){
+			Logger.log("Sending player lost connection");
 			byte[] closingMsg = new byte[1];
 			closingMsg[0] = EventProtocol.PLAYER_LOST_CONNECTION;
 			stateBox.writeMessage(MessageWrapper.wrapMessageToServer(closingMsg, id));
