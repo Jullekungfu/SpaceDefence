@@ -15,6 +15,7 @@ public abstract class EventProtocol {
 	public static final byte PLAYER_UPGRADED = 0x5;
 	public static final byte PLAYER_ID = 0x6;
 	public static final byte OPPONENT_PLAYER_INIT = 0x7;
+	public static final byte PLAYER_LOST_CONNECTION = 0x8;
 
 	public static final byte CREEP_HP = 0x10;
 	public static final byte CREEP_DIED = 0x11;

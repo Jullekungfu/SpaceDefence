@@ -1,19 +1,17 @@
 package server;
 
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Vector;
-
-//TODO: This should contain a better buffer. Maybe a ringbuffer? Maybe one buffer per client?
 
 public class Statebox{
     private Queue<byte[]> messages;
-	private Vector<Socket> clients;
+	private ArrayList<Socket> clients;
 
     public Statebox(){
         this.messages = new LinkedList<byte[]>();
-		this.clients = new Vector<Socket>();
+		this.clients = new ArrayList<Socket>();
     }
     
     public synchronized int getCurrentClients(){

@@ -66,4 +66,11 @@ public class GameStatsEvents {
 		}
 		return false;
 	}
+
+	public boolean removePlayer(byte id) {
+		if(!events.containsKey(id)){
+			game.removePlayer(id);
+		}
+		return false;
+	}
 }
