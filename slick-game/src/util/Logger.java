@@ -16,5 +16,12 @@ public abstract class Logger {
 			System.out.println(msg);
 		}
 	}
-
+	
+	public static void logByteArray(byte[] bytes){
+		if(log){
+			for(byte b : bytes)
+			System.out.print(" " + b);
+		}
+		System.out.println();
+	}
 }
