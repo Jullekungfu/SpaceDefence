@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
+import client.MessageWrapper;
+import util.EventProtocol;
 import util.Logger;
 
 public class PlayerParticipant extends Thread {
@@ -24,6 +26,7 @@ public class PlayerParticipant extends Thread {
 
 	@Override
 	public void run() {
+		byte id = -1;
 		while(!socket.isClosed()){
 			try {
 				byte[] intBytes = new byte[4];
@@ -31,7 +34,7 @@ public class PlayerParticipant extends Thread {
 					intBytes[i] = (byte) input.read();
 				}
 				int msgLen = ByteBuffer.wrap(intBytes).getInt();
-				
+				id = (byte)input.read();
 				byte[] msg = new byte[msgLen+4];
 				for(int i = 0; i < 4; i++){
 					msg[i] = intBytes[i];
@@ -51,6 +54,11 @@ public class PlayerParticipant extends Thread {
 			}
 		}
 		stateBox.removeClientSocket(socket);
+		if(id > -1){
+			byte[] closingMsg = new byte[1];
+			closingMsg[0] = EventProtocol.PLAYER_LOST_CONNECTION;
+			stateBox.writeMessage(MessageWrapper.wrapMessageToServer(closingMsg, id));
+		}
 	}
 	
 	private void closeConnection(){

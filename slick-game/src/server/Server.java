@@ -52,6 +52,7 @@ class UpdateToClient extends Thread {
 		this.statebox = statebox;
 	}
 
+	//TODO: (re)move this method
 	public void addSocket(Socket s) {
 		if(statebox.getCurrentClients() >= 4){
 			try {
@@ -69,7 +70,7 @@ class UpdateToClient extends Thread {
 		} catch (IOException e) {e.printStackTrace();}
 	}
 
-	public void sendMessage(byte[] msg, OutputStream writer) throws IOException {
+	private void sendMessage(byte[] msg, OutputStream writer) throws IOException {
 		
 		writer.write(msg);
 		writer.flush();
