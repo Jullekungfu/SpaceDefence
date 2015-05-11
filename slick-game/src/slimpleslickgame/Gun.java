@@ -32,12 +32,14 @@ public class Gun {
 		bulletID = 0;
 	}
 	
-	public void shoot(Vector2f fromPosition){
+	public boolean shoot(Vector2f fromPosition){
 		if(coolDown <= 0){
 			bullets.put(bulletID, new Bullet(fromPosition));
 			bulletID++;
 			coolDown = 1000/firerate;
+			return true;
 		}
+		return false;
 	}
 	
 	public void render(Graphics graphics){

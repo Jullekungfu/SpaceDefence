@@ -144,12 +144,13 @@ public class LocalPlayer extends Player {
 			Vector2f shotPos = new Vector2f(this.position.x
 					+ this.shape.getWidth() / 2, this.position.y
 					+ this.shape.getHeight() / 2);
-			super.gun.shoot(shotPos);
+			if(super.gun.shoot(shotPos)){
 
-			byte[] bytes = MessageWrapper.appendByteArray(
+				byte[] bytes = MessageWrapper.appendByteArray(
 					MessageWrapper.appendByteArray(new byte[]{EventProtocol.BULLET_INIT, EventProtocol.BULLET_ID}, ByteBuffer.allocate(4).putInt(super.gun.getbulletID()).array()), 
 					MessageWrapper.appendByteArray(new byte[]{EventProtocol.EVENT_POS}, MessageWrapper.getVector2fBytes(shotPos)));
-			bm.putArrayToServer(bytes, super.id);
+				bm.putArrayToServer(bytes, super.id);
+			}
 		}
 		
 		super.setDirection(direction);
