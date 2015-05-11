@@ -57,5 +57,6 @@ public class OpponentPlayer extends Player {
 		}
 		super.gun.update(delta);
 		stats.addCreditsDiff(score);
+		stats.update(delta);
 	}
 }
