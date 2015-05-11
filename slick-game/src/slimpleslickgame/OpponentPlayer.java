@@ -11,8 +11,8 @@ public class OpponentPlayer extends Player {
 	private GameStatsEvents gse;
 
 	public OpponentPlayer(GameStatsEvents gse, byte id) {
+		super(id);
 		this.gse = gse;
-		super.id = id;
 	}
 
 	@Override
