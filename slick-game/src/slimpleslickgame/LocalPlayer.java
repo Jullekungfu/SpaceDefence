@@ -66,7 +66,7 @@ public class LocalPlayer extends Player {
 
 			byte[] bytes = MessageWrapper.appendByteArray(
 					MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_INIT, EventProtocol.CREEP_ID}, ByteBuffer.allocate(4).putInt(creepID).array()), 
-					MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_POS}, MessageWrapper.getVector2fBytes(initPos)));
+					MessageWrapper.appendByteArray(new byte[]{EventProtocol.EVENT_POS}, MessageWrapper.getVector2fBytes(initPos)));
 			
 			bm.putArrayToServer(bytes, super.id);
 			creepID++;
@@ -153,7 +153,7 @@ public class LocalPlayer extends Player {
 
 			byte[] bytes = MessageWrapper.appendByteArray(
 					MessageWrapper.appendByteArray(new byte[]{EventProtocol.BULLET_INIT, EventProtocol.BULLET_ID}, ByteBuffer.allocate(4).putInt(super.gun.getbulletID()).array()), 
-					MessageWrapper.appendByteArray(new byte[]{EventProtocol.BULLET_POS}, MessageWrapper.getVector2fBytes(shotPos)));
+					MessageWrapper.appendByteArray(new byte[]{EventProtocol.EVENT_POS}, MessageWrapper.getVector2fBytes(shotPos)));
 			bm.putArrayToServer(bytes, super.id);
 		}
 		
