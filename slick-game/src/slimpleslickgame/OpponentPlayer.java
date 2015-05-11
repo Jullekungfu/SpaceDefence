@@ -16,43 +16,46 @@ public class OpponentPlayer extends Player {
 	}
 
 	@Override
-	public void update(int delta, Shape containerShape) {
+	public int update(int delta, Shape containerShape) {
 		GameEvent e;
+		int score = 0;
 		while ((e = gse.pop(id)) != null) {
 			switch (e.getRole()) {
-			case CREEP: {
-				int cid = e.getId();
-				if(e.isAlive()){
-					super.creeps.put(cid, new Creep(e.getPosition()));
-				} else {
-					Logger.log("c id: " + cid);
-					Logger.log("" + super.creeps.containsKey(cid));
-					super.creeps.remove(cid);
+				case CREEP: {
+					if (e.isAlive()) {
+						super.creeps.put(e.getId(), new Creep(e.getPosition()));
+					} else {
+						super.creeps.remove(e.getId());
+					}
+					break;
 				}
-				break;
-			}
-			case PLAYER: {
-				if (e.getPosition() != null)
-					super.position = e.getPosition();
-
-				if (e.getDirection() != null) {
-					// super.direction = e.getDirection();
+				case PLAYER: {
+					if (e.getPosition() != null) {
+						super.position = e.getPosition();
+					}
+					if (e.getDirection() != null) {
+						// super.direction = e.getDirection();
+					}
+					if (e.getScore() != 0) {
+						score += e.getScore();
+					}
+					super.updatePosition(containerShape);
+					break;
 				}
-				super.updatePosition(containerShape);
-				break;
-			} case BULLET: {
-				if(e.isAlive()){
-					super.gun.shoot(e.getPosition());
-				} else {
-					super.gun.delete(e.getId());
+				case BULLET: {
+					if (e.isAlive()) {
+						super.gun.shoot(e.getPosition());
+					} else {
+						super.gun.delete(e.getId());
+					}
+					break;
 				}
-				break;
-			}
 			}
 		}
-		for(Creep c : super.creeps.values()){
+		for (Creep c : super.creeps.values()) {
 			c.update(delta);
 		}
 		super.gun.update(delta);
+		return score;
 	}
 }

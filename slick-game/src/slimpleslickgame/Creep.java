@@ -17,6 +17,7 @@ public class Creep {
 	private ShapeFill shapeFill;
 	private float speed = 50;
 	private boolean isDestroyed;
+	private int value = 10;
 	
 	public Creep(Vector2f initPos){
 		hp = 100;
@@ -58,5 +59,9 @@ public class Creep {
 
 	public Shape getShape() {
 		return shape;
+	}
+	
+	public int getScoreValue(){
+		return value;
 	}
 }

@@ -39,7 +39,7 @@ public class LocalPlayer extends Player {
 		bm.putArrayToServer(msg, super.id);
 	}
 
-	public void update(int delta, Shape containerShape) {
+	public int update(int delta, Shape containerShape) {
 		time++;
 		if (processInput(gc.getInput())) {
 			if (bm != null) {
@@ -70,18 +70,26 @@ public class LocalPlayer extends Player {
 		gun.update(delta);
 		
 		deadCreeps.clear();
+		int score = 0;
 		for(Entry<Integer, Creep> c : creeps.entrySet()){
-			if(gun.bulletIntersectsCreep(c.getValue().getShape())){
-				deadCreeps.add(c.getKey());
-			} else if(containerShape.intersects(c.getValue().getShape())){
+			if(gun.bulletIntersectsCreep(c.getValue().getShape()) || containerShape.intersects(c.getValue().getShape())){
+				score += c.getValue().getScoreValue();
 				deadCreeps.add(c.getKey());
 			}
 		}
+		
 		for(int i : deadCreeps){
 			this.delete(i);
 			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_DIED, EventProtocol.CREEP_ID}, ByteBuffer.allocate(4).putInt(i).array());
 			bm.putArrayToServer(bytes, super.id);
 		}
+		
+		if(score > 0){
+			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.PLAYER_SCORE}, ByteBuffer.allocate(4).putInt(score).array());
+			bm.putArrayToServer(bytes, id);
+		}
+		
+		return score;
 	}
 	
 	public void delete(int id){
@@ -102,16 +110,16 @@ public class LocalPlayer extends Player {
 			dirChanged = true;
 		}
 
-		if (input.isKeyDown(Input.KEY_UP)) {
-			direction.add(new Vector2f(0, -1));
-			dirChanged = true;
-		}
+//		if (input.isKeyDown(Input.KEY_UP)) {
+//			direction.add(new Vector2f(0, -1));
+//			dirChanged = true;
+//		}
+//
+//		if (input.isKeyDown(Input.KEY_DOWN)) {
+//			direction.add(new Vector2f(0, 1));
+//			dirChanged = true;
+//		}
 
-		if (input.isKeyDown(Input.KEY_DOWN)) {
-			direction.add(new Vector2f(0, 1));
-			dirChanged = true;
-		}
-		// TODO: add shooting capabilities
 		if (input.isKeyPressed(Input.KEY_SPACE)) {
 			Vector2f shotPos = new Vector2f(this.position.x
 					+ this.shape.getWidth() / 2, this.position.y
