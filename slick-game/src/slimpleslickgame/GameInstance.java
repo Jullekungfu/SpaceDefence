@@ -27,9 +27,9 @@ public class GameInstance {
 	public void update(int delta){
 		StatEvent statEvent = player.update(delta, board.getShape());
 		boolean upgraded = stats.update(delta, statEvent);
-//		if(upgraded){
-//			player.upgrade();
-//		}
+		if(upgraded){
+			player.upgrade();
+		}
 	}
 	
 	public void render(Graphics graphics){

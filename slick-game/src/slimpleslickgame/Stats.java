@@ -24,9 +24,9 @@ public class Stats {
 	
 	public boolean update(int delta, StatEvent statEvent){
 		this.time += delta;
-		while(time > 100){
-			time -= 100;
-			credits += level*10;
+		while(time > 1000){
+			time -= 1000;
+			credits += level;
 		}
 		this.credits += statEvent.getScoreDiff();
 		
