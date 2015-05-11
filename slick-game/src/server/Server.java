@@ -2,6 +2,7 @@ package server;
 
 import java.io.*;
 import java.net.*;
+import java.util.Map.Entry;
 
 import client.MessageWrapper;
 import util.EventProtocol;
@@ -54,9 +55,9 @@ class UpdateToClient extends Thread {
 		this.statebox = statebox;
 	}
 
-	//TODO: (re)move this method
+	// TODO: (re)move this method
 	public void addSocket(Socket s) {
-		if(statebox.getCurrentClients() >= 4){
+		if (statebox.getCurrentClients() >= 4) {
 			try {
 				s.close();
 			} catch (IOException e) {
@@ -67,14 +68,18 @@ class UpdateToClient extends Thread {
 		statebox.addClient(s);
 		Logger.log("Sending local player init id");
 		byte[] msg = { EventProtocol.LOCAL_PLAYER_INIT };
-		byte[] idMessage = MessageWrapper.wrapMessageToServer(msg, (byte) statebox.getCurrentClients());
+		byte[] idMessage = MessageWrapper.wrapMessageToServer(msg,
+				(byte) statebox.getCurrentClients());
 		try {
 			sendMessage(idMessage, s.getOutputStream());
-		} catch (IOException e) {e.printStackTrace();}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	private void sendMessage(byte[] msg, OutputStream writer) throws IOException {
-		
+	private void sendMessage(byte[] msg, OutputStream writer)
+			throws IOException {
+
 		writer.write(msg);
 		writer.flush();
 	}
@@ -83,19 +88,15 @@ class UpdateToClient extends Thread {
 	public void run() {
 		while (true) {
 			msg = this.statebox.readMessage();
-			int i = 0;
-			for (Socket s : statebox.getClientSockets()) {
+			int id = (int) msg[5];
+
+			for (Socket s : statebox.getClientSockets(id)) {
 				try {
-					if((int)msg[5] != i+1){
-						System.out.println("msg id: "+(int)msg[5]+" loop id: "+(i+1));
-						sendMessage(msg, s.getOutputStream());
-					}
+					sendMessage(msg, s.getOutputStream());
 				} catch (IOException ioe) {
 					Logger.log("Couldn't send message");
 				}
-				i++;
 			}
-			i = 0;
 		}
 	}
 }
