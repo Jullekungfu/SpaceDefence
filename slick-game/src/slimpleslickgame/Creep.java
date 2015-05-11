@@ -19,9 +19,12 @@ public class Creep {
 	private boolean isDestroyed;
 	private int value = 10;
 	
+	protected final float WIDTH = 20;
+	protected final float HEIGHT = 20;
+	
 	public Creep(Vector2f initPos){
 		hp = 100;
-		shape = new Rectangle(0, 0, 20, 20);
+		shape = new Rectangle(0, 0, WIDTH, HEIGHT);
 		shapeFill = new GradientFill(0,0, new Color(0, 255, 0), 20, 20, new Color(0, 0, 255), true);
 		position = initPos;
 		direction = new Vector2f(0, 0.01f*speed);
