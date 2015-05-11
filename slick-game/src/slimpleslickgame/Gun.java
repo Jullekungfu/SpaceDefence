@@ -22,9 +22,10 @@ public class Gun {
 	private float speed = 10;
 	private int firerate;
 	private int damage;
+	private int coolDown = 0;
 	
 	public Gun(){
-		this.firerate = 1;
+		this.firerate = 2;
 		this.damage = 10;
 		this.level = 1;
 		bullets = new HashMap<Integer, Bullet>();
@@ -32,8 +33,11 @@ public class Gun {
 	}
 	
 	public void shoot(Vector2f fromPosition){
-		bullets.put(bulletID, new Bullet(fromPosition));
-		bulletID++;
+		if(coolDown <= 0){
+			bullets.put(bulletID, new Bullet(fromPosition));
+			bulletID++;
+			coolDown = 1000/firerate;
+		}
 	}
 	
 	public void render(Graphics graphics){
@@ -43,6 +47,9 @@ public class Gun {
 	}
 	
 	public void update(int delta){
+		if(coolDown > 0){
+			coolDown -= delta;
+		}
 		for(Bullet b: bullets.values()){
 			b.update(delta);
 		}
@@ -70,8 +77,7 @@ public class Gun {
 	 * When upgrading weapon.
 	 */
 	public void upgrade(){
-		this.level++;
 		this.damage = this.level * 10;
-		this.firerate = this.level;
+		this.firerate++;
 	}
 }

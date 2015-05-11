@@ -116,7 +116,7 @@ public class LocalPlayer extends Player {
 		
 		score = stats.calcCreditsDiff(delta, score);
 		if(stats.update(delta)){
-			//this.upgrade();
+			super.gun.upgrade();
 		}
 		
 		byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.PLAYER_SCORE}, ByteBuffer.allocate(4).putInt(score).array());
