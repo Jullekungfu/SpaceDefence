@@ -53,6 +53,9 @@ public class ParseBytes extends Thread {
 			event = new GameEvent();
 
 			Byte b = null;
+			float xpos;
+			float ypos;
+			Vector2f pos;
 			while ((b = byteQueue.poll()) != null) {
 				switch (b) {
 				case EventProtocol.LOCAL_PLAYER_INIT:
@@ -67,17 +70,17 @@ public class ParseBytes extends Thread {
 					Logger.log("Player lost connection");
 					gsMonitor.removePlayer(id);
 					break;
-				case EventProtocol.PLAYER_POS: {
-					float xpos = bytesToFloat(byteQueue);
-					float ypos = bytesToFloat(byteQueue);
-					Vector2f pos = new Vector2f(xpos, ypos);
+				case EventProtocol.PLAYER_POS:
+					xpos = bytesToFloat(byteQueue);
+					ypos = bytesToFloat(byteQueue);
+					pos = new Vector2f(xpos, ypos);
 					try {
 						event.putPosition(pos);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					break;
-				}
+				
 				case EventProtocol.PLAYER_DIR: 
 					float xdir = bytesToFloat(byteQueue);
 					float ydir = bytesToFloat(byteQueue);
@@ -95,10 +98,12 @@ public class ParseBytes extends Thread {
 					byteQueue.poll();// get rid of CREEP_ID byte
 					int creepId = bytesToInt(byteQueue);
 					byteQueue.poll();// get rid of CREEP_POS byte
-					float xpos = bytesToFloat(byteQueue);
-					float ypos = bytesToFloat(byteQueue);
-					Vector2f pos = new Vector2f(xpos, ypos);
-					event = new GameEvent(GameRole.CREEP, creepId);
+					xpos = bytesToFloat(byteQueue);
+					ypos = bytesToFloat(byteQueue);
+					pos = new Vector2f(xpos, ypos);
+					event.setRole(GameRole.CREEP);
+					event.setId(creepId);
+					
 					try {
 						event.putPosition(pos);
 					} catch (Exception e) {
@@ -110,7 +115,8 @@ public class ParseBytes extends Thread {
 				case EventProtocol.CREEP_DIED: {
 					byteQueue.poll();
 					int creepId = bytesToInt(byteQueue);
-					event = new GameEvent(GameRole.CREEP, creepId);
+					event.setRole(GameRole.CREEP);
+					event.setId(creepId);
 					event.setDead();
 					break;
 				}
@@ -118,10 +124,11 @@ public class ParseBytes extends Thread {
 					byteQueue.poll();// get rid of BULLET_ID byte
 					int bulletId = bytesToInt(byteQueue);
 					byteQueue.poll();// get rid of BULLET_POS byte
-					float xpos = bytesToFloat(byteQueue);
-					float ypos = bytesToFloat(byteQueue);
-					Vector2f pos = new Vector2f(xpos, ypos);
-					event = new GameEvent(GameRole.BULLET, bulletId);
+					xpos = bytesToFloat(byteQueue);
+					ypos = bytesToFloat(byteQueue);
+					pos = new Vector2f(xpos, ypos);
+					event.setRole(GameRole.BULLET);
+					event.setId(bulletId);
 					try {
 						event.putPosition(pos);
 					} catch (Exception e) {
@@ -134,7 +141,8 @@ public class ParseBytes extends Thread {
 					
 					byteQueue.poll(); 
 					int bulletId = bytesToInt(byteQueue);
-					event = new GameEvent(GameRole.BULLET, bulletId);
+					event.setRole(GameRole.BULLET);
+					event.setId(bulletId);
 					event.setDead();
 					System.out.println("BULLET_DIED");
 					break;
