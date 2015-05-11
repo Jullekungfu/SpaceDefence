@@ -3,10 +3,14 @@ package slimpleslickgame;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
+import util.Logger;
+
 public class Stats {
 	
 	private float x, y;
-	private int score = 0;
+	private int credits = 0;
+	private int level = 1;
+	private int time = 0;
 	
 	
 	public Stats(Vector2f scoreBoardPos) {
@@ -15,11 +19,24 @@ public class Stats {
 	}
 
 	public void render(Graphics graphics){
-		graphics.drawString("Score: " + score, x, y);
+		graphics.drawString("Credits: " + credits, x, y);
 	}
 	
-	public void update(int delta, int score){
-		this.score += score;
+	public boolean update(int delta, StatEvent statEvent){
+		this.time += delta;
+		while(time > 1000){
+			time -= 1000;
+			credits += level;
+		}
+		this.credits += statEvent.getScoreDiff();
+		
+		if(this.credits >= level * level * 1000 && statEvent.getTryUpgrade()){
+			level++;
+			Logger.log("Upgraded player!");
+			return true;
+			
+		}
+		return false;
 	}
 
 }
