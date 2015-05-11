@@ -8,6 +8,7 @@ public class Stats {
 	private float x, y;
 	private int score = 0;
 	
+	
 	public Stats(Vector2f scoreBoardPos) {
 		this.x = scoreBoardPos.x;
 		this.y = scoreBoardPos.y;
