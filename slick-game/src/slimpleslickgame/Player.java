@@ -6,7 +6,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.ShapeFill;
 import org.newdawn.slick.fills.GradientFill;
-import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -23,12 +23,14 @@ public abstract class Player {
 	private Vector2f moveTo;
 	protected HashMap<Integer, Creep> creeps;
 	
-	private final float WIDTH = 50;
-	private final float HEIGHT = 50;
+	private final float WIDTH = 20;
+	private final float HEIGHT = 20;
 	
 	public void init(Vector2f centerPos){
 		position = new Vector2f(centerPos.x - WIDTH/2, centerPos.y - HEIGHT/2);
-		shape = new Rectangle(position.x, position.y, WIDTH, HEIGHT);
+//		shape = new Rectangle(position.x, position.y, WIDTH, HEIGHT);
+		shape = new Polygon(new float[]{position.x, position.y, position.x + WIDTH/2, position.y - HEIGHT, position.x + WIDTH, position.y});
+		shape.setLocation(position);
 		shapeFill = new GradientFill(0,0, new Color(255, 0, 0), 50, 50, new Color(0, 0, 255), true);
 		direction = new Vector2f(0,0);
 		gun = new Gun();
@@ -59,7 +61,8 @@ public abstract class Player {
 			c.render(graphics);
 		}
 		gun.render(graphics);
-		graphics.fill(shape, shapeFill);
+//		graphics.fill(shape, shapeFill);
+		graphics.draw(shape, shapeFill);
 	}
 
 	protected void setDirection(Vector2f dir) {
