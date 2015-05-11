@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import slimpleslickgame.Game;
+import util.Logger;
 
 /**
  * Contains events for all players currently in game.
@@ -45,7 +46,7 @@ public class GameStatsEvents {
 	
 	public boolean addOpponentPlayer(byte id){
 		if(!events.containsKey(id)){
-			//Logger.log("added player " + id);
+			Logger.log("added player " + id);
 			events.put(id, new LinkedList<GameEvent>());
 			game.addOpponentPlayer(id);
 			return true;
