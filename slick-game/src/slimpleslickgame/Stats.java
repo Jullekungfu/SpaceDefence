@@ -12,6 +12,7 @@ public class Stats {
 	private int level = 1;
 	private int time = 0;
 	
+	
 	public Stats(Vector2f scoreBoardPos) {
 		this.x = scoreBoardPos.x;
 		this.y = scoreBoardPos.y;

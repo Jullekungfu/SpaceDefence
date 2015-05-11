@@ -30,6 +30,7 @@ public class ParseBytes extends Thread {
 	public void run() {
 		GameEvent event;
 		while (bMonitor.isOpen()) {
+			boolean gsEvent = false;
 			byte[] byteArray = bMonitor.readArrayFromServer();
 			
 			Queue<Byte> byteQueue = new LinkedList<Byte>();
@@ -52,6 +53,10 @@ public class ParseBytes extends Thread {
 			Vector2f pos;
 			while ((b = byteQueue.poll()) != null) {
 				switch (b) {
+				case EventProtocol.GAME_STARTED:
+					gsMonitor.startGame();
+					gsEvent = true;
+					break;
 				case EventProtocol.LOCAL_PLAYER_INIT:
 					Logger.log("Local player init");
 					gsMonitor.addLocalPlayer(id);
@@ -142,7 +147,9 @@ public class ParseBytes extends Thread {
 				}
 				}
 			}
-			gsMonitor.put(id, event);
+			if(!gsEvent){
+				gsMonitor.put(id, event);
+			}
 		}
 		gsMonitor.removeLocalPlayer();
 	}
