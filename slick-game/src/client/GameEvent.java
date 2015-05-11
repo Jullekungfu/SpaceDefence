@@ -10,6 +10,7 @@ public class GameEvent {
 	private GameRole role;
 	private int id;
 	private boolean isAlive;
+	private int score = 0;
 	
 	public GameEvent() {
 		role = GameRole.PLAYER;
@@ -61,5 +62,14 @@ public class GameEvent {
 	
 	public boolean isAlive(){
 		return isAlive;
+	}
+	
+	//Only for player
+	public void setScore(int score){
+		this.score = score;
+	}
+	
+	public int getScore() {
+		return score;
 	}
 }

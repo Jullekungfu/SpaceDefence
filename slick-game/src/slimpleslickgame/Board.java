@@ -38,5 +38,11 @@ public class Board {
 	public Shape getShape() {
 		return this.shape;
 	}
+
+	public Vector2f getScoreBoardPos() {
+		float x = shape.getMinX();
+		float y = shape.getMaxY() - 20;
+		return new Vector2f(x, y);
+	}
 	
 }
