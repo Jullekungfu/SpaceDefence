@@ -18,9 +18,6 @@ public class Gun {
 
 	private HashMap<Integer, Bullet> bullets;
 	private int bulletID;
-	private Vector2f position;
-	private Shape shape;
-	private Vector2f direction;
 	private int level;
 	private float speed = 10;
 	private int firerate;
@@ -59,14 +56,14 @@ public class Gun {
 		bullets.remove(id);
 	}
 	
-	public boolean bulletIntersectsCreep(Shape creep){
+	public int bulletIntersectsCreep(Shape creep){
 		for(Entry<Integer, Bullet> bullet : bullets.entrySet()){
 			if(creep.intersects(bullet.getValue().getShape())){
 				this.delete(bullet.getKey());
-				return true;
+				return bullet.getKey();
 			}
 		}
-		return false;
+		return -1;
 	}
 	
 	/**

@@ -51,9 +51,17 @@ public class GameEvent {
 		return role;
 	}
 	
+	public void setRole(GameRole role){
+		this.role = role;
+	}
+	
 	//Only for Role CREEP and BULLET
 	public int getId(){
 		return id;
+	}
+	
+	public void setId(int id){
+		this.id = id;
 	}
 	
 	public void setDead(){
