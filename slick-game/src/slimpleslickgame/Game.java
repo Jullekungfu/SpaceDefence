@@ -107,4 +107,8 @@ public class Game extends BasicGameState {
 		}
 		
 	}
+
+	public boolean isStarted() {
+		return gameStarted;
+	}
 }
