@@ -78,4 +78,8 @@ public class GameStatsEvents {
 		if(localId > -1)
 			this.removePlayer(localId);
 	}
+
+	public void startGame() {
+		game.startGame();
+	}
 }
