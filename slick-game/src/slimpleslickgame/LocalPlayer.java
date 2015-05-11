@@ -54,7 +54,7 @@ public class LocalPlayer extends Player {
 		}
 
 		if (time % 60 == 0) {
-			Vector2f initPos = new Vector2f(super.position.x, 20);
+			Vector2f initPos = new Vector2f((float) (containerShape.getMinX() + Math.random()*containerShape.getWidth()), 20);
 			super.creeps.put(creepID, new Creep(initPos));
 
 			byte[] bytes = MessageWrapper.appendByteArray(
