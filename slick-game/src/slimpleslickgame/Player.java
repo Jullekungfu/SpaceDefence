@@ -28,7 +28,6 @@ public abstract class Player {
 	
 	public void init(Vector2f centerPos){
 		position = new Vector2f(centerPos.x - WIDTH/2, centerPos.y - HEIGHT/2);
-//		shape = new Rectangle(position.x, position.y, WIDTH, HEIGHT);
 		shape = new Polygon(new float[]{position.x, position.y, position.x + WIDTH/2, position.y - HEIGHT, position.x + WIDTH, position.y});
 		shape.setLocation(position);
 		shapeFill = new GradientFill(0,0, new Color(255, 0, 0), 50, 50, new Color(0, 0, 255), true);
@@ -61,7 +60,6 @@ public abstract class Player {
 			c.render(graphics);
 		}
 		gun.render(graphics);
-//		graphics.fill(shape, shapeFill);
 		graphics.draw(shape, shapeFill);
 	}
 

@@ -31,12 +31,6 @@ public class ParseBytes extends Thread {
 		GameEvent event;
 		while (bMonitor.isOpen()) {
 			byte[] byteArray = bMonitor.readArrayFromServer();
-//			Logger.log("polled new msg:");
-//			StringBuilder msg = new StringBuilder();
-//			for (byte b : byteArray) {
-//				msg.append(" " + b);
-//			}
-//			Logger.log(msg.toString());
 			
 			Queue<Byte> byteQueue = new LinkedList<Byte>();
 			for (Byte b : byteArray) {
@@ -144,7 +138,6 @@ public class ParseBytes extends Thread {
 					event.setRole(GameRole.BULLET);
 					event.setId(bulletId);
 					event.setDead();
-					System.out.println("BULLET_DIED");
 					break;
 				}
 				}

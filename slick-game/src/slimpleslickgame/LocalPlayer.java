@@ -118,16 +118,6 @@ public class LocalPlayer extends Player {
 			dirChanged = true;
 		}
 
-//		if (input.isKeyDown(Input.KEY_UP)) {
-//			direction.add(new Vector2f(0, -1));
-//			dirChanged = true;
-//		}
-//
-//		if (input.isKeyDown(Input.KEY_DOWN)) {
-//			direction.add(new Vector2f(0, 1));
-//			dirChanged = true;
-//		}
-
 		if (input.isKeyPressed(Input.KEY_SPACE)) {
 			Vector2f shotPos = new Vector2f(this.position.x
 					+ this.shape.getWidth() / 2, this.position.y
