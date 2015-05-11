@@ -22,6 +22,7 @@ public abstract class Player {
 	protected boolean started;
 	private Vector2f moveTo;
 	protected HashMap<Integer, Creep> creeps;
+	protected Stats stats;
 	
 	private final float WIDTH = 20;
 	private final float HEIGHT = 20;
@@ -30,7 +31,8 @@ public abstract class Player {
 		this.id = id;
 	}
 	
-	public void init(Vector2f centerPos){
+	public void init(Vector2f centerPos, Stats stats){
+		this.stats = stats;
 		position = new Vector2f(centerPos.x - WIDTH/2, centerPos.y - HEIGHT/2);
 		shape = new Polygon(new float[]{position.x, position.y, position.x + WIDTH/2, position.y - HEIGHT, position.x + WIDTH, position.y});
 		shape.setLocation(position);
@@ -56,7 +58,7 @@ public abstract class Player {
 		creeps = new HashMap<Integer, Creep>();
 	}
 	
-	public abstract StatEvent update(int delta, Shape containerShape);
+	public abstract void update(int delta, Shape containerShape);
 	
 	protected void updatePosition(Shape containerShape){
 		if(position != null){
@@ -80,16 +82,12 @@ public abstract class Player {
 		}
 		gun.render(graphics);
 		graphics.draw(shape, shapeFill);
+		this.stats.render(graphics);
 	}
 
 	protected void setDirection(Vector2f dir) {
 		dir.normalise();
 		this.direction = dir.scale(speed);
-	}
-	
-	public void moveTo(Vector2f pos){
-		moveTo = pos;
-		setDirection(pos.sub(this.position));
 	}
 	
 }

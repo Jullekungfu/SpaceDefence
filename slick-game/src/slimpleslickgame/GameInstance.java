@@ -14,27 +14,22 @@ public class GameInstance {
 	
 	private Player player;
 	private Board board;
-	private Stats stats;
 	
 	public GameInstance(Player player, Vector2f size){
 		float x = (int)(player.id-1)*size.x;
 		this.board = new Board(new Vector2f(x, 0), size);
-		player.init(board.getPlayerInitPos());
+		
+		Stats stats = new Stats(board.getScoreBoardPos());
+		player.init(board.getPlayerInitPos(), stats);
 		this.player = player;
-		stats = new Stats(board.getScoreBoardPos());
 	}
 	
 	public void update(int delta){
-		StatEvent statEvent = player.update(delta, board.getShape());
-		boolean upgraded = stats.update(delta, statEvent);
-//		if(upgraded){
-//			player.upgrade();
-//		}
+		player.update(delta, board.getShape());
 	}
 	
 	public void render(Graphics graphics){
 		board.render(graphics);
 		player.render(graphics);
-		stats.render(graphics);
 	}
 }
