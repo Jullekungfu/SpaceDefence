@@ -24,11 +24,11 @@ public class LocalPlayer extends Player {
 	private int playerDamageCoolDown;
 
 	public LocalPlayer(GameContainer gc, ByteMonitor bm, byte id) {
+		super(id);
 		this.gc = gc;
 		this.bm = bm;
 		time = 0;
 		creepID = 1;
-		super.id = id;
 		deadCreeps = new ArrayList<>();
 		playerDamageCoolDown = -1;
 	}
