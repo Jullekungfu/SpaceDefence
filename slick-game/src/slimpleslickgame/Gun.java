@@ -18,9 +18,6 @@ public class Gun {
 
 	private HashMap<Integer, Bullet> bullets;
 	private int bulletID;
-	private Vector2f position;
-	private Shape shape;
-	private Vector2f direction;
 	private int level;
 	private float speed = 10;
 	private int firerate;
