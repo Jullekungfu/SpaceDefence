@@ -39,9 +39,10 @@ public class LocalPlayer extends Player {
 		bm.putArrayToServer(msg, super.id);
 	}
 
-	public int update(int delta, Shape containerShape) {
+	public StatEvent update(int delta, Shape containerShape) {
 		time++;
-		if (processInput(gc.getInput())) {
+		StatEvent statEvent = new StatEvent();
+		if (processInput(gc.getInput(), statEvent)) {
 			if (bm != null) {
 				byte[] bytes = MessageWrapper.appendByteArray(
 								MessageWrapper.getPlayerPositionBytes(super.position),
@@ -96,15 +97,16 @@ public class LocalPlayer extends Player {
 			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.PLAYER_SCORE}, ByteBuffer.allocate(4).putInt(score).array());
 			bm.putArrayToServer(bytes, id);
 		}
+		statEvent.setCreditsDiff(score);
 		
-		return score;
+		return statEvent;
 	}
 	
 	public void delete(int id){
 		creeps.remove(id);
 	}
 
-	private boolean processInput(Input input) {
+	private boolean processInput(Input input, StatEvent statEvent) {
 		Vector2f direction = new Vector2f(0, 0);
 		boolean dirChanged = false;
 
@@ -116,6 +118,10 @@ public class LocalPlayer extends Player {
 		if (input.isKeyDown(Input.KEY_RIGHT)) {
 			direction.add(new Vector2f(1, 0));
 			dirChanged = true;
+		}
+		
+		if(input.isKeyDown(Input.KEY_Z)){
+			statEvent.setTryUpgrade();
 		}
 
 		if (input.isKeyPressed(Input.KEY_SPACE)) {

@@ -16,7 +16,8 @@ public class OpponentPlayer extends Player {
 	}
 
 	@Override
-	public int update(int delta, Shape containerShape) {
+	public StatEvent update(int delta, Shape containerShape) {
+		StatEvent statEvent = new StatEvent();
 		GameEvent e;
 		int score = 0;
 		while ((e = gse.pop(id)) != null) {
@@ -56,6 +57,7 @@ public class OpponentPlayer extends Player {
 			c.update(delta);
 		}
 		super.gun.update(delta);
-		return score;
+		statEvent.setCreditsDiff(score);
+		return statEvent;
 	}
 }

@@ -56,7 +56,7 @@ public abstract class Player {
 		creeps = new HashMap<Integer, Creep>();
 	}
 	
-	public abstract int update(int delta, Shape containerShape);
+	public abstract StatEvent update(int delta, Shape containerShape);
 	
 	protected void updatePosition(Shape containerShape){
 		if(position != null){
