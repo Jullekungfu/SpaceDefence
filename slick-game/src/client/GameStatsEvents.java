@@ -45,17 +45,17 @@ public class GameStatsEvents {
 	}
 	
 	public boolean addOpponentPlayer(byte id){
-		if(!events.containsKey(id)){
-			Logger.log("added player " + id);
+		if(!events.containsKey(id) && !game.isStarted()){
 			events.put(id, new LinkedList<GameEvent>());
 			game.addOpponentPlayer(id);
 			return true;
 		}
+		//TODO: handle rejected join
 		return false;
 	}
 
 	public boolean addLocalPlayer(byte id) {
-		if(!events.containsKey(id)){
+		if(!events.containsKey(id)  && !game.isStarted()){
 			for(byte i = 1; i < id;i++){
 				addOpponentPlayer(i);
 			}
@@ -64,6 +64,7 @@ public class GameStatsEvents {
 			this.localId = id;
 			return true;
 		}
+		//TODO: handle rejected join
 		return false;
 	}
 
