@@ -114,14 +114,13 @@ public class LocalPlayer extends Player {
 			bm.putArrayToServer(bytes, super.id);
 		}
 		
-		if(score != 0){
-			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.PLAYER_SCORE}, ByteBuffer.allocate(4).putInt(score).array());
-			bm.putArrayToServer(bytes, id);
-		}
-		stats.addCreditsDiff(score);
+		score = stats.calcCreditsDiff(delta, score);
 		if(stats.update(delta)){
 			//this.upgrade();
 		}
+		
+		byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.PLAYER_SCORE}, ByteBuffer.allocate(4).putInt(score).array());
+		bm.putArrayToServer(bytes, id);
 	}
 	
 	public void delete(int id){
