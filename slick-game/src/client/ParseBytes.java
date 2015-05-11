@@ -69,7 +69,7 @@ public class ParseBytes extends Thread {
 					Logger.log("Player lost connection");
 					gsMonitor.removePlayer(id);
 					break;
-				case EventProtocol.PLAYER_POS:
+				case EventProtocol.EVENT_POS:
 					xpos = bytesToFloat(byteQueue);
 					ypos = bytesToFloat(byteQueue);
 					pos = new Vector2f(xpos, ypos);
@@ -96,19 +96,8 @@ public class ParseBytes extends Thread {
 				case EventProtocol.CREEP_INIT: {
 					byteQueue.poll();// get rid of CREEP_ID byte
 					int creepId = bytesToInt(byteQueue);
-					byteQueue.poll();// get rid of CREEP_POS byte
-					xpos = bytesToFloat(byteQueue);
-					ypos = bytesToFloat(byteQueue);
-					pos = new Vector2f(xpos, ypos);
 					event.setRole(GameRole.CREEP);
 					event.setId(creepId);
-					
-					try {
-						event.putPosition(pos);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					
 					break;
 				}
 				case EventProtocol.CREEP_DIED: {
@@ -122,22 +111,11 @@ public class ParseBytes extends Thread {
 				case EventProtocol.BULLET_INIT: {
 					byteQueue.poll();// get rid of BULLET_ID byte
 					int bulletId = bytesToInt(byteQueue);
-					byteQueue.poll();// get rid of BULLET_POS byte
-					xpos = bytesToFloat(byteQueue);
-					ypos = bytesToFloat(byteQueue);
-					pos = new Vector2f(xpos, ypos);
 					event.setRole(GameRole.BULLET);
 					event.setId(bulletId);
-					try {
-						event.putPosition(pos);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					
 					break;
 				}
 				case EventProtocol.BULLET_DIED: {
-					
 					byteQueue.poll(); 
 					int bulletId = bytesToInt(byteQueue);
 					event.setRole(GameRole.BULLET);
