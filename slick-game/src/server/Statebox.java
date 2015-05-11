@@ -47,11 +47,11 @@ public class Statebox {
 		clients.put(new Integer(clients.size() + 1), s);
 	}
 
-	public synchronized Socket[] getClientSockets(int id) {
+	public synchronized Socket[] getClientSockets(int originId) {
 		Socket[] ss = new Socket[clients.size() - 1];
 		HashMap<Integer, Socket> returnMap = new HashMap<Integer, Socket>();
 		for (Entry<Integer, Socket> socket : clients.entrySet()) {
-			if (id != socket.getKey()) {
+			if (originId != socket.getKey()) {
 				returnMap.put(socket.getKey(), socket.getValue());
 			}
 		}
