@@ -71,9 +71,17 @@ public class LocalPlayer extends Player {
 		
 		deadCreeps.clear();
 		int score = 0;
+		int bid;
 		for(Entry<Integer, Creep> c : creeps.entrySet()){
-			if(gun.bulletIntersectsCreep(c.getValue().getShape()) || containerShape.intersects(c.getValue().getShape())){
+			if((bid = gun.bulletIntersectsCreep(c.getValue().getShape())) != -1){
 				score += c.getValue().getScoreValue();
+				deadCreeps.add(c.getKey());
+				byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.BULLET_DIED, EventProtocol.BULLET_ID}, ByteBuffer.allocate(4).putInt(bid).array());
+				bm.putArrayToServer(bytes, super.id);
+			}
+			
+			if (containerShape.intersects(c.getValue().getShape())){
+				score -= c.getValue().getScoreValue();
 				deadCreeps.add(c.getKey());
 			}
 		}
@@ -84,7 +92,7 @@ public class LocalPlayer extends Player {
 			bm.putArrayToServer(bytes, super.id);
 		}
 		
-		if(score > 0){
+		if(score != 0){
 			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.PLAYER_SCORE}, ByteBuffer.allocate(4).putInt(score).array());
 			bm.putArrayToServer(bytes, id);
 		}

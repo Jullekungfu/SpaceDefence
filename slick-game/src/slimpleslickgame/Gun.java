@@ -59,14 +59,14 @@ public class Gun {
 		bullets.remove(id);
 	}
 	
-	public boolean bulletIntersectsCreep(Shape creep){
+	public int bulletIntersectsCreep(Shape creep){
 		for(Entry<Integer, Bullet> bullet : bullets.entrySet()){
 			if(creep.intersects(bullet.getValue().getShape())){
 				this.delete(bullet.getKey());
-				return true;
+				return bullet.getKey();
 			}
 		}
-		return false;
+		return -1;
 	}
 	
 	/**
