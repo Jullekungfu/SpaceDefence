@@ -21,12 +21,13 @@ public class OpponentPlayer extends Player {
 		while ((e = gse.pop(id)) != null) {
 			switch (e.getRole()) {
 			case CREEP: {
+				int cid = e.getId();
 				if(e.isAlive()){
-					super.creeps.put(e.getId(), new Creep(e.getPosition()));
-//					Logger.log(e.getPosition().x);
+					super.creeps.put(cid, new Creep(e.getPosition()));
 				} else {
-					super.creeps.remove(e.getId());
-					Logger.log("Deleted creep");
+					Logger.log("c id: " + cid);
+					Logger.log("" + super.creeps.containsKey(cid));
+					super.creeps.remove(cid);
 				}
 				break;
 			}
