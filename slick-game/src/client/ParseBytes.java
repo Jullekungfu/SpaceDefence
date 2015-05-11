@@ -112,7 +112,6 @@ public class ParseBytes extends Thread {
 					int creepId = bytesToInt(byteQueue);
 					event = new GameEvent(GameRole.CREEP, creepId);
 					event.setDead();
-					Logger.log("received creep died msg");
 					break;
 				}
 				case EventProtocol.BULLET_INIT: {

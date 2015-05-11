@@ -80,7 +80,7 @@ public class LocalPlayer extends Player {
 		
 		for(int i : deadCreeps){
 			this.delete(i);
-			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_DIED, EventProtocol.CREEP_ID}, ByteBuffer.allocate(4).putInt(creepID).array());
+			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_DIED, EventProtocol.CREEP_ID}, ByteBuffer.allocate(4).putInt(i).array());
 			bm.putArrayToServer(bytes, super.id);
 		}
 		
