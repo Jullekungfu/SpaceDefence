@@ -54,7 +54,14 @@ public class LocalPlayer extends Player {
 		}
 
 		if (time % 60 == 0) {
-			Vector2f initPos = new Vector2f((float) (containerShape.getMinX() + Math.random()*containerShape.getWidth()), 20);
+			float xPos =(float) (containerShape.getMinX() + Math.random()*containerShape.getWidth());
+			if(xPos < 20) {
+				xPos = 21;
+			} else if (xPos > containerShape.getMaxX()-20) {
+				xPos = containerShape.getMaxX()-21;
+			}
+			
+			Vector2f initPos = new Vector2f(xPos, 20);
 			super.creeps.put(creepID, new Creep(initPos));
 
 			byte[] bytes = MessageWrapper.appendByteArray(
@@ -95,6 +102,7 @@ public class LocalPlayer extends Player {
 			}
 			
 			if (containerShape.intersects(c.getValue().getShape())){
+				System.out.println("creep spawn intersect");
 				score -= c.getValue().getScoreValue();
 				deadCreeps.add(c.getKey());
 			}

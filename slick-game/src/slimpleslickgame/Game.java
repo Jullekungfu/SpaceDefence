@@ -46,7 +46,7 @@ public class Game extends BasicGameState {
 				instances.get(b).render(g);
 			}
 		} else {
-			int th = g.getFont().getLineHeight()/2;
+			int th = g.getFont().getLineHeight();
 			int tw = 100;
 			
 			g.drawString("PRESS ENTER TO START GAME\nPlayers in game: " + instances.size(), (Client.WIDTH/2)-tw, (Client.HEIGHT/2)-th);
