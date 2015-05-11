@@ -129,10 +129,12 @@ public class ParseBytes extends Thread {
 					break;
 				}
 				case EventProtocol.BULLET_DIED: {
-					byteQueue.poll();
+					
+					byteQueue.poll(); 
 					int bulletId = bytesToInt(byteQueue);
 					event = new GameEvent(GameRole.BULLET, bulletId);
 					event.setDead();
+					System.out.println("BULLET_DIED");
 					break;
 				}
 				}
