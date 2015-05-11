@@ -21,6 +21,7 @@ public class LocalPlayer extends Player {
 	private int time;
 	private int creepID;
 	private ArrayList<Integer> deadCreeps;
+	private int playerDamageCoolDown;
 
 	public LocalPlayer(GameContainer gc, ByteMonitor bm, byte id) {
 		this.gc = gc;
@@ -29,6 +30,7 @@ public class LocalPlayer extends Player {
 		creepID = 1;
 		super.id = id;
 		deadCreeps = new ArrayList<>();
+		playerDamageCoolDown = -1;
 	}
 
 	@Override
@@ -64,7 +66,19 @@ public class LocalPlayer extends Player {
 		}
 
 		for (Creep c : creeps.values()) {
+			if(super.shape.intersects(c.getShape())&& playerDamageCoolDown==-1){
+				//stats.decreaseHp(-10);
+				playerDamageCoolDown = 0;
+			}
 			c.update(delta);
+		}
+		
+		if(playerDamageCoolDown >= 0){
+			if(playerDamageCoolDown > 2000){
+				playerDamageCoolDown = -1;
+			} else {
+				playerDamageCoolDown+=delta;
+			}
 		}
 		
 		gun.update(delta);
