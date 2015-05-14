@@ -87,4 +87,8 @@ public abstract class Player {
 		this.direction = dir.scale(speed);
 	}
 	
+	public boolean isDead(){
+		return dead;
+	}
+	
 }
