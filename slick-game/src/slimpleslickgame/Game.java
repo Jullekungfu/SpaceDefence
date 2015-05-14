@@ -71,9 +71,9 @@ public class Game extends BasicGameState {
 					+ "\n-Freeze on enemy collision"
 					+ "\n\nSending creeps:"
 					+ "\n-1 key 1 creep 100 credits"
-					+ "\n-2 key 5 creeps 400 credits"
-					+ "\n-3 key 20 creeps 1200 credits"
-					+ "\n\nUpgrading ship:"
+					+ "\n-2 key 5 creeps 250 credits"
+					+ "\n-3 key 20 creeps 500 credits"
+					+ "\n\nUpgrading ship cost 750 credits:"
 					+ "\n-Fire rate increase"
 					+ "\n-Income increase",
 					(Client.WIDTH / 2) + tw - buttonSize + 6,
