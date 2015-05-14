@@ -68,7 +68,7 @@ public class LocalPlayer extends Player {
 
 			byte[] bytes = MessageWrapper.appendByteArray(
 					MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_INIT, EventProtocol.CREEP_ID}, ByteBuffer.allocate(4).putInt(creepID).array()), 
-					MessageWrapper.appendByteArray(new byte[]{EventProtocol.EVENT_POS}, MessageWrapper.getVector2fBytes(initPos)));
+					MessageWrapper.appendByteArray(new byte[]{0x0, EventProtocol.EVENT_POS}, MessageWrapper.getVector2fBytes(initPos)));
 			
 			bm.putArrayToServer(bytes, super.id);
 			creepID++;
@@ -78,12 +78,19 @@ public class LocalPlayer extends Player {
 		while((event = gse.pop(id)) != null){
 			int sentCreeps = 0;
 			if((sentCreeps = event.getSentCreeps()) > 0){
-				Color color = ColorSwitch.getColorFromId((byte) event.getId());
+				byte sendId = (byte) event.getId();
+				Color color = ColorSwitch.getColorFromId(sendId);
 				for(int i = 0; i < sentCreeps; i++){
 					float xPos =(float) (containerShape.getMinX() + (20 + (Math.random()*(containerShape.getWidth()-40))));
 				
 					Vector2f initPos = new Vector2f(xPos, 20);
 					super.creeps.put(creepID, new Creep(initPos, color));
+					
+					byte[] bytes = MessageWrapper.appendByteArray(
+							MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_INIT, EventProtocol.CREEP_ID}, ByteBuffer.allocate(4).putInt(creepID).array()), 
+							MessageWrapper.appendByteArray(new byte[]{sendId, EventProtocol.EVENT_POS}, MessageWrapper.getVector2fBytes(initPos)));
+					bm.putArrayToServer(bytes, super.id);
+					
 					creepID++;
 				}
 			}

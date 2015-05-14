@@ -13,6 +13,7 @@ public class GameEvent {
 	private int score = 0;
 	private int creepsSent = 0;
 	private int hp;
+	private byte sendId = 0x0;
 	
 	public GameEvent() {
 		role = GameRole.PLAYER;
@@ -74,6 +75,14 @@ public class GameEvent {
 	
 	public boolean isAlive(){
 		return isAlive;
+	}
+	
+	public void setSendId(byte b){
+		this.sendId = b;
+	}
+	
+	public byte getSendId(){
+		return sendId;
 	}
 	
 	//Only for player
