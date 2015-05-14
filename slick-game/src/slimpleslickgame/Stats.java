@@ -31,7 +31,7 @@ public class Stats {
 	}
 	
 	public boolean update(int delta){
-		int levelCredits = 750;
+		int levelCredits = 350;
 		if(this.credits >= levelCredits && this.tryUpgrade){
 			level++;
 			this.credits -= levelCredits;
@@ -59,7 +59,7 @@ public class Stats {
 
 	private static final int CREEP_PRICE_1 = 100;
 	private static final int CREEP_PRICE_5 = 250;
-	private static final int CREEP_PRICE_10 = 450;
+	private static final int CREEP_PRICE_10 = 250;
 	
 	public int buyCreeps(int key) {
 		switch(key){
