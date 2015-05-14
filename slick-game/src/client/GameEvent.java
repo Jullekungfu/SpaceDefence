@@ -11,10 +11,12 @@ public class GameEvent {
 	private int id;
 	private boolean isAlive;
 	private int score = 0;
+	private int hp;
 	
 	public GameEvent() {
 		role = GameRole.PLAYER;
 		isAlive = true;
+		int hp = -1;
 	}
 	
 	public GameEvent(GameRole role, int id){
@@ -79,5 +81,16 @@ public class GameEvent {
 	
 	public int getScore() {
 		return score;
+	}
+
+	public void setPlayerHp(int hp) {
+		this.hp = hp;
+		if (hp <= 0){
+			setDead();
+		}
+	}
+	
+	public int getPlayerHp(){
+		return hp;
 	}
 }

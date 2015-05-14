@@ -102,7 +102,12 @@ public class LocalPlayer extends Player {
 			
 			if (containerShape.intersects(c.getValue().getShape())){
 				System.out.println("creep spawn intersect");
-				dead = stats.damaged();
+				int hp = stats.damaged();
+				dead = hp <= 0;
+				
+				byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.PLAYER_HP}, ByteBuffer.allocate(4).putInt(hp).array());
+				bm.putArrayToServer(bytes, super.id);
+				
 				deadCreeps.add(c.getKey());
 			}
 		}

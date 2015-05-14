@@ -55,10 +55,14 @@ public class Stats {
 		return this.creditsDiff;
 	}
 
-	public boolean damaged() {
+	public int damaged() {
 		hp--;
 		
-		return hp <= 0;
+		return hp;
+	}
+
+	public void setHP(int playerHp) {
+		this.hp = playerHp;
 	}
 
 }
