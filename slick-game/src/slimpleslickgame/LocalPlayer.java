@@ -144,7 +144,7 @@ public class LocalPlayer extends Player {
 			bm.putArrayToServer(bytes, super.id);
 		}
 		
-		score = stats.calcCreditsDiff(delta, score);
+		score = stats.calcCredits(delta, score);
 		if(stats.update(delta)){
 			super.gun.upgrade();
 		}
