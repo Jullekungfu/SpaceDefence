@@ -56,10 +56,11 @@ public class Stats {
 		this.credits += creditsDiff;
 		return this.credits;
 	}
-
-	private static final int CREEP_PRICE_1 = 50;
-	private static final int CREEP_PRICE_5 = 225;
-	private static final int CREEP_PRICE_10 = 400;
+	
+	//public in orderto write in game info screen 
+	public static final int CREEP_PRICE_1 = 50;
+	public static final int CREEP_PRICE_5 = 225;
+	public static final int CREEP_PRICE_10 = 400;
 	
 	private static final int INCOME_RATE_1 = 1;
 	private static final int INCOME_RATE_5 = 6;

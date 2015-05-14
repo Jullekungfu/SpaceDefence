@@ -70,9 +70,9 @@ public class Game extends BasicGameState {
 					+ "\n-HP decrease on enemy passing by"
 					+ "\n-Freeze on enemy collision"
 					+ "\n\nSending creeps:"
-					+ "\n-1 key 1 creep 100 credits"
-					+ "\n-2 key 5 creeps 250 credits"
-					+ "\n-3 key 20 creeps 500 credits"
+					+ "\n-1 key 1 creep "+Stats.CREEP_PRICE_1 +" credits"
+					+ "\n-2 key 5 creeps "+Stats.CREEP_PRICE_5+" credits"
+					+ "\n-3 key 20 creeps "+Stats.CREEP_PRICE_10+" 500 credits"
 					+ "\n\nUpgrading ship cost 750 credits:"
 					+ "\n-Fire rate increase"
 					+ "\n-Income increase",
