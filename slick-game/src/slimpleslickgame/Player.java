@@ -90,5 +90,9 @@ public abstract class Player {
 	public boolean isDead(){
 		return dead;
 	}
+
+	public byte getId() {
+		return id;
+	}
 	
 }

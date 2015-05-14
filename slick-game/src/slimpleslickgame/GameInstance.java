@@ -36,4 +36,8 @@ public class GameInstance {
 	public boolean isPlayerDead(){
 		return player.isDead();
 	}
+	
+	public byte getPlayerId(){
+		return player.getId();
+	}
 }
