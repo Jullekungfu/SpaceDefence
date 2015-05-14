@@ -13,8 +13,8 @@ public class Stats {
 	private int time = 0;
 	private int creditsDiff = 0;
 	private boolean tryUpgrade = false;
+	private int hp = 100;
 	private int incomeRate = 1000;
-	private int hp = 1;
 	
 	public Stats(Vector2f scoreBoardPos) {
 		this.x = scoreBoardPos.x;
