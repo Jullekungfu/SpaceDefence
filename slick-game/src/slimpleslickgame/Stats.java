@@ -25,6 +25,11 @@ public class Stats {
 		graphics.drawString("HP: "+ hp , x, y);
 	}
 	
+	public boolean update(int delta, int score){
+		credits = score;
+		return this.update(delta);
+	}
+	
 	public boolean update(int delta){
 		int levelCredits = 1000;
 		if(this.credits >= levelCredits && this.tryUpgrade){
