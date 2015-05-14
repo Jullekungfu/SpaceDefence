@@ -193,7 +193,7 @@ public class LocalPlayer extends Player {
 			bm.putArrayToServer(bytes, id);
 		}
 
-		if (input.isKeyPressed(Input.KEY_SPACE) && playerDamageCoolDown==-1) {
+		if (input.isKeyDown(Input.KEY_SPACE) && playerDamageCoolDown==-1) {
 			Vector2f shotPos = new Vector2f(this.position.x
 					+ this.shape.getWidth() / 2, this.position.y
 					+ this.shape.getHeight() / 2);

@@ -57,9 +57,9 @@ public class Stats {
 		return this.credits;
 	}
 
-	private static final int CREEP_PRICE_1 = 100;
-	private static final int CREEP_PRICE_5 = 250;
-	private static final int CREEP_PRICE_10 = 450;
+	private static final int CREEP_PRICE_1 = 50;
+	private static final int CREEP_PRICE_5 = 100;
+	private static final int CREEP_PRICE_10 = 250;
 	
 	public int buyCreeps(int key) {
 		switch(key){
