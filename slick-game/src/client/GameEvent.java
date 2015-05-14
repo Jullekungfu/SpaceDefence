@@ -16,13 +16,14 @@ public class GameEvent {
 	public GameEvent() {
 		role = GameRole.PLAYER;
 		isAlive = true;
-		int hp = -1;
+		hp = -1;
 	}
 	
 	public GameEvent(GameRole role, int id){
 		this.role = role; 
 		this.id = id;
 		isAlive = true;
+		hp = -1;
 	}
 
 	public void putPosition(Vector2f pos) throws Exception {

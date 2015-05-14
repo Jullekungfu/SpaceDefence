@@ -57,7 +57,6 @@ public class Stats {
 
 	public int damaged() {
 		hp--;
-		
 		return hp;
 	}
 
