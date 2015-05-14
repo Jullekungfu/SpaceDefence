@@ -78,11 +78,11 @@ public class Game extends BasicGameState {
 	}
 
 	public void addOpponentPlayer(byte playerId) {
-		addPlayer(new OpponentPlayer(this.gse, playerId));
+		addPlayer(new OpponentPlayer(playerId, this.gse));
 	}
 	
 	public void addLocalPlayer(byte playerId){
-		addPlayer(new LocalPlayer(gc, bm, playerId));
+		addPlayer(new LocalPlayer(gc, bm, gse, playerId));
 	}
 	
 	private void addPlayer(Player player){

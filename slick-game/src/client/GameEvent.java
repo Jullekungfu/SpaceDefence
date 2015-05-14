@@ -11,6 +11,7 @@ public class GameEvent {
 	private int id;
 	private boolean isAlive;
 	private int score = 0;
+	private int creepsSent = 0;
 	private int hp;
 	
 	public GameEvent() {
@@ -84,6 +85,14 @@ public class GameEvent {
 		return score;
 	}
 
+	public void setInit(int nbrCreeps) {
+		this.creepsSent += nbrCreeps;
+	}
+	
+	public int getSentCreeps(){
+		return creepsSent;
+	}
+	
 	public void setPlayerHp(int hp) {
 		this.hp = hp;
 		if (hp <= 0){

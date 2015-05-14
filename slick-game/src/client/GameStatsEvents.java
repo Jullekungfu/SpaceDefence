@@ -83,4 +83,8 @@ public class GameStatsEvents {
 	public void startGame() {
 		game.startGame();
 	}
+	
+	public byte getLocalID(){
+		return this.localId;
+	}
 }
