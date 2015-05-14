@@ -62,74 +62,74 @@ public class Game extends BasicGameState {
 			int buttonHeight = 50;
 
 			// Controller rectangle
-			g.drawRect((Client.WIDTH / 2) - 2 * tw - 6, (Client.HEIGHT / 3) - 2
+			g.drawRect((Client.WIDTH / 2) - 4 * tw - 6, (Client.HEIGHT / 3) - 2
 					* buttonHeight - 6, 4 * tw + 30, 2 * tw + buttonHeight + 6);
 
 			// 1 key
-			g.drawRect((Client.WIDTH / 2) - 2 * tw, (Client.HEIGHT / 3) - 2
+			g.drawRect((Client.WIDTH / 2) - 4 * tw, (Client.HEIGHT / 3) - 2
 					* buttonHeight + 6, buttonWidth, buttonHeight);
-			g.drawString("1", ((Client.WIDTH + buttonWidth / 3) / 2) - 2 * tw,
+			g.drawString("1", ((Client.WIDTH + buttonWidth / 3) / 2) - 4 * tw,
 					((Client.HEIGHT + buttonHeight / 2) / 3) - 2 * buttonHeight
 							+ 6);
 			// 2 key
-			g.drawRect((Client.WIDTH / 2) - 2 * tw + buttonWidth + 6,
+			g.drawRect((Client.WIDTH / 2) - 4 * tw + buttonWidth + 6,
 					(Client.HEIGHT / 3) - 2 * buttonHeight + 6, buttonWidth,
 					buttonHeight);
-			g.drawString("2", ((Client.WIDTH + buttonWidth / 3) / 2) - 2 * tw
+			g.drawString("2", ((Client.WIDTH + buttonWidth / 3) / 2) - 4 * tw
 					+ buttonWidth + 6, ((Client.HEIGHT + buttonHeight / 2) / 3)
 					- 2 * buttonHeight + 6);
 			// 3 key
-			g.drawRect((Client.WIDTH / 2) - 2 * tw + 2 * (buttonWidth + 6),
+			g.drawRect((Client.WIDTH / 2) - 4 * tw + 2 * (buttonWidth + 6),
 					(Client.HEIGHT / 3) - 2 * buttonHeight + 6, buttonWidth,
 					buttonHeight);
-			g.drawString("3", ((Client.WIDTH + buttonWidth / 3) / 2) - 2 * tw
+			g.drawString("3", ((Client.WIDTH + buttonWidth / 3) / 2) - 4 * tw
 					+ 2 * (buttonWidth + 6),
 					((Client.HEIGHT + buttonHeight / 2) / 3) - 2 * buttonHeight
 							+ 6);
 			// 123 description
 			g.drawString("Send creeps to \nother players", (Client.WIDTH / 2)
-					- 2 * tw, (Client.HEIGHT / 3) - buttonHeight + 6);
+					- 4 * tw, (Client.HEIGHT / 3) - buttonHeight + 6);
 
 			// Z key
 
-			g.drawRect((Client.WIDTH / 2) - 2 * tw, (Client.HEIGHT / 3)
+			g.drawRect((Client.WIDTH / 2) - 4 * tw, (Client.HEIGHT / 3)
 					+ buttonHeight + 6, buttonWidth, buttonHeight);
-			g.drawString("Z", ((Client.WIDTH + buttonWidth / 2) / 2) - 2 * tw,
+			g.drawString("Z", ((Client.WIDTH + buttonWidth / 2) / 2) - 4 * tw,
 					((Client.HEIGHT + buttonHeight / 2) / 3) + buttonHeight + 6);
 
-			g.drawString("Upgrade \nship", (Client.WIDTH / 2) - 2 * tw,
+			g.drawString("Upgrade \nship", (Client.WIDTH / 2) - 4 * tw,
 					(Client.HEIGHT / 3) + 2 * buttonHeight + 6);
 
 			// Space
-			g.drawRect((Client.WIDTH / 2) - 2 * tw + buttonWidth + 35,
+			g.drawRect((Client.WIDTH / 2) - 4 * tw + buttonWidth + 35,
 					(Client.HEIGHT / 3) + buttonHeight + 6, 3 * buttonWidth,
 					buttonHeight);
-			g.drawString("Shoot", (Client.WIDTH / 2) - 2 * tw + buttonWidth
+			g.drawString("Shoot", (Client.WIDTH / 2) - 4 * tw + buttonWidth
 					+ 35, (Client.HEIGHT / 3) + 2 * buttonHeight + 6);
 
 			// Left arrow
-			g.drawRect((Client.WIDTH / 2) - tw + 3 * buttonWidth + 6,
+			g.drawRect((Client.WIDTH / 2) - 3*tw + 3 * buttonWidth + 6,
 					(Client.HEIGHT / 3) + buttonHeight + 6, buttonWidth,
 					buttonHeight);
-			g.drawString("Left", ((Client.WIDTH + buttonWidth / 3) / 2) - tw
+			g.drawString("Left", ((Client.WIDTH + buttonWidth / 3) / 2) - 3*tw
 					+ 3 * buttonWidth + 6,
 					((Client.HEIGHT + buttonHeight / 2) / 3) + buttonHeight + 6);
 			// Keys up/down
-			g.drawRect((Client.WIDTH / 2) - tw + 4 * buttonWidth + 2 * 6,
+			g.drawRect((Client.WIDTH / 2) - 3*tw + 4 * buttonWidth + 2 * 6,
 					(Client.HEIGHT / 3), buttonWidth, buttonHeight);
-			g.drawRect((Client.WIDTH / 2) - tw + 4 * buttonWidth + 2 * 6,
+			g.drawRect((Client.WIDTH / 2) - 3*tw + 4 * buttonWidth + 2 * 6,
 					(Client.HEIGHT / 3) + buttonHeight + 6, buttonWidth,
 					buttonHeight);
 
 			// Right arrow
-			g.drawRect((Client.WIDTH / 2) - tw + 5 * buttonWidth + 3 * 6,
+			g.drawRect((Client.WIDTH / 2) - 3*tw + 5 * buttonWidth + 3 * 6,
 					(Client.HEIGHT / 3) + buttonHeight + 6, buttonWidth,
 					buttonHeight);
-			g.drawString("Right", (Client.WIDTH / 2) - tw + 5 * buttonWidth + 3
+			g.drawString("Right", (Client.WIDTH / 2) - 3*tw + 5 * buttonWidth + 3
 					* 6 + 3, ((Client.HEIGHT + buttonHeight / 2) / 3)
 					+ buttonHeight + 6);
 			// Arrow description
-			g.drawString("Navigate ship", (Client.WIDTH / 2) - tw + 3
+			g.drawString("Navigate ship", (Client.WIDTH / 2) - 3*tw + 3
 					* buttonWidth + 6, (Client.HEIGHT / 3) + 2 * buttonHeight
 					+ 6);
 
