@@ -32,4 +32,8 @@ public class GameInstance {
 		board.render(graphics);
 		player.render(graphics, board.getShape());
 	}
+	
+	public boolean isPlayerDead(){
+		return player.isDead();
+	}
 }

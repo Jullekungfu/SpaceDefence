@@ -1,35 +1,45 @@
 package slimpleslickgame;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Shape;
 
+import util.ColorSwitch;
 import util.Logger;
 import client.GameEvent;
 import client.GameStatsEvents;
 
 public class OpponentPlayer extends Player {
 
-	private GameStatsEvents gse;
-
-	public OpponentPlayer(GameStatsEvents gse, byte id) {
-		super(id);
-		this.gse = gse;
+	public OpponentPlayer(byte id, GameStatsEvents gse) {
+		super(id, gse);
 	}
 
 	@Override
 	public void update(int delta, Shape containerShape) {
+		if(dead)
+			return;
+		
 		GameEvent e;
 		int score = 0;
 		while ((e = gse.pop(id)) != null) {
 			switch (e.getRole()) {
 				case CREEP: {
 					if (e.isAlive()) {
-						super.creeps.put(e.getId(), new Creep(e.getPosition()));
+						super.creeps.put(e.getId(), new Creep(e.getPosition(), ColorSwitch.getColorFromId(e.getSendId())));
 					} else {
 						super.creeps.remove(e.getId());
 					}
 					break;
 				}
 				case PLAYER: {
+					if (!e.isAlive()){
+						dead = true;
+					}
+					
+					if(e.getPlayerHp() != -1){
+						stats.setHP(e.getPlayerHp());
+					}
+					
 					if (e.getPosition() != null) {
 						super.position = e.getPosition();
 					}
@@ -37,7 +47,7 @@ public class OpponentPlayer extends Player {
 						// super.direction = e.getDirection();
 					}
 					if (e.getScore() != 0) {
-						score += e.getScore();
+						score = e.getScore();
 					}
 					super.updatePosition(containerShape);
 					break;

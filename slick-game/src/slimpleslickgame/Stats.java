@@ -13,8 +13,8 @@ public class Stats {
 	private int time = 0;
 	private int creditsDiff = 0;
 	private boolean tryUpgrade = false;
-	private int hp = 1;
-	
+	private int hp = 100;
+	private int incomeRate = 1000;
 	
 	public Stats(Vector2f scoreBoardPos) {
 		this.x = scoreBoardPos.x;
@@ -29,15 +29,14 @@ public class Stats {
 	public boolean update(int delta){
 		this.credits += creditsDiff;
 		this.creditsDiff = 0;
-		int levelCredits = level * 1000;
+		int levelCredits = 1000;
 		if(this.credits >= levelCredits && this.tryUpgrade){
 			level++;
-			this.tryUpgrade = false;
 			this.credits -= levelCredits;
 			Logger.log("Upgraded player!");
 			return true;
-			
 		}
+		this.tryUpgrade = false;
 		return false;
 	}
 
@@ -48,17 +47,51 @@ public class Stats {
 	public int calcCreditsDiff(int delta, int scoreDiff) {
 		this.creditsDiff += scoreDiff;
 		this.time += delta;
-		while(time > 1000){
-			time -= 1000;
+		while(time > incomeRate){
+			time -= incomeRate;
 			this.creditsDiff += level;
 		}
-		return this.creditsDiff;
+		return this.credits;
 	}
 
-	public boolean damaged() {
+	private static final int CREEP_PRICE_1 = 100;
+	private static final int CREEP_PRICE_5 = 400;
+	private static final int CREEP_PRICE_20 = 1200;
+	
+	public int buyCreeps(int key) {
+		switch(key){
+			case 1:
+				if(this.credits >= CREEP_PRICE_1){
+					credits -= CREEP_PRICE_1;
+					this.incomeRate--;
+					return 1;
+				}
+				break;
+			case 2:
+				if(this.credits >= CREEP_PRICE_5){
+					credits -= CREEP_PRICE_5;
+					this.incomeRate -= 6;
+					return 5;
+				}
+				break;
+			case 3:
+				if(this.credits >= CREEP_PRICE_20){
+					credits -= CREEP_PRICE_20;
+					this.incomeRate -= 25;
+					return 20;
+				}
+				break;
+		}
+		return 0;
+	}
+	
+	public int damaged() {
 		hp--;
-		
-		return hp <= 0;
+		return hp;
+	}
+
+	public void setHP(int playerHp) {
+		this.hp = playerHp;
 	}
 
 }

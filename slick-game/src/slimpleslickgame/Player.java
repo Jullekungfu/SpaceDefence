@@ -10,6 +10,9 @@ import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
+import util.ColorSwitch;
+import client.GameStatsEvents;
+
 public abstract class Player {
 	
 	protected Vector2f position;
@@ -23,13 +26,15 @@ public abstract class Player {
 	private Vector2f moveTo;
 	protected HashMap<Integer, Creep> creeps;
 	protected Stats stats;
+	protected GameStatsEvents gse;
 	protected boolean dead;
 	
 	private final float WIDTH = 20;
 	private final float HEIGHT = 20;
 	
-	public Player(byte id){
+	public Player(byte id, GameStatsEvents gse){
 		this.id = id;
+		this.gse = gse;
 		dead = false;
 	}
 	
@@ -38,21 +43,7 @@ public abstract class Player {
 		position = new Vector2f(centerPos.x - WIDTH/2, centerPos.y - HEIGHT/2);
 		shape = new Polygon(new float[]{position.x, position.y, position.x + WIDTH/2, position.y - HEIGHT, position.x + WIDTH, position.y});
 		shape.setLocation(position);
-		Color color;
-		switch(id){
-			case 0x1: 
-				color = Color.red;
-				break;
-			case 0x2:
-				color= Color.green;
-				break;
-			case 0x3:
-				color = Color.cyan;
-				break;
-			default:
-				color = Color.yellow;
-				break;
-		}
+		Color color = ColorSwitch.getColorFromId(id);
 		shapeFill = new GradientFill(0,0, color, 50, 50, color, true);
 		direction = new Vector2f(0,0);
 		gun = new Gun();
@@ -94,6 +85,10 @@ public abstract class Player {
 	protected void setDirection(Vector2f dir) {
 		dir.normalise();
 		this.direction = dir.scale(speed);
+	}
+	
+	public boolean isDead(){
+		return dead;
 	}
 	
 }

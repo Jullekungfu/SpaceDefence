@@ -1,17 +1,21 @@
 package slimpleslickgame;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Map.Entry;
-import java.nio.ByteBuffer;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
+import util.ColorSwitch;
 import util.EventProtocol;
 import util.Logger;
 import client.ByteMonitor;
+import client.GameEvent;
+import client.GameStatsEvents;
 import client.MessageWrapper;
 
 public class LocalPlayer extends Player {
@@ -23,8 +27,8 @@ public class LocalPlayer extends Player {
 	private ArrayList<Integer> deadCreeps;
 	private int playerDamageCoolDown;
 
-	public LocalPlayer(GameContainer gc, ByteMonitor bm, byte id) {
-		super(id);
+	public LocalPlayer(GameContainer gc, ByteMonitor bm, GameStatsEvents gse, byte id) {
+		super(id, gse);
 		this.gc = gc;
 		this.bm = bm;
 		time = 0;
@@ -60,14 +64,36 @@ public class LocalPlayer extends Player {
 			float xPos =(float) (containerShape.getMinX() + (20 + (Math.random()*(containerShape.getWidth()-40))));
 			
 			Vector2f initPos = new Vector2f(xPos, 20);
-			super.creeps.put(creepID, new Creep(initPos));
+			super.creeps.put(creepID, new Creep(initPos, Color.white));
 
 			byte[] bytes = MessageWrapper.appendByteArray(
 					MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_INIT, EventProtocol.CREEP_ID}, ByteBuffer.allocate(4).putInt(creepID).array()), 
-					MessageWrapper.appendByteArray(new byte[]{EventProtocol.EVENT_POS}, MessageWrapper.getVector2fBytes(initPos)));
+					MessageWrapper.appendByteArray(new byte[]{0x0, EventProtocol.EVENT_POS}, MessageWrapper.getVector2fBytes(initPos)));
 			
 			bm.putArrayToServer(bytes, super.id);
 			creepID++;
+		}
+		
+		GameEvent event;
+		while((event = gse.pop(id)) != null){
+			int sentCreeps = 0;
+			if((sentCreeps = event.getSentCreeps()) > 0){
+				byte sendId = (byte) event.getId();
+				Color color = ColorSwitch.getColorFromId(sendId);
+				for(int i = 0; i < sentCreeps; i++){
+					float xPos =(float) (containerShape.getMinX() + (20 + (Math.random()*(containerShape.getWidth()-40))));
+				
+					Vector2f initPos = new Vector2f(xPos, 20);
+					super.creeps.put(creepID, new Creep(initPos, color));
+					
+					byte[] bytes = MessageWrapper.appendByteArray(
+							MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_INIT, EventProtocol.CREEP_ID}, ByteBuffer.allocate(4).putInt(creepID).array()), 
+							MessageWrapper.appendByteArray(new byte[]{sendId, EventProtocol.EVENT_POS}, MessageWrapper.getVector2fBytes(initPos)));
+					bm.putArrayToServer(bytes, super.id);
+					
+					creepID++;
+				}
+			}
 		}
 
 		for (Creep c : creeps.values()) {
@@ -102,7 +128,12 @@ public class LocalPlayer extends Player {
 			
 			if (containerShape.intersects(c.getValue().getShape())){
 				System.out.println("creep spawn intersect");
-				dead = stats.damaged();
+				int hp = stats.damaged();
+				dead = hp <= 0;
+				
+				byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.PLAYER_HP}, ByteBuffer.allocate(4).putInt(hp).array());
+				bm.putArrayToServer(bytes, super.id);
+				
 				deadCreeps.add(c.getKey());
 			}
 		}
@@ -142,6 +173,24 @@ public class LocalPlayer extends Player {
 		
 		if(input.isKeyDown(Input.KEY_Z)){
 			stats.putUpgradePressed();
+		}
+		
+		int sendCreeps = 0;
+		if(input.isKeyPressed(Input.KEY_1)){
+			sendCreeps += stats.buyCreeps(1);
+		}
+		
+		if(input.isKeyPressed(Input.KEY_2)){
+			sendCreeps += stats.buyCreeps(2);
+		}
+		
+		if(input.isKeyPressed(Input.KEY_3)){
+			sendCreeps += stats.buyCreeps(3);
+		}
+		
+		if(sendCreeps > 0){
+			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.CREEP_SENT},ByteBuffer.allocate(4).putInt(sendCreeps).array()); 
+			bm.putArrayToServer(bytes, id);
 		}
 
 		if (input.isKeyPressed(Input.KEY_SPACE) && playerDamageCoolDown==-1) {

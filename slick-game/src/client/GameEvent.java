@@ -11,16 +11,21 @@ public class GameEvent {
 	private int id;
 	private boolean isAlive;
 	private int score = 0;
+	private int creepsSent = 0;
+	private int hp;
+	private byte sendId = 0x0;
 	
 	public GameEvent() {
 		role = GameRole.PLAYER;
 		isAlive = true;
+		hp = -1;
 	}
 	
 	public GameEvent(GameRole role, int id){
 		this.role = role; 
 		this.id = id;
 		isAlive = true;
+		hp = -1;
 	}
 
 	public void putPosition(Vector2f pos) throws Exception {
@@ -72,6 +77,14 @@ public class GameEvent {
 		return isAlive;
 	}
 	
+	public void setSendId(byte b){
+		this.sendId = b;
+	}
+	
+	public byte getSendId(){
+		return sendId;
+	}
+	
 	//Only for player
 	public void setScore(int score){
 		this.score = score;
@@ -79,5 +92,24 @@ public class GameEvent {
 	
 	public int getScore() {
 		return score;
+	}
+
+	public void setInit(int nbrCreeps) {
+		this.creepsSent += nbrCreeps;
+	}
+	
+	public int getSentCreeps(){
+		return creepsSent;
+	}
+	
+	public void setPlayerHp(int hp) {
+		this.hp = hp;
+		if (hp <= 0){
+			setDead();
+		}
+	}
+	
+	public int getPlayerHp(){
+		return hp;
 	}
 }

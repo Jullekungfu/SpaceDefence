@@ -93,11 +93,16 @@ public class ParseBytes extends Thread {
 				case EventProtocol.PLAYER_SCORE:
 					event.setScore(this.bytesToInt(byteQueue));
 					break;
+				case EventProtocol.PLAYER_HP:
+					event.setPlayerHp(this.bytesToInt(byteQueue));
+					break;
 				case EventProtocol.CREEP_INIT: {
 					byteQueue.poll();// get rid of CREEP_ID byte
 					int creepId = bytesToInt(byteQueue);
+					byte sendId = byteQueue.poll();
 					event.setRole(GameRole.CREEP);
 					event.setId(creepId);
+					event.setSendId(sendId);
 					break;
 				}
 				case EventProtocol.CREEP_DIED: {
@@ -106,6 +111,13 @@ public class ParseBytes extends Thread {
 					event.setRole(GameRole.CREEP);
 					event.setId(creepId);
 					event.setDead();
+					break;
+				}
+				case EventProtocol.CREEP_SENT: {
+					event.setRole(GameRole.CREEP);
+					event.setId(id);
+					event.setInit(bytesToInt(byteQueue));
+					id = gsMonitor.getLocalID();
 					break;
 				}
 				case EventProtocol.BULLET_INIT: {
