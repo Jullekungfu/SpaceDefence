@@ -21,7 +21,8 @@ public class Stats {
 	}
 
 	public void render(Graphics graphics){
-		graphics.drawString("Credits: " + credits , x, y-graphics.getFont().getLineHeight());
+		graphics.drawString("Credits: " + credits , x, y-(2*graphics.getFont().getLineHeight()));
+		graphics.drawString("Level: " + level , x, y-graphics.getFont().getLineHeight());
 		graphics.drawString("HP: "+ hp , x, y);
 	}
 	
