@@ -13,6 +13,7 @@ public class Stats {
 	private int time = 0;
 	private int creditsDiff = 0;
 	private boolean tryUpgrade = false;
+	private int hp = 100;
 	
 	
 	public Stats(Vector2f scoreBoardPos) {
@@ -21,7 +22,8 @@ public class Stats {
 	}
 
 	public void render(Graphics graphics){
-		graphics.drawString("Credits: " + credits, x, y);
+		graphics.drawString("Credits: " + credits , x, y-graphics.getFont().getLineHeight());
+		graphics.drawString("HP: "+ hp , x, y);
 	}
 	
 	public boolean update(int delta){

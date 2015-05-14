@@ -19,8 +19,8 @@ public class GameInstance {
 		float x = (int)(player.id-1)*size.x;
 		this.board = new Board(new Vector2f(x, 0), size);
 		
-		Stats stats = new Stats(board.getScoreBoardPos());
-		player.init(board.getPlayerInitPos(), stats);
+		Stats playerStats = new Stats(board.getScoreBoardPos());
+		player.init(board.getPlayerInitPos(), playerStats);
 		this.player = player;
 	}
 	
