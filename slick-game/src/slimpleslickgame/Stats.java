@@ -29,15 +29,14 @@ public class Stats {
 	public boolean update(int delta){
 		this.credits += creditsDiff;
 		this.creditsDiff = 0;
-		int levelCredits = level * 1000;
+		int levelCredits = 1000;
 		if(this.credits >= levelCredits && this.tryUpgrade){
 			level++;
-			this.tryUpgrade = false;
 			this.credits -= levelCredits;
 			Logger.log("Upgraded player!");
 			return true;
-			
 		}
+		this.tryUpgrade = false;
 		return false;
 	}
 
@@ -52,7 +51,7 @@ public class Stats {
 			time -= incomeRate;
 			this.creditsDiff += level;
 		}
-		return this.creditsDiff;
+		return this.credits;
 	}
 
 	private static final int CREEP_PRICE_1 = 100;
@@ -71,14 +70,14 @@ public class Stats {
 			case 2:
 				if(this.credits >= CREEP_PRICE_5){
 					credits -= CREEP_PRICE_5;
-					this.incomeRate -= 2;
+					this.incomeRate -= 6;
 					return 5;
 				}
 				break;
 			case 3:
 				if(this.credits >= CREEP_PRICE_20){
 					credits -= CREEP_PRICE_20;
-					this.incomeRate -= 3;
+					this.incomeRate -= 25;
 					return 20;
 				}
 				break;

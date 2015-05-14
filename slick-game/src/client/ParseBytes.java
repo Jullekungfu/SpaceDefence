@@ -99,8 +99,10 @@ public class ParseBytes extends Thread {
 				case EventProtocol.CREEP_INIT: {
 					byteQueue.poll();// get rid of CREEP_ID byte
 					int creepId = bytesToInt(byteQueue);
+					byte sendId = byteQueue.poll();
 					event.setRole(GameRole.CREEP);
 					event.setId(creepId);
+					event.setSendId(sendId);
 					break;
 				}
 				case EventProtocol.CREEP_DIED: {
