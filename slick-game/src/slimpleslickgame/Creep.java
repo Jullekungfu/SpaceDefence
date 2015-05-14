@@ -52,7 +52,8 @@ public class Creep {
 	
 	public void render(Graphics graphics){
 		if(hp > 0 && !isDestroyed){
-			graphics.fill(shape, shapeFill);
+//			graphics.fill(shape, shapeFill);
+			graphics.draw(shape, shapeFill);
 		}
 	}
 	
