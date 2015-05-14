@@ -70,14 +70,14 @@ public class Stats {
 			case 2:
 				if(this.credits >= CREEP_PRICE_5){
 					credits -= CREEP_PRICE_5;
-					this.incomeRate -= 2;
+					this.incomeRate -= 6;
 					return 5;
 				}
 				break;
 			case 3:
 				if(this.credits >= CREEP_PRICE_20){
 					credits -= CREEP_PRICE_20;
-					this.incomeRate -= 3;
+					this.incomeRate -= 25;
 					return 20;
 				}
 				break;
