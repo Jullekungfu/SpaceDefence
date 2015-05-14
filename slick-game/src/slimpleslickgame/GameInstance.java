@@ -30,6 +30,6 @@ public class GameInstance {
 	
 	public void render(Graphics graphics){
 		board.render(graphics);
-		player.render(graphics);
+		player.render(graphics, board.getShape());
 	}
 }

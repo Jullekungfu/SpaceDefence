@@ -23,12 +23,14 @@ public abstract class Player {
 	private Vector2f moveTo;
 	protected HashMap<Integer, Creep> creeps;
 	protected Stats stats;
+	protected boolean dead;
 	
 	private final float WIDTH = 20;
 	private final float HEIGHT = 20;
 	
 	public Player(byte id){
 		this.id = id;
+		dead = false;
 	}
 	
 	public void init(Vector2f centerPos, Stats stats){
@@ -76,13 +78,17 @@ public abstract class Player {
 		}
 	}
 	
-	public void render(Graphics graphics){
+	public void render(Graphics graphics, Shape containerShape){
 		for(Creep c : creeps.values()){
 			c.render(graphics);
 		}
 		gun.render(graphics);
 		graphics.draw(shape, shapeFill);
 		this.stats.render(graphics);
+		
+		if(dead){
+			graphics.drawString("DEAD", containerShape.getCenterX()-10, containerShape.getCenterY());
+		}
 	}
 
 	protected void setDirection(Vector2f dir) {

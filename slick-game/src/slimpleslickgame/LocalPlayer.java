@@ -42,6 +42,9 @@ public class LocalPlayer extends Player {
 	}
 
 	public void update(int delta, Shape containerShape) {
+		if (dead)
+			return;
+		
 		time++;
 		if (processInput(gc.getInput())) {
 			if (bm != null) {
@@ -99,7 +102,7 @@ public class LocalPlayer extends Player {
 			
 			if (containerShape.intersects(c.getValue().getShape())){
 				System.out.println("creep spawn intersect");
-				score -= c.getValue().getScoreValue();
+				dead = stats.damaged();
 				deadCreeps.add(c.getKey());
 			}
 		}

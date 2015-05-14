@@ -13,7 +13,7 @@ public class Stats {
 	private int time = 0;
 	private int creditsDiff = 0;
 	private boolean tryUpgrade = false;
-	private int hp = 100;
+	private int hp = 1;
 	
 	
 	public Stats(Vector2f scoreBoardPos) {
@@ -53,6 +53,12 @@ public class Stats {
 			this.creditsDiff += level;
 		}
 		return this.creditsDiff;
+	}
+
+	public boolean damaged() {
+		hp--;
+		
+		return hp <= 0;
 	}
 
 }
