@@ -65,8 +65,8 @@ public class OpponentPlayer extends Player {
 		for (Creep c : super.creeps.values()) {
 			c.update(delta);
 		}
-		stats.calcCreditsDiff(0, score);
-		stats.update(delta);
+//		stats.calcCredits(0, score);
+		stats.update(delta, score);
 		super.gun.update(delta);
 	}
 }
