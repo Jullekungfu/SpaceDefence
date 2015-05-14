@@ -127,7 +127,7 @@ public class LocalPlayer extends Player {
 			}
 			
 			if (containerShape.intersects(c.getValue().getShape())){
-				System.out.println("creep spawn intersect");
+//				Logger.log("creep spawn intersect");
 				int hp = stats.damaged();
 				dead = hp <= 0;
 				

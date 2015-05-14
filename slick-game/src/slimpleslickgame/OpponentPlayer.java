@@ -1,6 +1,5 @@
 package slimpleslickgame;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Shape;
 
 import util.ColorSwitch;
@@ -65,7 +64,7 @@ public class OpponentPlayer extends Player {
 		for (Creep c : super.creeps.values()) {
 			c.update(delta);
 		}
-//		stats.calcCredits(0, score);
+
 		stats.update(delta, score);
 		super.gun.update(delta);
 	}
