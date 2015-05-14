@@ -47,7 +47,7 @@ public class OpponentPlayer extends Player {
 						// super.direction = e.getDirection();
 					}
 					if (e.getScore() != 0) {
-						score += e.getScore();
+						score = e.getScore();
 					}
 					super.updatePosition(containerShape);
 					break;
