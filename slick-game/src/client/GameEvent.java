@@ -12,16 +12,19 @@ public class GameEvent {
 	private boolean isAlive;
 	private int score = 0;
 	private int creepsSent = 0;
+	private int hp;
 	
 	public GameEvent() {
 		role = GameRole.PLAYER;
 		isAlive = true;
+		hp = -1;
 	}
 	
 	public GameEvent(GameRole role, int id){
 		this.role = role; 
 		this.id = id;
 		isAlive = true;
+		hp = -1;
 	}
 
 	public void putPosition(Vector2f pos) throws Exception {
@@ -88,5 +91,16 @@ public class GameEvent {
 	
 	public int getSentCreeps(){
 		return creepsSent;
+	}
+	
+	public void setPlayerHp(int hp) {
+		this.hp = hp;
+		if (hp <= 0){
+			setDead();
+		}
+	}
+	
+	public int getPlayerHp(){
+		return hp;
 	}
 }

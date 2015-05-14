@@ -15,6 +15,9 @@ public class OpponentPlayer extends Player {
 
 	@Override
 	public void update(int delta, Shape containerShape) {
+		if(dead)
+			return;
+		
 		GameEvent e;
 		int score = 0;
 		while ((e = gse.pop(id)) != null) {
@@ -28,6 +31,14 @@ public class OpponentPlayer extends Player {
 					break;
 				}
 				case PLAYER: {
+					if (!e.isAlive()){
+						dead = true;
+					}
+					
+					if(e.getPlayerHp() != -1){
+						stats.setHP(e.getPlayerHp());
+					}
+					
 					if (e.getPosition() != null) {
 						super.position = e.getPosition();
 					}

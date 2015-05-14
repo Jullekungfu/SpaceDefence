@@ -14,7 +14,7 @@ public class Stats {
 	private int creditsDiff = 0;
 	private boolean tryUpgrade = false;
 	private int incomeRate = 1000;
-	
+	private int hp = 1;
 	
 	public Stats(Vector2f scoreBoardPos) {
 		this.x = scoreBoardPos.x;
@@ -22,7 +22,8 @@ public class Stats {
 	}
 
 	public void render(Graphics graphics){
-		graphics.drawString("Credits: " + credits, x, y);
+		graphics.drawString("Credits: " + credits , x, y-graphics.getFont().getLineHeight());
+		graphics.drawString("HP: "+ hp , x, y);
 	}
 	
 	public boolean update(int delta){
@@ -83,6 +84,15 @@ public class Stats {
 				break;
 		}
 		return 0;
+	}
+	
+	public int damaged() {
+		hp--;
+		return hp;
+	}
+
+	public void setHP(int playerHp) {
+		this.hp = playerHp;
 	}
 
 }

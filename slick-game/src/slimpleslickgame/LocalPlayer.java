@@ -46,6 +46,9 @@ public class LocalPlayer extends Player {
 	}
 
 	public void update(int delta, Shape containerShape) {
+		if (dead)
+			return;
+		
 		time++;
 		if (processInput(gc.getInput())) {
 			if (bm != null) {
@@ -88,7 +91,8 @@ public class LocalPlayer extends Player {
 
 		for (Creep c : creeps.values()) {
 			if(super.shape.intersects(c.getShape())&& playerDamageCoolDown==-1){
-				//stats.decreaseHp(-10);
+				System.out.println("MAYDAY!");
+				//TODO: Stun player.
 				playerDamageCoolDown = 0;
 			}
 			c.update(delta);
@@ -117,7 +121,12 @@ public class LocalPlayer extends Player {
 			
 			if (containerShape.intersects(c.getValue().getShape())){
 				System.out.println("creep spawn intersect");
-				score -= c.getValue().getScoreValue();
+				int hp = stats.damaged();
+				dead = hp <= 0;
+				
+				byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.PLAYER_HP}, ByteBuffer.allocate(4).putInt(hp).array());
+				bm.putArrayToServer(bytes, super.id);
+				
 				deadCreeps.add(c.getKey());
 			}
 		}
@@ -177,7 +186,7 @@ public class LocalPlayer extends Player {
 			bm.putArrayToServer(bytes, id);
 		}
 
-		if (input.isKeyPressed(Input.KEY_SPACE)) {
+		if (input.isKeyPressed(Input.KEY_SPACE) && playerDamageCoolDown==-1) {
 			Vector2f shotPos = new Vector2f(this.position.x
 					+ this.shape.getWidth() / 2, this.position.y
 					+ this.shape.getHeight() / 2);

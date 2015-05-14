@@ -93,6 +93,9 @@ public class ParseBytes extends Thread {
 				case EventProtocol.PLAYER_SCORE:
 					event.setScore(this.bytesToInt(byteQueue));
 					break;
+				case EventProtocol.PLAYER_HP:
+					event.setPlayerHp(this.bytesToInt(byteQueue));
+					break;
 				case EventProtocol.CREEP_INIT: {
 					byteQueue.poll();// get rid of CREEP_ID byte
 					int creepId = bytesToInt(byteQueue);
