@@ -40,7 +40,6 @@ public class LocalPlayer extends Player {
 	@Override
 	public void init(Vector2f pos, Stats stats) {
 		super.init(pos, stats);
-		Logger.log("Sending Opponent player init");
 		byte[] msg = { EventProtocol.OPPONENT_PLAYER_INIT };
 		bm.putArrayToServer(msg, super.id);
 	}
@@ -98,7 +97,6 @@ public class LocalPlayer extends Player {
 
 		for (Creep c : creeps.values()) {
 			if(super.shape.intersects(c.getShape())&& playerDamageCoolDown==-1){
-				System.out.println("MAYDAY!");
 				//TODO: Stun player.
 				playerDamageCoolDown = 0;
 			}
@@ -127,7 +125,6 @@ public class LocalPlayer extends Player {
 			}
 			
 			if (containerShape.intersects(c.getValue().getShape())){
-				System.out.println("creep spawn intersect");
 				int hp = stats.damaged();
 				dead = hp <= 0;
 				
