@@ -11,7 +11,6 @@ public class Stats {
 	private int credits = 0;
 	private int level = 1;
 	private int time = 0;
-	private int creditsDiff = 0;
 	private boolean tryUpgrade = false;
 	private int hp = 100;
 	private int incomeRate = 1000;
@@ -27,8 +26,6 @@ public class Stats {
 	}
 	
 	public boolean update(int delta){
-		this.credits += creditsDiff;
-		this.creditsDiff = 0;
 		int levelCredits = 1000;
 		if(this.credits >= levelCredits && this.tryUpgrade){
 			level++;
@@ -44,13 +41,14 @@ public class Stats {
 		this.tryUpgrade = true;
 	}
 
-	public int calcCreditsDiff(int delta, int scoreDiff) {
-		this.creditsDiff += scoreDiff;
+	public int calcCredits(int delta, int scoreDiff) {
+		int creditsDiff = scoreDiff;
 		this.time += delta;
 		while(time > incomeRate){
 			time -= incomeRate;
-			this.creditsDiff += level;
+			creditsDiff += level;
 		}
+		this.credits += creditsDiff;
 		return this.credits;
 	}
 
