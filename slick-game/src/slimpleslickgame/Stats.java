@@ -32,12 +32,11 @@ public class Stats {
 		int levelCredits = 1000;
 		if(this.credits >= levelCredits && this.tryUpgrade){
 			level++;
-			this.tryUpgrade = false;
 			this.credits -= levelCredits;
 			Logger.log("Upgraded player!");
 			return true;
-			
 		}
+		this.tryUpgrade = false;
 		return false;
 	}
 
@@ -52,7 +51,7 @@ public class Stats {
 			time -= incomeRate;
 			this.creditsDiff += level;
 		}
-		return this.creditsDiff;
+		return this.credits;
 	}
 
 	private static final int CREEP_PRICE_1 = 100;
