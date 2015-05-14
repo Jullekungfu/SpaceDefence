@@ -2,8 +2,6 @@ package slimpleslickgame;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import javafx.scene.shape.Rectangle;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
