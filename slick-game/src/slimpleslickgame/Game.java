@@ -46,97 +46,113 @@ public class Game extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame arg1, Graphics g)
 			throws SlickException {
 
-		if(gameStarted){
-			if(gameOver){
-				g.drawString("Player " + winnerID + " WINS!", (Client.WIDTH/2)-50, (Client.HEIGHT/2)+100);
-				g.drawString("GAME IS OVER, PRESS ENTER TO EXIT", (Client.WIDTH/2)-150, (Client.HEIGHT/2)+200);
+		if (gameStarted) {
+			if (gameOver) {
+				g.drawString("Player " + winnerID + " WINS!",
+						(Client.WIDTH / 2) - 50, (Client.HEIGHT / 2) + 100);
+				g.drawString("GAME IS OVER, PRESS ENTER TO EXIT",
+						(Client.WIDTH / 2) - 150, (Client.HEIGHT / 2) + 200);
 			} else {
-				for(GameInstance gi : instances.values()){
+				for (GameInstance gi : instances.values()) {
 					gi.render(g);
 				}
 			}
 		} else {
 			int th = g.getFont().getLineHeight();
 			int tw = 100;
-			int buttonWidth = 50;
-			int buttonHeight = 50;
+			int buttonSize = 50;
+
+			// Game Info
+			g.drawRect((Client.WIDTH / 2) + tw - buttonSize,
+					(Client.HEIGHT / 3) - 2 * buttonSize - 6, 3 * tw, 2 * tw
+							+ buttonSize + 6);
+			g.drawString("Protect home from invaders "
+					+ "\n-HP decrease on enemy passing by"
+					+ "\n-Freeze on enemy collision"
+					+ "\n\nSending creeps:"
+					+ "\n-1 key 1 creep 100 credits"
+					+ "\n-2 key 5 creeps 400 credits"
+					+ "\n-3 key 20 creeps 1200 credits"
+					+ "\n\nUpgrading ship:"
+					+ "\n-Fire rate increase"
+					+ "\n-Income increase",
+					(Client.WIDTH / 2) + tw - buttonSize + 6,
+					(Client.HEIGHT / 3) - 2 * buttonSize);
 
 			// Controller rectangle
 			g.drawRect((Client.WIDTH / 2) - 4 * tw - 6, (Client.HEIGHT / 3) - 2
-					* buttonHeight - 6, 4 * tw + 30, 2 * tw + buttonHeight + 6);
+					* buttonSize - 6, 4 * tw + 30, 2 * tw + buttonSize + 6);
 
 			// 1 key
 			g.drawRect((Client.WIDTH / 2) - 4 * tw, (Client.HEIGHT / 3) - 2
-					* buttonHeight + 6, buttonWidth, buttonHeight);
-			g.drawString("1", ((Client.WIDTH + buttonWidth / 3) / 2) - 4 * tw,
-					((Client.HEIGHT + buttonHeight / 2) / 3) - 2 * buttonHeight
-							+ 6);
+					* buttonSize + 6, buttonSize, buttonSize);
+			g.drawString("1", ((Client.WIDTH + buttonSize / 3) / 2) - 4 * tw,
+					((Client.HEIGHT + buttonSize / 2) / 3) - 2 * buttonSize + 6);
 			// 2 key
-			g.drawRect((Client.WIDTH / 2) - 4 * tw + buttonWidth + 6,
-					(Client.HEIGHT / 3) - 2 * buttonHeight + 6, buttonWidth,
-					buttonHeight);
-			g.drawString("2", ((Client.WIDTH + buttonWidth / 3) / 2) - 4 * tw
-					+ buttonWidth + 6, ((Client.HEIGHT + buttonHeight / 2) / 3)
-					- 2 * buttonHeight + 6);
+			g.drawRect((Client.WIDTH / 2) - 4 * tw + buttonSize + 6,
+					(Client.HEIGHT / 3) - 2 * buttonSize + 6, buttonSize,
+					buttonSize);
+			g.drawString("2", ((Client.WIDTH + buttonSize / 3) / 2) - 4 * tw
+					+ buttonSize + 6, ((Client.HEIGHT + buttonSize / 2) / 3)
+					- 2 * buttonSize + 6);
 			// 3 key
-			g.drawRect((Client.WIDTH / 2) - 4 * tw + 2 * (buttonWidth + 6),
-					(Client.HEIGHT / 3) - 2 * buttonHeight + 6, buttonWidth,
-					buttonHeight);
-			g.drawString("3", ((Client.WIDTH + buttonWidth / 3) / 2) - 4 * tw
-					+ 2 * (buttonWidth + 6),
-					((Client.HEIGHT + buttonHeight / 2) / 3) - 2 * buttonHeight
-							+ 6);
+			g.drawRect((Client.WIDTH / 2) - 4 * tw + 2 * (buttonSize + 6),
+					(Client.HEIGHT / 3) - 2 * buttonSize + 6, buttonSize,
+					buttonSize);
+			g.drawString("3", ((Client.WIDTH + buttonSize / 3) / 2) - 4 * tw
+					+ 2 * (buttonSize + 6),
+					((Client.HEIGHT + buttonSize / 2) / 3) - 2 * buttonSize + 6);
 			// 123 description
 			g.drawString("Send creeps to \nother players", (Client.WIDTH / 2)
-					- 4 * tw, (Client.HEIGHT / 3) - buttonHeight + 6);
+					- 4 * tw, (Client.HEIGHT / 3) - buttonSize + 6);
 
 			// Z key
 
 			g.drawRect((Client.WIDTH / 2) - 4 * tw, (Client.HEIGHT / 3)
-					+ buttonHeight + 6, buttonWidth, buttonHeight);
-			g.drawString("Z", ((Client.WIDTH + buttonWidth / 2) / 2) - 4 * tw,
-					((Client.HEIGHT + buttonHeight / 2) / 3) + buttonHeight + 6);
+					+ buttonSize + 6, buttonSize, buttonSize);
+			g.drawString("Z", ((Client.WIDTH + buttonSize / 2) / 2) - 4 * tw,
+					((Client.HEIGHT + buttonSize / 2) / 3) + buttonSize + 6);
 
 			g.drawString("Upgrade \nship", (Client.WIDTH / 2) - 4 * tw,
-					(Client.HEIGHT / 3) + 2 * buttonHeight + 6);
+					(Client.HEIGHT / 3) + 2 * buttonSize + 6);
 
 			// Space
-			g.drawRect((Client.WIDTH / 2) - 4 * tw + buttonWidth + 35,
-					(Client.HEIGHT / 3) + buttonHeight + 6, 3 * buttonWidth,
-					buttonHeight);
-			g.drawString("Shoot", (Client.WIDTH / 2) - 4 * tw + buttonWidth
-					+ 35, (Client.HEIGHT / 3) + 2 * buttonHeight + 6);
+			g.drawRect((Client.WIDTH / 2) - 4 * tw + buttonSize + 35,
+					(Client.HEIGHT / 3) + buttonSize + 6, 3 * buttonSize,
+					buttonSize);
+			g.drawString("Shoot",
+					(Client.WIDTH / 2) - 4 * tw + buttonSize + 35,
+					(Client.HEIGHT / 3) + 2 * buttonSize + 6);
 
 			// Left arrow
-			g.drawRect((Client.WIDTH / 2) - 3*tw + 3 * buttonWidth + 6,
-					(Client.HEIGHT / 3) + buttonHeight + 6, buttonWidth,
-					buttonHeight);
-			g.drawString("Left", ((Client.WIDTH + buttonWidth / 3) / 2) - 3*tw
-					+ 3 * buttonWidth + 6,
-					((Client.HEIGHT + buttonHeight / 2) / 3) + buttonHeight + 6);
+			g.drawRect((Client.WIDTH / 2) - 3 * tw + 3 * buttonSize + 6,
+					(Client.HEIGHT / 3) + buttonSize + 6, buttonSize,
+					buttonSize);
+			g.drawString("Left", ((Client.WIDTH + buttonSize / 3) / 2) - 3 * tw
+					+ 3 * buttonSize + 6,
+					((Client.HEIGHT + buttonSize / 2) / 3) + buttonSize + 6);
 			// Keys up/down
-			g.drawRect((Client.WIDTH / 2) - 3*tw + 4 * buttonWidth + 2 * 6,
-					(Client.HEIGHT / 3), buttonWidth, buttonHeight);
-			g.drawRect((Client.WIDTH / 2) - 3*tw + 4 * buttonWidth + 2 * 6,
-					(Client.HEIGHT / 3) + buttonHeight + 6, buttonWidth,
-					buttonHeight);
+			g.drawRect((Client.WIDTH / 2) - 3 * tw + 4 * buttonSize + 2 * 6,
+					(Client.HEIGHT / 3), buttonSize, buttonSize);
+			g.drawRect((Client.WIDTH / 2) - 3 * tw + 4 * buttonSize + 2 * 6,
+					(Client.HEIGHT / 3) + buttonSize + 6, buttonSize,
+					buttonSize);
 
 			// Right arrow
-			g.drawRect((Client.WIDTH / 2) - 3*tw + 5 * buttonWidth + 3 * 6,
-					(Client.HEIGHT / 3) + buttonHeight + 6, buttonWidth,
-					buttonHeight);
-			g.drawString("Right", (Client.WIDTH / 2) - 3*tw + 5 * buttonWidth + 3
-					* 6 + 3, ((Client.HEIGHT + buttonHeight / 2) / 3)
-					+ buttonHeight + 6);
+			g.drawRect((Client.WIDTH / 2) - 3 * tw + 5 * buttonSize + 3 * 6,
+					(Client.HEIGHT / 3) + buttonSize + 6, buttonSize,
+					buttonSize);
+			g.drawString("Right", (Client.WIDTH / 2) - 3 * tw + 5 * buttonSize
+					+ 3 * 6 + 3, ((Client.HEIGHT + buttonSize / 2) / 3)
+					+ buttonSize + 6);
 			// Arrow description
-			g.drawString("Navigate ship", (Client.WIDTH / 2) - 3*tw + 3
-					* buttonWidth + 6, (Client.HEIGHT / 3) + 2 * buttonHeight
-					+ 6);
+			g.drawString("Navigate ship", (Client.WIDTH / 2) - 3 * tw + 3
+					* buttonSize + 6, (Client.HEIGHT / 3) + 2 * buttonSize + 6);
 
 			// START GAME
 			g.drawString("PRESS ENTER TO START GAME\nPlayers in game: "
 					+ instances.size(), (Client.WIDTH / 2) - tw,
-					(2 * Client.HEIGHT / 3) - th - buttonHeight);
+					(2 * Client.HEIGHT / 3) - th - buttonSize);
 		}
 	}
 
@@ -144,25 +160,25 @@ public class Game extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame arg1, int delta)
 			throws SlickException {
 
-		if(gameStarted){
-			if(gameOver){
-				if(gc.getInput().isKeyPressed(Input.KEY_ENTER)){
+		if (gameStarted) {
+			if (gameOver) {
+				if (gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
 					System.exit(0);
 				}
 			} else {
 				int totalP = 0;
 				int deadP = 0;
-				for(GameInstance gi : instances.values()){
-					if (gi.isPlayerDead()){
+				for (GameInstance gi : instances.values()) {
+					if (gi.isPlayerDead()) {
 						deadP++;
 					} else {
 						winnerID = gi.getPlayerId();
 					}
 					totalP++;
 				}
-				gameOver = (deadP >= (totalP-1));
-				
-				for(GameInstance gi : instances.values()){
+				gameOver = (deadP >= (totalP - 1));
+
+				for (GameInstance gi : instances.values()) {
 					gi.update(delta);
 				}
 
@@ -188,7 +204,7 @@ public class Game extends BasicGameState {
 		addPlayer(new OpponentPlayer(playerId, this.gse));
 	}
 
-	public void addLocalPlayer(byte playerId){
+	public void addLocalPlayer(byte playerId) {
 		addPlayer(new LocalPlayer(gc, bm, gse, playerId));
 	}
 
