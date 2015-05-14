@@ -24,6 +24,7 @@ public class Game extends BasicGameState {
 	private Vector2f boardSize;
 	private boolean gameStarted;
 	private boolean gameOver;
+	private byte winnerID;
 
 	public void addGSM(GameStatsEvents gse, ByteMonitor byteMonitor) {
 		this.bm = byteMonitor;
@@ -45,6 +46,7 @@ public class Game extends BasicGameState {
 			throws SlickException {
 		if(gameStarted){
 			if(gameOver){
+				g.drawString("Player " + winnerID + " WINS!", (Client.WIDTH/2)-50, (Client.HEIGHT/2)+100);
 				g.drawString("GAME IS OVER, PRESS ENTER TO EXIT", (Client.WIDTH/2)-150, (Client.HEIGHT/2)+200);
 			} else {
 				for(GameInstance gi : instances.values()){
@@ -73,6 +75,8 @@ public class Game extends BasicGameState {
 				for(GameInstance gi : instances.values()){
 					if (gi.isPlayerDead()){
 						deadP++;
+					} else {
+						winnerID = gi.getPlayerId();
 					}
 					totalP++;
 				}
