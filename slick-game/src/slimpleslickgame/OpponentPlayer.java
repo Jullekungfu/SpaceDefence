@@ -1,5 +1,6 @@
 package slimpleslickgame;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Shape;
 
 import util.Logger;
@@ -8,11 +9,8 @@ import client.GameStatsEvents;
 
 public class OpponentPlayer extends Player {
 
-	private GameStatsEvents gse;
-
-	public OpponentPlayer(GameStatsEvents gse, byte id) {
-		super(id);
-		this.gse = gse;
+	public OpponentPlayer(byte id, GameStatsEvents gse) {
+		super(id, gse);
 	}
 
 	@Override
@@ -23,7 +21,7 @@ public class OpponentPlayer extends Player {
 			switch (e.getRole()) {
 				case CREEP: {
 					if (e.isAlive()) {
-						super.creeps.put(e.getId(), new Creep(e.getPosition()));
+						super.creeps.put(e.getId(), new Creep(e.getPosition(), Color.white));
 					} else {
 						super.creeps.remove(e.getId());
 					}

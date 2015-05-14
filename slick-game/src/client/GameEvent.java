@@ -11,6 +11,7 @@ public class GameEvent {
 	private int id;
 	private boolean isAlive;
 	private int score = 0;
+	private int creepsSent = 0;
 	
 	public GameEvent() {
 		role = GameRole.PLAYER;
@@ -79,5 +80,13 @@ public class GameEvent {
 	
 	public int getScore() {
 		return score;
+	}
+
+	public void setInit(int nbrCreeps) {
+		this.creepsSent += nbrCreeps;
+	}
+	
+	public int getSentCreeps(){
+		return creepsSent;
 	}
 }

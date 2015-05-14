@@ -108,6 +108,13 @@ public class ParseBytes extends Thread {
 					event.setDead();
 					break;
 				}
+				case EventProtocol.CREEP_SENT: {
+					event.setRole(GameRole.CREEP);
+					event.setId(id);
+					event.setInit(bytesToInt(byteQueue));
+					id = gsMonitor.getLocalID();
+					break;
+				}
 				case EventProtocol.BULLET_INIT: {
 					byteQueue.poll();// get rid of BULLET_ID byte
 					int bulletId = bytesToInt(byteQueue);
