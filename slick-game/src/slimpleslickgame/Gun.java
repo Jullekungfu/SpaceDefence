@@ -82,7 +82,7 @@ public class Gun {
 	 */
 	public void upgrade(){
 		this.damage = this.level * 10;
-		this.firerate += 2;
+		this.firerate += 5;
 	}
 
 	public List<Integer> getOutOfBoundsBullets() {
