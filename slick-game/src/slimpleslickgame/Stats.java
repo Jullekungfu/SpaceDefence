@@ -32,12 +32,11 @@ public class Stats {
 		int levelCredits = level * 1000;
 		if(this.credits >= levelCredits && this.tryUpgrade){
 			level++;
-			this.tryUpgrade = false;
 			this.credits -= levelCredits;
 			Logger.log("Upgraded player!");
 			return true;
-			
 		}
+		this.tryUpgrade = false;
 		return false;
 	}
 
