@@ -3,7 +3,9 @@
  */
 package slimpleslickgame;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.newdawn.slick.Graphics;
@@ -81,5 +83,15 @@ public class Gun {
 	public void upgrade(){
 		this.damage = this.level * 10;
 		this.firerate += 2;
+	}
+
+	public List<Integer> getOutOfBoundsBullets() {
+		ArrayList<Integer> bids = new ArrayList<Integer>();
+		for(Entry<Integer, Bullet> bullet : bullets.entrySet()){
+			if(bullet.getValue().isOutOfBounds()){
+				bids.add(bullet.getKey());
+			}
+		}
+		return bids;
 	}
 }

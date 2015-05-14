@@ -137,6 +137,12 @@ public class LocalPlayer extends Player {
 				deadCreeps.add(c.getKey());
 			}
 		}
+		for(int boobid : gun.getOutOfBoundsBullets()){
+			gun.delete(boobid);
+			byte[] bytes = MessageWrapper.appendByteArray(new byte[]{EventProtocol.BULLET_DIED, EventProtocol.BULLET_ID}, ByteBuffer.allocate(4).putInt(boobid).array());
+			bm.putArrayToServer(bytes, super.id);
+			
+		}
 		
 		for(int i : deadCreeps){
 			this.delete(i);

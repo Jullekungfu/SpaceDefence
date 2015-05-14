@@ -46,4 +46,8 @@ public class Bullet {
 		if(!isDestroyed)
 			graphics.draw(shape, fill);
 	}
+
+	public boolean isOutOfBounds() {
+		return position.y < 0;
+	}
 }
