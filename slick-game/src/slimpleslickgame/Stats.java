@@ -51,7 +51,7 @@ public class Stats {
 			time -= incomeRate;
 			this.creditsDiff += level;
 		}
-		return this.creditsDiff;
+		return this.credits;
 	}
 
 	private static final int CREEP_PRICE_1 = 100;
