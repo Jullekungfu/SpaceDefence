@@ -25,7 +25,7 @@ public class Gun {
 	private int coolDown = 0;
 	
 	public Gun(){
-		this.firerate = 2;
+		this.firerate = 20;
 		this.damage = 10;
 		this.level = 1;
 		bullets = new HashMap<Integer, Bullet>();
@@ -36,7 +36,7 @@ public class Gun {
 		if(coolDown <= 0){
 			bullets.put(bulletID, new Bullet(fromPosition));
 			bulletID++;
-			coolDown = 1000/firerate;
+			coolDown = 10000/firerate;
 			return true;
 		}
 		return false;
@@ -80,6 +80,6 @@ public class Gun {
 	 */
 	public void upgrade(){
 		this.damage = this.level * 10;
-		this.firerate++;
+		this.firerate += 2;
 	}
 }
