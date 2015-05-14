@@ -57,30 +57,34 @@ public class Stats {
 		return this.credits;
 	}
 
-	private static final int CREEP_PRICE_1 = 100;
-	private static final int CREEP_PRICE_5 = 250;
-	private static final int CREEP_PRICE_10 = 250;
+	private static final int CREEP_PRICE_1 = 50;
+	private static final int CREEP_PRICE_5 = 225;
+	private static final int CREEP_PRICE_10 = 400;
+	
+	private static final int INCOME_RATE_1 = 1;
+	private static final int INCOME_RATE_5 = 6;
+	private static final int INCOME_RATE_10 = 15;
 	
 	public int buyCreeps(int key) {
 		switch(key){
 			case 1:
 				if(this.credits >= CREEP_PRICE_1){
 					credits -= CREEP_PRICE_1;
-					this.incomeRate--;
+					this.incomeRate -= INCOME_RATE_1;
 					return 1;
 				}
 				break;
 			case 2:
 				if(this.credits >= CREEP_PRICE_5){
 					credits -= CREEP_PRICE_5;
-					this.incomeRate -= 6;
+					this.incomeRate -= INCOME_RATE_5;
 					return 5;
 				}
 				break;
 			case 3:
 				if(this.credits >= CREEP_PRICE_10){
 					credits -= CREEP_PRICE_10;
-					this.incomeRate -= 25;
+					this.incomeRate -= INCOME_RATE_10;
 					return 10;
 				}
 				break;
