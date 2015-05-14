@@ -13,7 +13,7 @@ public class Stats {
 	private int time = 0;
 	private int creditsDiff = 0;
 	private boolean tryUpgrade = false;
-	private int hp = 1;
+	private int hp = 100	;
 	
 	
 	public Stats(Vector2f scoreBoardPos) {
