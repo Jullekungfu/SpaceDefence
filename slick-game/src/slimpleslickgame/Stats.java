@@ -31,7 +31,7 @@ public class Stats {
 	}
 	
 	public boolean update(int delta){
-		int levelCredits = 350;
+		int levelCredits = 100 * this.level * this.level;
 		if(this.credits >= levelCredits && this.tryUpgrade){
 			level++;
 			this.credits -= levelCredits;
