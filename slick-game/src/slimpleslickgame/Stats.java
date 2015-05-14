@@ -27,10 +27,11 @@ public class Stats {
 	public boolean update(int delta){
 		this.credits += creditsDiff;
 		this.creditsDiff = 0;
-		
-		if(this.credits >= level * level * 1000 && this.tryUpgrade){
+		int levelCredits = level * 1000;
+		if(this.credits >= levelCredits && this.tryUpgrade){
 			level++;
 			this.tryUpgrade = false;
+			this.credits -= levelCredits;
 			Logger.log("Upgraded player!");
 			return true;
 			
