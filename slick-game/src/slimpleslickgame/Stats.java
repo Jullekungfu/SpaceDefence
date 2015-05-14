@@ -58,7 +58,7 @@ public class Stats {
 	}
 
 	private static final int CREEP_PRICE_1 = 50;
-	private static final int CREEP_PRICE_5 = 200;
+	private static final int CREEP_PRICE_5 = 225;
 	private static final int CREEP_PRICE_10 = 400;
 	
 	private static final int INCOME_RATE_1 = 1;
