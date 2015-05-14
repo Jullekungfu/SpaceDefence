@@ -21,7 +21,8 @@ public class Stats {
 	}
 
 	public void render(Graphics graphics){
-		graphics.drawString("Credits: " + credits , x, y-graphics.getFont().getLineHeight());
+		graphics.drawString("Credits: " + credits , x, y-(2*graphics.getFont().getLineHeight()));
+		graphics.drawString("Level: " + level , x, y-graphics.getFont().getLineHeight());
 		graphics.drawString("HP: "+ hp , x, y);
 	}
 	
@@ -31,7 +32,7 @@ public class Stats {
 	}
 	
 	public boolean update(int delta){
-		int levelCredits = 350;
+		int levelCredits = 100 * this.level * this.level;
 		if(this.credits >= levelCredits && this.tryUpgrade){
 			level++;
 			this.credits -= levelCredits;
@@ -56,10 +57,11 @@ public class Stats {
 		this.credits += creditsDiff;
 		return this.credits;
 	}
-
-	private static final int CREEP_PRICE_1 = 50;
-	private static final int CREEP_PRICE_5 = 225;
-	private static final int CREEP_PRICE_10 = 400;
+	
+	//public in orderto write in game info screen 
+	public static final int CREEP_PRICE_1 = 50;
+	public static final int CREEP_PRICE_5 = 225;
+	public static final int CREEP_PRICE_10 = 400;
 	
 	private static final int INCOME_RATE_1 = 1;
 	private static final int INCOME_RATE_5 = 6;
