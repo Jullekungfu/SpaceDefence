@@ -33,7 +33,7 @@ public class Game extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame arg1)
 			throws SlickException {
 		this.gc = gc;
-		this.boardSize = new Vector2f(gc.getWidth()/5, gc.getHeight());
+		this.boardSize = new Vector2f(gc.getWidth()/4, gc.getHeight());
 		instances = new ConcurrentHashMap<Byte, GameInstance>();
 		gameStarted = false;
 	}
