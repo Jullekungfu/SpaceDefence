@@ -63,9 +63,9 @@ public class Stats {
 	public static final int CREEP_PRICE_5 = 225;
 	public static final int CREEP_PRICE_10 = 400;
 	
-	private static final int INCOME_RATE_1 = 1;
-	private static final int INCOME_RATE_5 = 6;
-	private static final int INCOME_RATE_10 = 15;
+	private static final int INCOME_RATE_1 = 5;
+	private static final int INCOME_RATE_5 = 30;
+	private static final int INCOME_RATE_10 = 75;
 	
 	public int buyCreeps(int key) {
 		switch(key){
