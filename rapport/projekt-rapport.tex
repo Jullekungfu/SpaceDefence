@@ -10,9 +10,9 @@
                                         % rubriker (t ex "innehållsförteckning)
 \title{Programming Project, Network programming}
 \author{Tim Dolck dat11tdo@student.lu.se \\ 
-Julian Kroné dat11jkr@student.lu.se \\
+  Julian Kron\'{e} dat11jkr@student.lu.se \\
 Christopher Nilsson dat11cni@student.lu.se \\
-Anton Lin, ??????@student.lu.se \\
+Anton Lin, dic13ali@student.lu.se \\
 Computer science, LTH}
 %\date{}           % Blir dagens datum om det utelämnas
 
@@ -27,9 +27,65 @@ The plan is to have up to four players to be able to view eachother in real time
 
 \section{Requirements}
 
+Develop a game in Java that can handle multiple players. Connected through different devices over the local network.
+The game should consist of three separate parts; client, server, and game. Starting the application, 
+and setting up a game, should be as convenient as possible for the user. When creating a new game, 
+a server should be set up automatically, parallel a client that connects to it.
+When the game is set up, the players are entered into a lobby waiting for all players to be ready.
+
+The game should be a simplified version of asteroids. The player can only move horizontally, and shoot upwards.
+The creeps fall down, attacking the players. The cross-player interaction consist of the possibility to send 
+additional creeps, making it harder for them to survive.
+
+\subsection{Functionality}
+\begin{itemize}
+  \item Set up a server that the clients can connect to.
+  \item Set up clients that can connect to the server and receive information from the other clients.
+  \item Server support up to 4 connected clients.
+  \item Minimize traffic by using bytes as messages.
+  \item Parsers between the bytes and the actual information.
+  \item Develop a stable and obvious protocol.
+  \item Receive and parse user inputs.
+  \item Application lifecycle (Splashscreen, Main menu, lobby, game, game over).
+  \item Individual player lifecycles (Alive, dead).
+  \item See player movements, creeps, bullets, credits, levels.
+  \item Send creeps to other players.
+  \item Remove irrelevant objects.
+  \item End game when only one player is alive, and display the winner.
+\end{itemize}
+
+\subsection{Quality}
+\begin{itemize}
+  \item Stable network connections.
+  \item Low latency, the game should appear to run in real-time.
+  \item The game should run in 60fps.
+\end{itemize}
 \section{Model}
 
 \section{Manual}
+
+\subsection{Game}
+
+SpaceDefence is a game where up to four players play together. 
+Each player has its own board where the creeps arrive and is killed.
+All other players connected to the game is shown in their own boards with their own creeps.
+To interact with the other players it is possible to send creeps the other players for a small cost. 
+Each player can also upgrade their fire rate and income rate.
+
+\subsection{Controls}
+
+Each player controls it own ship. 
+To move the ship the direction keys left and right is used. The movements is limited to each players own board.
+
+To shoot the space key is pressed. This shoots a bullet that may kill creeps.
+Bullets can only be fired with a maximum fire rate. This depends on the players current level.
+
+To upgrade the ship (fire rate and income rate) the z-key is pressed. This is only possible when enough credits has been collected.
+
+To send creeps to the opponents the 1, 2, 3 keys are used.
+1 sends one creep, 2 sends five creeps and 3 sends ten creeps to all connected opponents.
+
+\subsection{Running the program}
 
 \section{Evaluation}
 
