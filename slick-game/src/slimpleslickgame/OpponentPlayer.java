@@ -1,10 +1,8 @@
 package slimpleslickgame;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Shape;
 
 import util.ColorSwitch;
-import util.Logger;
 import client.GameEvent;
 import client.GameStatsEvents;
 
@@ -46,7 +44,7 @@ public class OpponentPlayer extends Player {
 					if (e.getDirection() != null) {
 						// super.direction = e.getDirection();
 					}
-					if (e.getScore() != -1) {
+					if (e.getScore() != 0) {
 						score = e.getScore();
 					}
 					super.updatePosition(containerShape);
@@ -65,7 +63,7 @@ public class OpponentPlayer extends Player {
 		for (Creep c : super.creeps.values()) {
 			c.update(delta);
 		}
-//		stats.calcCredits(0, score);
+
 		stats.update(delta, score);
 		super.gun.update(delta);
 	}

@@ -91,10 +91,14 @@ class UpdateToClient extends Thread {
 			int id = (int) msg[5];
 
 			for (Socket s : statebox.getClientSockets(id)) {
-				try {
-					sendMessage(msg, s.getOutputStream());
-				} catch (IOException ioe) {
-					Logger.log("Couldn't send message");
+				if (s.isClosed()) {
+					statebox.removeClientSocket(s);
+				} else {
+					try {
+						sendMessage(msg, s.getOutputStream());
+					} catch (IOException ioe) {
+						Logger.log("Couldn't send message");
+					}
 				}
 			}
 		}

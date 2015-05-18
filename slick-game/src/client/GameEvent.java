@@ -10,7 +10,7 @@ public class GameEvent {
 	private GameRole role;
 	private int id;
 	private boolean isAlive;
-	private int score = -1;
+	private int score = 0;
 	private int creepsSent = 0;
 	private int hp;
 	private byte sendId = 0x0;
