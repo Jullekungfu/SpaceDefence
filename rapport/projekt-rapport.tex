@@ -36,7 +36,8 @@ and setting up a game, should be as convenient as possible for the user. When cr
 a server should be set up automatically, parallel a client that connects to it.
 When the game is set up, the players are entered into a lobby waiting for all players to be ready.
 
-The game should be a simplified version of asteroids. The player can only move horizontally, and shoot upwards.
+The game should be a modified game version of asteroids, with extended multiplayer capabilities. 
+The player can only move horizontally, and shoot upwards.
 The creeps fall down, attacking the players. The cross-player interaction consist of the possibility to send 
 additional creeps, making it harder for them to survive.
 
@@ -44,12 +45,12 @@ additional creeps, making it harder for them to survive.
 \begin{itemize}
   \item Set up a server that the clients can connect to.
   \item Set up clients that can connect to the server and receive information from the other clients.
-  \item Server support up to 4 connected clients.
+  \item Server and Client support up to 4 connected clients.
   \item Minimize traffic by using bytes as messages.
   \item Parsers between the bytes and the actual information.
   \item Develop a stable and obvious protocol.
   \item Receive and parse user inputs.
-  \item Application lifecycle (Splashscreen, Main menu, lobby, game, game over).
+  \item Application lifecycle (Splashscreen, Main menu, Lobby, Game, Game Over).
   \item Individual player lifecycles (Alive, dead).
   \item See player movements, creeps, bullets, credits, levels.
   \item Send creeps to other players.
