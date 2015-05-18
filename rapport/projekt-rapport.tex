@@ -27,9 +27,11 @@ Develop a game in Java that can handle multiple players. Connected through diffe
 The game should consist of three separate parts; client, server, and game. Starting the application, 
 and setting up a game, should be as convenient as possible for the user. When creating a new game, 
 a server should be set up automatically, parallel a client that connects to it.
+When the game is set up, the players are entered into a lobby waiting for all players to be ready.
 
 The game should be a simplified version of asteroids. The player can only move horizontally, and shoot upwards.
-The creeps fall down, attacking the players.
+The creeps fall down, attacking the players. The cross-player interaction consist of the possibility to send 
+additional creeps, making it harder for them to survive.
 
 \subsection{Functionality}
 \begin{itemize}
@@ -40,13 +42,12 @@ The creeps fall down, attacking the players.
   \item Parsers between the bytes and the actual information.
   \item Develop a stable and obvious protocol.
   \item Receive and parse user inputs.
+  \item Application lifecycle (Splashscreen, Main menu, lobby, game, game over).
+  \item Individual player lifecycles (Alive, dead).
   \item See player movements, creeps, bullets, credits, levels.
   \item Send creeps to other players.
   \item Remove irrelevant objects.
-  \item Application lifecycle (Splashscreen, Main menu, lobby, game, game over).
-  \item End game when only one player is alive.
-  \item Show winner.
-  \item Individual player lifecycles (Alive, dead).
+  \item End game when only one player is alive, and display the winner.
 \end{itemize}
 
 \subsection{Quality}
@@ -55,7 +56,6 @@ The creeps fall down, attacking the players.
   \item Low latency, the game should appear to run in real-time.
   \item The game should run in 60fps.
 \end{itemize}
-
 \section{Model}
 
 \section{Manual}
