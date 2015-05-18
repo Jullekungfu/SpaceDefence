@@ -23,6 +23,7 @@ public class Server extends Thread {
 	public Server(int port) {
 		try {
 			ss = new ServerSocket(port);
+			System.out.println(InetAddress.getLocalHost().getHostAddress());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
