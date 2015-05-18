@@ -64,7 +64,9 @@ public class OpponentPlayer extends Player {
 			c.update(delta);
 		}
 
-		stats.update(delta, score);
+		if(score > 0){
+			stats.update(delta, score);
+		}
 		super.gun.update(delta);
 	}
 }
