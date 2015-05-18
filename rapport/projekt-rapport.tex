@@ -22,9 +22,39 @@ Computer science, LTH}
 \section{Background}
 
 \section{Requirements}
-Stable network connections
-Possibilities to connect up to 4 players
 
+Develop a game in Java that can handle multiple players. Connected through different devices over the local network.
+The game should consist of three separate parts; client, server, and game. Starting the application, 
+and setting up a game, should be as convenient as possible for the user. When creating a new game, 
+a server should be set up automatically, parallel a client that connects to it.
+
+The game should be a simplified version of asteroids. The player can only move horizontally, and shoot upwards.
+The creeps fall down, attacking the players.
+
+\subsection{Functionality}
+\begin{itemize}
+  \item Set up a server that the clients can connect to.
+  \item Set up clients that can connect to the server and receive information from the other clients.
+  \item Server support up to 4 connected clients.
+  \item Minimize traffic by using bytes as messages.
+  \item Parsers between the bytes and the actual information.
+  \item Develop a stable and obvious protocol.
+  \item Receive and parse user inputs.
+  \item See player movements, creeps, bullets, credits, levels.
+  \item Send creeps to other players.
+  \item Remove irrelevant objects.
+  \item Application lifecycle (Splashscreen, Main menu, lobby, game, game over).
+  \item End game when only one player is alive.
+  \item Show winner.
+  \item Individual player lifecycles (Alive, dead).
+\end{itemize}
+
+\subsection{Quality}
+\begin{itemize}
+  \item Stable network connections.
+  \item Low latency, the game should appear to run in real-time.
+  \item The game should run in 60fps.
+\end{itemize}
 
 \section{Model}
 
