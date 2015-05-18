@@ -44,7 +44,7 @@ public class OpponentPlayer extends Player {
 					if (e.getDirection() != null) {
 						// super.direction = e.getDirection();
 					}
-					if (e.getScore() != -1) {
+					if (e.getScore() > 0) {
 						score = e.getScore();
 					}
 					super.updatePosition(containerShape);
@@ -64,7 +64,9 @@ public class OpponentPlayer extends Player {
 			c.update(delta);
 		}
 
-		stats.update(delta, score);
+		if(score > 0){
+			stats.update(delta, score);
+		}
 		super.gun.update(delta);
 	}
 }
