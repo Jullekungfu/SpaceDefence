@@ -71,6 +71,23 @@ additional creeps, making it harder for them to survive.
   \item The game should run in 60fps.
 \end{itemize}
 \section{Model}
+BILD
+
+BILD
+
+Server:
+Simple monitor with a message queue, and a set of connected clients.
+One inputThread for each connected client that recieves messages and adds them to queue.
+One outputThread that reads messages from the queue and sends them to all clients.
+
+Client:
+A simple monitor that handles the byte message queues to and from the server.
+One input thread that reads messages from the server and adds them to a queue.
+One output thread that reads messages from a queue and sends them to the server.
+One parser thread that reads the byte messages sent from the server and translates them into the correct game events.
+A simple monitor that keeps track of the game events.
+The game reads from this monitor and acts accordingly, and upon local event, 
+sends the correct byte message to the byte monitor.
 
 \section{Manual}
 
