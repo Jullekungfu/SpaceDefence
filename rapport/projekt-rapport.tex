@@ -10,7 +10,7 @@
                                         % rubriker (t ex "innehållsförteckning)
 \title{Programming Project, Network programming}
 \author{Tim Dolck dat11tdo@student.lu.se \\ 
-  Julian Kron\'{e} dat11jkr@student.lu.se \\
+Julian Kron\'{e} dat11jkr@student.lu.se \\
 Christopher Nilsson dat11cni@student.lu.se \\
 Anton Lin, dic13ali@student.lu.se \\
 Computer science, LTH}
@@ -20,13 +20,19 @@ Computer science, LTH}
 \maketitle
 \newpage
 \section{Background}
-The objective of this project is to create an application where the project members' knowledge in network programming is utilized to as great an extent as possible. 
-The project members' love for arcade- and retro-esque games in combination with the desire to create a kickass network application has resulted in a multiplayer game with gameplay influences from Space Invaders and the look and feel of Asteroids.     
+The objective of this project is to create an application where the project members' 
+knowledge in network programming is utilized to as great an extent as possible. 
+The project members' love for arcade- and retro-esque games in combination with the 
+desire to create a kickass network application has resulted in a multiplayer game 
+with gameplay influences from Space Invaders and the look and feel of Asteroids.     
  
-The network communication is the central part of the application. The plan is to have up to four players to be able to view each other in real time and also be able to interact with eachother. 
+The network communication is the central part of the application. 
+The plan is to have up to four players to be able to view each other in real time 
+and also be able to interact with eachother. 
  
 All of the project members have previous experience in Java, which is why it became the programming language of choice.
-Through extensive research, the choice of game library fell upon Slick2D, a lightweight and easy to use extension of the popular game library \"LWJGL(Lightweight Java Game Library\".  
+Through extensive research, the choice of game library fell upon Slick2D, 
+a lightweight and easy to use extension of the popular game library \"LWJGL(Lightweight Java Game Library\".  
 
 \section{Requirements}
 
@@ -84,7 +90,8 @@ To move the ship the direction keys left and right is used. The movements is lim
 To shoot the space key is pressed. This shoots a bullet that may kill creeps.
 Bullets can only be fired with a maximum fire rate. This depends on the players current level.
 
-To upgrade the ship (fire rate and income rate) the z-key is pressed. This is only possible when enough credits has been collected.
+To upgrade the ship (fire rate and income rate) the z-key is pressed. 
+This is only possible when enough credits has been collected.
 
 To send creeps to the opponents the 1, 2, 3 keys are used.
 1 sends one creep, 2 sends five creeps and 3 sends ten creeps to all connected opponents.
@@ -92,16 +99,21 @@ To send creeps to the opponents the 1, 2, 3 keys are used.
 \subsection{Running the program}
 
 The program consist of one server and one client part. 
-The usual use case is that the first client also starts up the server through the user-interface but the server can also be started separatly.
-When the is downloaded from the website it consists of a compressed folder. Decompress it and go to the decompressed folder.
-The decrompressed folder contains four .jar files. Three client jars which is platform dependent (Windows, OS X, Linux) and one for the server.
+The usual use case is that the first client also starts up the server through the user-interface 
+but the server can also be started separatly.
+
+When the program is downloaded from the website it consists of a compressed folder. 
+Decompress it and go to the decompressed folder.
+The decrompressed folder contains four .jar files. 
+Three client jars which is platform dependent (Windows, OS X, Linux) and one for the server.
+
 To start the server seperatly, start a terminal and write \texttt{java -jar server.jar}. 
 When the server is started your ip is printed. This is used by the clients to connect to the server.
-To start a client simply double click the provided client jar-file for your current platform. From within the gui you can also start a server.
+To start a client simply double click the provided client jar-file for your current platform. 
+From within the gui you can also start a server.
 
 \section{Evaluation}
 
 \section{Programs}
-
 
 \end{document}                 % The input file ends with this command.
