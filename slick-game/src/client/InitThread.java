@@ -7,15 +7,15 @@ public class InitThread extends Thread {
 	private ByteMonitor byteMonitor;
 	private ParseBytes parseBytes;
 	private Game game;
-	private String ipport;
+	private String ip;
 	
-	public InitThread(String ipport, Game game){
-		this.ipport = ipport;
+	public InitThread(String ip, Game game){
+		this.ip = ip;
 		this.game = game;
 	}
 	
 	public void run(){
-		byteMonitor = new ByteMonitor(ipport);
+		byteMonitor = new ByteMonitor(ip);
 		gameStatsMonitor = new GameStatsEvents(game);
 		parseBytes = new ParseBytes(gameStatsMonitor, byteMonitor);
 		game.addGSM(gameStatsMonitor, byteMonitor);

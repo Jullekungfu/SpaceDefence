@@ -17,7 +17,7 @@ public class ByteMonitor {
 	private LinkedList<byte[]> fromServer;
 	private LinkedList<byte[]> toServer;
 	private Socket socket;
-	private String ipport;
+	private String ip;
 	private InThread inThread;
 	private OutThread outThread;
 	private boolean started = false;
@@ -27,10 +27,10 @@ public class ByteMonitor {
 	 * 
 	 * @param ipport
 	 */
-	public ByteMonitor(String ipport) {
+	public ByteMonitor(String ip) {
 		fromServer = new LinkedList<byte[]>();
 		toServer = new LinkedList<byte[]>();
-		this.ipport = ipport;
+		this.ip = ip;
 	}
 
 	/**
@@ -39,9 +39,7 @@ public class ByteMonitor {
 	 * @return success
 	 */
 	public synchronized boolean initConnection() {
-		int split = ipport.indexOf(':');
-		String ip = ipport.substring(0, split);
-		int port = Integer.parseInt(ipport.substring(split + 1));
+		int port = 30000;
 		try {
 			Logger.log("connecting to " + ip);
 			socket = new Socket(ip, port);
