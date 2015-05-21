@@ -2,7 +2,6 @@ package server;
 
 import java.io.*;
 import java.net.*;
-import java.util.Map.Entry;
 
 import client.MessageWrapper;
 import util.EventProtocol;
@@ -12,17 +11,15 @@ public class Server extends Thread {
 	private ServerSocket ss;
 
 	public static void main(String[] args) {
-		int port = 30000;
-		if (args.length > 0 && !args[0].isEmpty()) {
-			port = Integer.parseInt(args[0]);
-		}
-		Server si = new Server(port);
+		Server si = new Server();
 		si.start();
 	}
 
-	public Server(int port) {
+	public Server() {
+		int port = 30000;
 		try {
 			ss = new ServerSocket(port);
+			System.out.println(InetAddress.getLocalHost().getHostAddress());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -47,35 +47,24 @@ public class MainMenu extends BasicGameState {
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        String ipport = "";
+        String ip = "127.0.0.1";
         boolean inp = false;
 		Input input = container.getInput();
         if(input.isKeyDown(Input.KEY_1)){
-        	String port = JOptionPane.showInputDialog("Please enter port.");
-        	if(port.isEmpty()){
-        		port = "30000";
-        	}
-        	ipport = "127.0.0.1:"+port;
-        	initServer(port); 
+        	(new Server()).start();
         	inp = true;
         } else if(input.isKeyDown(Input.KEY_2)){
-        	ipport = JOptionPane.showInputDialog("Connect to server using ip:port.");
+        	ip = JOptionPane.showInputDialog("Connect to server using ip.");
         	inp = true;
         }
         if(inp){
         	this.game.enterState(Game.ID, new FadeOutTransition(org.newdawn.slick.Color.black), new FadeInTransition(org.newdawn.slick.Color.black));
-			new InitThread(ipport, (Game) game.getState(Game.ID)).start();
+			new InitThread(ip, (Game) game.getState(Game.ID)).start();
         }
 	}
 
 	@Override
 	public int getID() {
 		return ID;
-	}
-	
-
-	private void initServer(String port){
-		String[] sp = {port};
-		Server.main(sp);
 	}
 }

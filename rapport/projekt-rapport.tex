@@ -5,12 +5,13 @@
 \usepackage{listings}
 \usepackage{indentfirst}
 \usepackage{float}
-%\usepackage[T1]{fontenc}                % FÃ¶r svenska bokstÃ¤ver
-%\usepackage[swedish]{babel}             % FÃ¶r svensk avstavning och svenska
-                                        % rubriker (t ex "innehÃ¥llsfÃ¶rteckning)
+\usepackage{hyperref}
+%\usepackage[T1]{fontenc}                % För svenska bokstäver
+%\usepackage[swedish]{babel}             % För svensk avstavning och svenska
+                                        % rubriker (t ex "innehållsförteckning)
 \title{Programming Project, Network programming}
 \author{Tim Dolck dat11tdo@student.lu.se \\ 
-  Julian Kron\'{e} dat11jkr@student.lu.se \\
+Julian Kron\'{e} dat11jkr@student.lu.se \\
 Christopher Nilsson dat11cni@student.lu.se \\
 Anton Lin, dic13ali@student.lu.se \\
 Computer science, LTH}
@@ -20,8 +21,11 @@ Computer science, LTH}
 \maketitle
 \newpage
 \section{Background}
-The objective of this project is to create an application where the project members' knowledge in network programming is utilized to as great an extent as possible. 
-The project members' love for arcade- and retro-esque games in combination with the desire to create a kickass network application has resulted in a multiplayer game with gameplay influences from Space Invaders and the look and feel of Asteroids.     
+The objective of this project is to create an application where the project members' 
+knowledge in network programming is utilized to as great an extent as possible. 
+The project members' love for arcade- and retro-esque games in combination with the 
+desire to create a kickass network application has resulted in a multiplayer game 
+with gameplay influences from Space Invaders and the look and feel of Asteroids.     
  
 The network communication is the central part of the application.
 Concepts learnt in the Network programming course, such as utilization of sockets, input- and outputstreams and monitors, have all been implemented in the application.
@@ -42,7 +46,8 @@ and setting up a game, should be as convenient as possible for the user. When cr
 a server should be set up automatically, parallel a client that connects to it.
 When the game is set up, the players are entered into a lobby waiting for all players to be ready.
 
-The game should be a simplified version of asteroids. The player can only move horizontally, and shoot upwards.
+The game should be a modified game version of asteroids, with extended multiplayer capabilities. 
+The player can only move horizontally, and shoot upwards.
 The creeps fall down, attacking the players. The cross-player interaction consist of the possibility to send 
 additional creeps, making it harder for them to survive.
 
@@ -50,12 +55,12 @@ additional creeps, making it harder for them to survive.
 \begin{itemize}
   \item Set up a server that the clients can connect to.
   \item Set up clients that can connect to the server and receive information from the other clients.
-  \item Server support up to 4 connected clients.
+  \item Server and Client support up to 4 connected clients.
   \item Minimize traffic by using bytes as messages.
   \item Parsers between the bytes and the actual information.
   \item Develop a stable and obvious protocol.
   \item Receive and parse user inputs.
-  \item Application lifecycle (Splashscreen, Main menu, lobby, game, game over).
+  \item Application lifecycle (Splashscreen, Main menu, Lobby, Game, Game Over).
   \item Individual player lifecycles (Alive, dead).
   \item See player movements, creeps, bullets, credits, levels.
   \item Send creeps to other players.
@@ -70,10 +75,25 @@ additional creeps, making it harder for them to survive.
   \item The game should run in 60fps.
 \end{itemize}
 \section{Model}
+BILD
+
+BILD
+
+Server:
+Simple monitor with a message queue, and a set of connected clients.
+One inputThread for each connected client that recieves messages and adds them to queue.
+One outputThread that reads messages from the queue and sends them to all clients.
+
+Client:
+A simple monitor that handles the byte message queues to and from the server.
+One input thread that reads messages from the server and adds them to a queue.
+One output thread that reads messages from a queue and sends them to the server.
+One parser thread that reads the byte messages sent from the server and translates them into the correct game events.
+A simple monitor that keeps track of the game events.
+The game reads from this monitor and acts accordingly, and upon local event, 
+sends the correct byte message to the byte monitor.
 
 \section{Manual}
-
-\subsection{Game}
 
 SpaceDefence is a game where up to four players play together. 
 Each player has its own board where the creeps arrive and is killed.
@@ -89,15 +109,32 @@ To move the ship the direction keys left and right is used. The movements is lim
 To shoot the space key is pressed. This shoots a bullet that may kill creeps.
 Bullets can only be fired with a maximum fire rate. This depends on the players current level.
 
-To upgrade the ship (fire rate and income rate) the z-key is pressed. This is only possible when enough credits has been collected.
+To upgrade the ship (fire rate and income rate) the z-key is pressed. 
+This is only possible when enough credits has been collected.
 
 To send creeps to the opponents the 1, 2, 3 keys are used.
 1 sends one creep, 2 sends five creeps and 3 sends ten creeps to all connected opponents.
 
 \subsection{Running the program}
 
+The program consist of one server and one client part. 
+The usual use case is that the first client also starts up the server through the user-interface 
+but the server can also be started separatly.
+
+When the program is downloaded from the website it consists of a compressed folder. 
+Decompress it and go to the decompressed folder.
+The decrompressed folder contains four .jar files. 
+Three client jars which is platform dependent (Windows, OS X, Linux) and one for the server.
+
+To start the server seperatly, start a terminal and write \texttt{java -jar server.jar}. 
+When the server is started your ip is printed. This is used by the clients to connect to the server.
+To start a client simply double click the provided client jar-file for your current platform. 
+From within the gui you can also start a server.
+
 \section{Evaluation}
 
 \section{Programs}
+The source code can be found at:
+\url{https://github.com/Jullekungfu/SpaceDefence}
 
 \end{document}                 % The input file ends with this command.
