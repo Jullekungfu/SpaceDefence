@@ -94,7 +94,7 @@ The Client consists of:
   \item A simple monitor that handles the byte message queues to and from the server.
   \item One InThread that reads messages from the server and adds them to a queue.
   \item One OutThread that reads messages from a queue and sends them to the server.
-  \item One ParseThread that reads the byte messages sent from the server and translates them into the correct game events.
+  \item One ParseThread that reads the byte messages sent from the server and translates them into the correct game events according to our network protocol.
   \item A simple monitor that keeps track of the game events.
   \item The game reads from this monitor and acts accordingly, and upon local event, sends the correct byte message to the byte monitor.
 \end{itemize}
