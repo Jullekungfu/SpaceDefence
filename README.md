@@ -1,4 +1,4 @@
 # SpaceDefence
 
 Our website:
-http://jullekungfu.github.io/SpaceDefence
+http://jullekungfu.github.io/spacedefence/
