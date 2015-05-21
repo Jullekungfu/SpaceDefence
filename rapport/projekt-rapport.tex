@@ -105,18 +105,18 @@ The gameplay mainly consists of defending one's own home base from the invading 
 If creeps reach player home base, the player's hp is decreased. 
 Collision with a creep results in player not being able to fire, but no decrease in hp. 
 There is also a strategic element to it. 
-A player has a steady income. Furthermore, credits are earned for each creep killed. 
+A player has a steady income rate. Furthermore, credits are earned for each creep killed. 
 One has to choose whether to spend credits on upgrading one's own ship or buy creeps to send to all other players. 
 Upgrading the ship results in greater fire speed and increasing the passive income rate.
-On the other hand, buying and sending creeps to the other players 
+On the other hand, buying and sending creeps to the other players might overwhelm them resulting in creeps reaching their home base. Also, the income rate is increased when buying creeps. 
 
 \subsection{Controls}
 
-Each player controls it own ship. 
+Each player controls its own ship. 
 To move the ship the direction keys left and right is used. The movements is limited to each players own board.
 
-To shoot the space key is pressed. This shoots a bullet that may kill creeps.
-Bullets can only be fired with a maximum fire rate. This depends on the players current level.
+To shoot, the space key is pressed. This shoots a bullet that may kill creeps.
+Bullets can only be fired with a set fire rate. This depends on the players current level.
 
 To upgrade the ship (fire rate and income rate) the z-key is pressed. 
 This is only possible when enough credits has been collected.
@@ -126,19 +126,18 @@ To send creeps to the opponents the 1, 2, 3 keys are used.
 
 \subsection{Running the program}
 
-The program consist of one server and one client part. 
-The usual use case is that the first client also starts up the server through the user-interface 
-but the server can also be started separatly.
+The program consists of one server and one client part. 
+The usual use case is that the player starting the client and initiating the game also starts up the server. The server is automatically started in conjunction with a \lq new game\rq but the server can also be started separately if needed.
 
 When the program is downloaded from the website it consists of a compressed folder. 
 Decompress it and go to the decompressed folder.
 The decrompressed folder contains four .jar files. 
-Three client jars which is platform dependent (Windows, OS X, Linux) and one for the server.
+Three client jars which are platform dependent (Windows, OS X, Linux) and one for the server.
 
 To start the server separately, start a terminal and write \texttt{java -jar server.jar}. 
-When the server is started your ip is printed. This is used by the clients to connect to the server.
+When the server is started, the initiating player's ip is printed. This is used by the clients to connect to the server.
 To start a client simply double click the provided client jar-file for your current platform. 
-From within the client graphical user interface,  when a player starts a new game the server is started in conjunction with the said game.
+From within the client graphical user interface, a player starts a new game and, as previously stated, the server is started in conjunction with the said game.
 
 \section{Evaluation}
 
