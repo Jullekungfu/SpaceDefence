@@ -82,19 +82,22 @@ additional creeps, making it harder for them to survive.
   \label{fig:network}
 \end{figure}
 
-Server:
-Simple monitor with a message queue, and a set of connected clients.
-One inputThread for each connected client that recieves messages and adds them to queue.
-One outputThread that reads messages from the queue and sends them to all clients.
+The Server consists of:
+\begin{itemize}
+  \item Simple monitor with a message queue, and a set of connected clients.
+  \item One InThread for each connected client that recieves messages and adds them to the message queue.
+  \item One OutThread that reads messages from the queue and sends them to all clients.
+\end{itemize}
 
-Client:
-A simple monitor that handles the byte message queues to and from the server.
-One input thread that reads messages from the server and adds them to a queue.
-One output thread that reads messages from a queue and sends them to the server.
-One parser thread that reads the byte messages sent from the server and translates them into the correct game events.
-A simple monitor that keeps track of the game events.
-The game reads from this monitor and acts accordingly, and upon local event, 
-sends the correct byte message to the byte monitor.
+The Client consists of:
+\begin{itemize}
+  \item A simple monitor that handles the byte message queues to and from the server.
+  \item One InThread that reads messages from the server and adds them to a queue.
+  \item One OutThread that reads messages from a queue and sends them to the server.
+  \item One ParseThread that reads the byte messages sent from the server and translates them into the correct game events.
+  \item A simple monitor that keeps track of the game events.
+  \item The game reads from this monitor and acts accordingly, and upon local event, sends the correct byte message to the byte monitor.
+\end{itemize}
 
 \section{Manual}
 
